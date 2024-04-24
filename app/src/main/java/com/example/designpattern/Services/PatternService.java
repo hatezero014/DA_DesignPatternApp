@@ -29,14 +29,14 @@ public class PatternService extends BaseService{
         return list;
     }
 
-    public <T> ArrayList<T> GetAllByLanguage(Class<T> clazz, String language) {
-        ArrayList<T> list = new ArrayList<>();
+    public ArrayList<Pattern> GetAllByLanguage(String language) {
+        ArrayList<Pattern> list = new ArrayList<>();
         db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(clazz.getSimpleName(), null, "Language=?", new String[]{language}, null, null, null);
+        Cursor cursor = db.query(Pattern.class.getSimpleName(), null, "Language=?", new String[]{language}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                T object = CreateModelObjectFromCursor(clazz, cursor);
+                Pattern object = CreateModelObjectFromCursor(Pattern.class, cursor);
                 if (object != null) {
                     list.add(object);
                 }
@@ -45,6 +45,45 @@ public class PatternService extends BaseService{
         }
         return list;
     }
+
+    public ArrayList<Pattern> GetAllByCatalog(String catalog) {
+        ArrayList<Pattern> list = new ArrayList<>();
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(Pattern.class.getSimpleName(), null, "Catalog=?", new String[]{catalog}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Pattern object = CreateModelObjectFromCursor(Pattern.class, cursor);
+                if (object != null) {
+                    list.add(object);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Pattern> GetAllByLanguageAndCatalog(String language, String catalog) {
+        ArrayList<Pattern> list = new ArrayList<>();
+        db = this.getReadableDatabase();
+
+        // Tạo câu truy vấn với điều kiện WHERE cho cả language và catalog
+        String selection = "Language=? AND Catalog=?";
+        String[] selectionArgs = {language, catalog + " Patterns"};
+
+        Cursor cursor = db.query(Pattern.class.getSimpleName(), null, selection, selectionArgs, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Pattern object = CreateModelObjectFromCursor(Pattern.class, cursor);
+                if (object != null) {
+                    list.add(object);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
+
 
     public ArrayList<Pattern> Search(String key) {
         ArrayList<Pattern> list = new ArrayList<>();

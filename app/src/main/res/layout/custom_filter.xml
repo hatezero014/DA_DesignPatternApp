@@ -12,14 +12,15 @@
         android:id="@+id/textLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Theo ngôn ngữ"
+        android:text="@string/filter_by_language"
         style="@style/TextAppearance.Material3.LabelLarge"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipContainer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:chipSpacingVertical="2dp"
+        app:chipSpacingVertical="1dp"
+        app:chipSpacingHorizontal="15dp"
         android:layout_marginTop="8dp">
 
         <com.google.android.material.chip.Chip
@@ -27,6 +28,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="C#"
             android:checkable="true"
             app:chipIcon="@drawable/csharp"
@@ -37,6 +39,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="C++"
             android:checkable="true"
             app:chipIcon="@drawable/cplusplus"
@@ -47,6 +50,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Go"
             android:checkable="true"
             app:chipIcon="@drawable/go"
@@ -57,6 +61,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="PHP"
             android:checkable="true"
             app:chipIcon="@drawable/php"
@@ -67,6 +72,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Java"
             android:checkable="true"
             app:chipIcon="@drawable/java"
@@ -77,6 +83,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Python"
             android:checkable="true"
             app:chipIcon="@drawable/python"
@@ -87,6 +94,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="TypeScript"
             android:checkable="true"
             app:chipIcon="@drawable/typescript"
@@ -97,6 +105,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Ruby"
             android:checkable="true"
             app:chipIcon="@drawable/ruby"
@@ -107,6 +116,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Swift"
             android:checkable="true"
             app:chipIcon="@drawable/swift"
@@ -117,6 +127,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Rust"
             android:checkable="true"
             app:chipIcon="@drawable/rust"
@@ -128,7 +139,7 @@
         android:id="@+id/textType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Theo loại"
+        android:text="@string/filter_by_catalog"
         android:layout_marginTop="14dp"
         style="@style/TextAppearance.Material3.LabelLarge"
         app:layout_constraintTop_toTopOf="parent"
@@ -141,6 +152,7 @@
         app:singleSelection="false"
         android:layout_marginTop="8dp"
         app:chipSpacingVertical="2dp"
+        app:chipSpacingHorizontal="15dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -149,6 +161,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Creational"
             android:checkable="true"
             app:ensureMinTouchTargetSize="true"/>
@@ -158,6 +171,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Behavioral"
             android:checkable="true"
             app:ensureMinTouchTargetSize="true"/>
@@ -167,6 +181,7 @@
             style="@style/Widget.Material3.Chip.Assist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@drawable/chip_background_color"
             android:text="Structural"
             android:checkable="true"
             app:ensureMinTouchTargetSize="true"/>
