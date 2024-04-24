@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Nền trong suốt -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- Gradient cho viền -->
+    <stroke
+        android:width="2dp"
+        android:color="#CDF3FC"/> <!-- Sử dụng gradient cho viền -->
+
+    <!-- Bo góc cho hình chữ nhật -->
+    <corners android:radius="8dp" />
+</shape>

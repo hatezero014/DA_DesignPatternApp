@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DesignPattern</string>
+    <string name="item_catalog">Catalog: </string>
+    <string name="item_language">Language: </string>
+</resources>

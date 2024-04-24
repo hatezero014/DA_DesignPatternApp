@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DesignPattern</string>
+    <string name="item_catalog">Danh mục: </string>
+    <string name="item_language">Ngôn ngữ: </string>
+</resources>

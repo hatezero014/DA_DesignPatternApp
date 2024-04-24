@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- custom_grid_item_layout.xml -->
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/background_item_gradient"
+    android:columnCount="2">
+
+
+    <!-- Thông tin cho cột 1 -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:text="Chain of Responsibility"
+        android:textColor="@android:color/black"/>
+
+    <!-- Thông tin cho cột 2 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center|end"
+        >
+
+        <ImageButton
+            android:id="@+id/ibtnBookmark"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/ic_bookmark"
+            android:layout_marginRight="8dp"
+            android:background="@null"/>
+
+        <ImageButton
+            android:id="@+id/ibtnStar"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_star"
+            android:layout_marginRight="8dp"
+            android:background="@null"/>
+
+        <ImageButton
+            android:id="@+id/ibtnShare"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/ic_share"
+            android:background="@null"/>
+
+
+    </LinearLayout>
+
+    <!-- Cột 1 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="7dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewCatalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:text="Catalog: Creational patterns"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/textViewLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textStyle="italic"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:text="Language: C++"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="6dp"
+        app:backgroundTint="@null"
+        android:drawableRight="@drawable/allow_right"
+        android:theme="@null"
+        android:background="@drawable/button_background"
+        android:text="Xem"/>
+
+</GridLayout>
