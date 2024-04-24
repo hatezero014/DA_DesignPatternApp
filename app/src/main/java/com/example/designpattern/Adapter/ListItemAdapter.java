@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Models.Bookmark;
 import com.example.designpattern.Models.Favourite;
-import com.example.designpattern.Models.Language;
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.R;
 import com.example.designpattern.Services.BookmarkService;
 import com.example.designpattern.Services.FavouriteService;
-import com.example.designpattern.Services.LanguageService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
