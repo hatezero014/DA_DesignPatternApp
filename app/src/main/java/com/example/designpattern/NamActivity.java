@@ -34,6 +34,8 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.search.SearchView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -283,6 +285,12 @@ public class NamActivity extends BaseActivity {
         if (result.isEmpty()) {
             result = patternService.GetAll(Pattern.class);
         }
+        Collections.sort(result, new Comparator<Pattern>() {
+            @Override
+            public int compare(Pattern pattern1, Pattern pattern2) {
+                return pattern1.getName().compareTo(pattern2.getName());
+            }
+        });
         adapter = new ListItemAdapter(this, result);
         recyclerView.setAdapter(adapter);
     }

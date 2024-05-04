@@ -3,13 +3,18 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="ActivityPhong">
-      <entry key="MainActivity">
+        <State />
+      </entry>
+      <entry key="BookmarkActivity">
+        <State />
+      </entry>
+      <entry key="ContactActivity">
+        <State />
+      </entry>
+      <entry key="FovouriteActivity">
         <State />
       </entry>
       <entry key="NamActivity">
-        <State />
-      </entry>
-      <entry key="app">
         <State />
       </entry>
     </value>

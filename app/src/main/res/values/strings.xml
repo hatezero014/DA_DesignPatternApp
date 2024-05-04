@@ -18,4 +18,45 @@
     <string name="roboto">Roboto</string>
     <string name="roboto_condensed">Roboto Condensed</string>
     <string name="time_new_roman">Time New Roman</string>
+
+    <!--  ChangeLanguage   -->
+    <string name="change_language">App language</string>
+    <string name="language_vi">Vietnamese</string>
+    <string name="language_en">English</string>
+
+    <!--  DisplayMode  -->
+    <string name="display_mode">Choose a display mode</string>
+    <string name="display_mode_light">Light</string>
+    <string name="display_mode_dark">Dark</string>
+    <string name="display_mode_system">System default</string>
+    <string name="button_cancel">Cancel</string>
+
+    <!--  Setting  -->
+    <string name="setting_title">Setting</string>
+    <string name="setting_display">Display</string>
+    <string name="setting_theme">Theme</string>
+    <string name="setting_other">Others</string>
+    <string name="setting_feedback">Send feedback</string>
+    <string name="setting_sub_feedback">Help improve this application</string>
+
+    <!--  Contact  -->
+    <string name="question_general">What do you want to tell us?</string>
+    <string name="rbtn_question">Question</string>
+    <string name="rbtn_report">Bug report</string>
+    <string name="rbtn_suggestion">Suggestion</string>
+    <string name="rbtn_compliment">Compliment</string>
+    <string name="rbtn_others">Other</string>
+    <string name="contact_question_se">What is your inquiry about?</string>
+    <string name="contact_rbtn_records">Records</string>
+    <string name="contact_rbtn_migration">Migration</string>
+    <string name="contact_rbtn_features">Features</string>
+    <string name="contact_rbtn_supports">Supports</string>
+    <string name="contact_content">Content</string>
+    <string name="contact_text_notice">Notice</string>
+    <string name="contact_notice_content">• It may take up to 7 days for our support team to get back to you.\n• Abusive language or spam will not be tolerated.\n• By pressing [Send], you agree to the Terms of Service and Privacy Policy.</string>
+    <string name="contact_rbtn_send">Send</string>
+    <string name="contact_title">Contact us</string>
+    <string name="contact_text_hint">Your message</string>
+    <string name="contact_max_image">You selected the maximum number of images"</string>
+    <string name="contact_allow_image">You can only select up to 1 images</string>
 </resources>
