@@ -6,4 +6,16 @@
     <string name="filter_by_language">By language</string>
     <string name="catalog">Catalog</string>
     <string name="language">Language</string>
+
+    <!-- Font -->
+    <string name="arial">Arial</string>
+    <string name="pacifico_regular">Pacifico Regular</string>
+    <string name="playfair">Playfair</string>
+    <string name="poetsen_one">Poetsen One</string>
+    <string name="poppins">Poppins</string>
+    <string name="pt_serif">PT Serif</string>
+    <string name="raleway">Raleway</string>
+    <string name="roboto">Roboto</string>
+    <string name="roboto_condensed">Roboto Condensed</string>
+    <string name="time_new_roman">Time New Roman</string>
 </resources>
