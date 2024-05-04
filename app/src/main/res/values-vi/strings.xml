@@ -8,7 +8,19 @@
     <string name="catalog">Danh mục</string>
     <string name="language">Ngôn ngữ</string>
 
-    <!--  ChangeLanguage   -->
+    <!-- Font -->
+    <string name="arial">Arial</string>
+    <string name="pacifico_regular">Pacifico Regular</string>
+    <string name="playfair">Playfair</string>
+    <string name="poetsen_one">Poetsen One</string>
+    <string name="poppins">Poppins</string>
+    <string name="pt_serif">PT Serif</string>
+    <string name="raleway">Raleway</string>
+    <string name="roboto">Roboto</string>
+    <string name="roboto_condensed">Roboto Condensed</string>
+    <string name="time_new_roman">Time New Roman</string>
+
+  <!--  ChangeLanguage   -->
     <string name="change_language">Ngôn ngữ ứng dụng</string>
     <string name="language_vi">Tiếng Việt</string>
     <string name="language_en">Tiếng Anh</string>
