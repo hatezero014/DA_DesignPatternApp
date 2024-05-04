@@ -13,10 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Adapter.CustomItemDecoration;
+import com.example.designpattern.Adapter.HomePageAdapter;
 import com.example.designpattern.Adapter.SectionAdapter;
+import com.example.designpattern.Models.HomePage;
 import com.example.designpattern.Models.Section;
 
 import java.util.ArrayList;
@@ -24,56 +27,34 @@ import java.util.List;
 
 
 public class ActivityPhong extends AppCompatActivity {
-    private SectionAdapter sectionAdapter;
     private RecyclerView recyclerView;
+    private HomePageAdapter homePageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phong);
 
-        recyclerView = findViewById(R.id.rcv_button);
+        recyclerView = findViewById(R.id.rcv_homepage);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        CustomItemDecoration itemDecoration = new CustomItemDecoration();
-
-        recyclerView.addItemDecoration(itemDecoration);
-
-        sectionAdapter = new SectionAdapter(this,fragmentManager);
-        sectionAdapter.setData(getListSection());
-        itemDecoration.setHideDividerPositions(0);
-        recyclerView.setAdapter(sectionAdapter);
-
-        recyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener(){
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                View child = rv.findChildViewUnder(e.getX(),e.getY());
-                if(child != null){
-                    int position = rv.getChildAdapterPosition(child);
-
-                    if(position == 0){
-                        itemDecoration.setHideDividerPositions(0);
-                    }else if(position == rv.getAdapter().getItemCount()-1){
-                        itemDecoration.setHideDividerPositions(position - 1);
-
-                    }
-                    else itemDecoration.setHideDividerPositions(position - 1, position);
-                }
-                return super.onInterceptTouchEvent(rv, e);
-            }
-        });
+        homePageAdapter = new HomePageAdapter();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        homePageAdapter.setData(getListContent());
+        recyclerView.setAdapter(homePageAdapter);
     }
 
+    private List<HomePage> getListContent() {
+        List<HomePage> list = new ArrayList<>();
 
-    private List<Section> getListSection() {
-        List<Section> list = new ArrayList<>();
-        list.add(new Section("description"));
-        list.add(new Section("pros & cons"));
-        list.add(new Section("case"));
+        list.add(new HomePage("Content",1));
+        list.add(new HomePage("Content",2));
+        list.add(new HomePage("code",2));
+        list.add(new HomePage("Complexity",3));
+        list.add(new HomePage("Popularity",3));
+
         return list;
     }
+
+
 }
