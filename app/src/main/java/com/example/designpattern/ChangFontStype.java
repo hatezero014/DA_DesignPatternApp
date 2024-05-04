@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.example.designpattern.Adapter.FontAdapter;
 import com.example.designpattern.Adapter.SizeAdapter;
 import com.example.designpattern.Models.Category;
 import com.example.designpattern.Models.Size;
+import com.example.designpattern.Share.PDFUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class ChangFontStype extends AppCompatActivity {
     FontAdapter fontAdapter;
     SizeAdapter sizeAdapter;
     TextView textView;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class ChangFontStype extends AppCompatActivity {
         spinnerSize = findViewById(R.id.spn_size);
 
         textView = findViewById(R.id.textview1);
+
+        button = findViewById(R.id.button);
 
         fontAdapter = new FontAdapter(this,R.layout.item_selected, getListFont());
         sizeAdapter = new SizeAdapter(this, R.layout.item_selected, getListSize());
@@ -114,6 +119,13 @@ public class ChangFontStype extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PDFUtil.createPDF(ChangFontStype.this, textView, "nam_mom.pdf");
             }
         });
 
