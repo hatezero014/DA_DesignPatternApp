@@ -1,5 +1,6 @@
 package com.example.designpattern;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.designpattern.Adapter.CustomItemDecoration;
 import com.example.designpattern.Adapter.HomePageAdapter;
 import com.example.designpattern.Adapter.SectionAdapter;
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.HomePage;
 import com.example.designpattern.Models.Section;
 
@@ -37,7 +39,15 @@ public class ActivityPhong extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rcv_homepage);
 
-        homePageAdapter = new HomePageAdapter();
+        homePageAdapter = new HomePageAdapter(itemType -> {
+            if(itemType.equals("code")){
+                onCLickGoToShowCode();
+            }
+            else if(itemType.equals("Info")){
+                onCLickGoToShowInfo();
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         homePageAdapter.setData(getListContent());
@@ -48,7 +58,7 @@ public class ActivityPhong extends AppCompatActivity {
         List<HomePage> list = new ArrayList<>();
 
         list.add(new HomePage("Content",1));
-        list.add(new HomePage("Content",2));
+        list.add(new HomePage("Info",2));
         list.add(new HomePage("code",2));
         list.add(new HomePage("Complexity",3));
         list.add(new HomePage("Popularity",3));
@@ -56,5 +66,13 @@ public class ActivityPhong extends AppCompatActivity {
         return list;
     }
 
+    private void onCLickGoToShowCode(){
+        Intent intent = new Intent(this,ShowCodeActivity.class);
+        startActivity(intent);
+    }
 
+    private void onCLickGoToShowInfo(){
+        Intent intent = new Intent(this,ShowDesignPatternInfoActivity.class);
+        startActivity(intent);
+    }
 }
