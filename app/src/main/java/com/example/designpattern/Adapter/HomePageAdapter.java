@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.HomePage;
 import com.example.designpattern.R;
 
@@ -24,6 +27,11 @@ public class HomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static int type_button = 2;
     private static int type_rating = 3;
     private List<HomePage> mContent;
+    private final IClickItemListener iClickItemListener;
+
+    public HomePageAdapter(IClickItemListener iClickItemListener){
+        this.iClickItemListener = iClickItemListener;
+    }
 
     public void setData(List<HomePage> list){
         this.mContent = list;
@@ -59,6 +67,9 @@ public class HomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else if(type_button == holder.getItemViewType()){
             ButtonViewHolder buttonViewHolder = (ButtonViewHolder) holder;
             buttonViewHolder.textView.setText(homePage.getName());
+
+            buttonViewHolder.cardView.setOnClickListener(v -> iClickItemListener.onClickItem(homePage.getName()));
+
         }else if(type_rating == holder.getItemViewType()){
             RatingViewHolder ratingViewHolder = (RatingViewHolder) holder;
             ratingViewHolder.textView.setText(homePage.getName()+": ");
