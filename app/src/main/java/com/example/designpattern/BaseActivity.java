@@ -2,6 +2,7 @@ package com.example.designpattern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.designpattern.Services.BaseService;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity {
@@ -48,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setDisplayMode() {
         SharedPreferences sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        int displayMode = sharedPreferences.getInt("displayMode", 3);
+        int displayMode = sharedPreferences.getInt("displayMode", 2);
 
         if (displayMode == 0) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

@@ -50,7 +50,7 @@ public class PatternService extends BaseService{
         ArrayList<Pattern> list = new ArrayList<>();
         db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(Pattern.class.getSimpleName(), null, "Catalog=?", new String[]{catalog}, null, null, null);
+        Cursor cursor = db.query(Pattern.class.getSimpleName(), null, "Catalog=?", new String[]{catalog + " Patterns"}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 Pattern object = CreateModelObjectFromCursor(Pattern.class, cursor);

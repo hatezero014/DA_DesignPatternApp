@@ -7,4 +7,45 @@
     <string name="filter_by_language">Theo ngôn ngữ</string>
     <string name="catalog">Danh mục</string>
     <string name="language">Ngôn ngữ</string>
+
+    <!--  ChangeLanguage   -->
+    <string name="change_language">Ngôn ngữ ứng dụng</string>
+    <string name="language_vi">Tiếng Việt</string>
+    <string name="language_en">Tiếng Anh</string>
+
+    <!--  DisplayMode  -->
+    <string name="display_mode">Chế độ hiển thị</string>
+    <string name="display_mode_light">Sáng</string>
+    <string name="display_mode_dark">Tối</string>
+    <string name="display_mode_system">Mặc định hệ thống</string>
+    <string name="button_cancel">Hủy bỏ</string>
+
+    <!--  Setting  -->
+    <string name="setting_title">Cài đặt</string>
+    <string name="setting_display">Giao diện</string>
+    <string name="setting_theme">Chủ đề</string>
+    <string name="setting_other">Khác</string>
+    <string name="setting_feedback">Gửi phản hồi</string>
+    <string name="setting_sub_feedback">Giúp cải thiện ứng dụng này</string>
+
+    <!--  Contact  -->
+    <string name="question_general">Bạn muốn nói gì với chúng tôi?</string>
+    <string name="rbtn_question">Câu hỏi</string>
+    <string name="rbtn_report">Báo cáo lỗi</string>
+    <string name="rbtn_suggestion">Gợi ý</string>
+    <string name="rbtn_compliment">Lời khen</string>
+    <string name="rbtn_others">Khác</string>
+    <string name="contact_question_se">Yêu cầu của bạn là gì?</string>
+    <string name="contact_rbtn_records">Bản ghi</string>
+    <string name="contact_rbtn_migration">Di chuyển dữ liệu</string>
+    <string name="contact_rbtn_features">Tính năng</string>
+    <string name="contact_rbtn_supports">Hỗ trợ</string>
+    <string name="contact_text_hint">Lời nhắn của bạn</string>
+    <string name="contact_content">Nội dung</string>
+    <string name="contact_text_notice">Chú ý</string>
+    <string name="contact_notice_content">• Có thể mất tới 7 ngày để nhóm hỗ trợ của chúng tôi liên hệ lại với bạn.\n• Ngôn ngữ lăng mạ hoặc thư rác sẽ không được chấp nhận.\n• Bằng cách nhấn [Gửi], bạn đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư.</string>
+    <string name="contact_rbtn_send">Gửi</string>
+    <string name="contact_title">Liên hệ với chúng tôi</string>
+    <string name="contact_max_image">Bạn đã chọn số ảnh tối đa"</string>
+    <string name="contact_allow_image">Bạn chỉ có thể chọn tối đa 1 ảnh"</string>
 </resources>
