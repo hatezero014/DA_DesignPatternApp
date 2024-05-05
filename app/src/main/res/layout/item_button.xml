@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
     android:id="@+id/btn_goto"
     android:layout_marginTop="10dp">
 
@@ -17,7 +18,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/allow_right"/>
+            android:src="@drawable/allow_right" />
 
         <TextView
             android:id="@+id/tv_go_to"
@@ -27,7 +28,8 @@
             android:layout_toEndOf="@id/img1_goto"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/img2_goto"
