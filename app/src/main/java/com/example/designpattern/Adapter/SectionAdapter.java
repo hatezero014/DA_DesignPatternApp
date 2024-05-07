@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Models.Section;
@@ -22,7 +21,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.SectionV
         this.fragmentManager = fragmentManager;
     }
 
-    private Context mContext;
+    private final Context mContext;
 
     private FragmentManager fragmentManager;
 

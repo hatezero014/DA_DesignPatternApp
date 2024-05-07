@@ -1,36 +1,23 @@
 package com.example.designpattern;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.designpattern.Adapter.CustomItemDecoration;
 import com.example.designpattern.Adapter.HomePageAdapter;
-import com.example.designpattern.Adapter.SectionAdapter;
-import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.HomePage;
-import com.example.designpattern.Models.Section;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ActivityPhong extends AppCompatActivity {
+public class ActivityPhong extends BaseActivity {
     private RecyclerView recyclerView;
     private HomePageAdapter homePageAdapter;
+    private TextView tv_design_pattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +26,14 @@ public class ActivityPhong extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rcv_homepage);
 
+        tv_design_pattern = findViewById(R.id.tv_design_pattern_type);
+        tv_design_pattern.setText("Singleton");
+
         homePageAdapter = new HomePageAdapter(itemType -> {
             if(itemType.equals("code")){
                 onCLickGoToShowCode();
             }
-            else if(itemType.equals("Info")){
+            else if(itemType.equals("Learn more about Singleton")){
                 onCLickGoToShowInfo();
             }
         });
@@ -52,13 +42,14 @@ public class ActivityPhong extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         homePageAdapter.setData(getListContent());
         recyclerView.setAdapter(homePageAdapter);
+
     }
 
     private List<HomePage> getListContent() {
         List<HomePage> list = new ArrayList<>();
 
         list.add(new HomePage("Content",1));
-        list.add(new HomePage("Info",2));
+        list.add(new HomePage("Learn more about Singleton",2));
         list.add(new HomePage("code",2));
         list.add(new HomePage("Complexity",3));
         list.add(new HomePage("Popularity",3));

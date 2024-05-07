@@ -3,31 +3,9 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="ActivityPhong">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\DELL\.android\avd\Pixel_3_API_30.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-05T01:09:54.244428500Z" />
-        </State>
-      </entry>
-      <entry key="BookmarkActivity">
         <State />
       </entry>
-      <entry key="ContactActivity">
-        <State />
-      </entry>
-      <entry key="FovouriteActivity">
-        <State />
-      </entry>
-      <entry key="NamActivity">
+      <entry key="app">
         <State />
       </entry>
     </value>

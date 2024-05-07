@@ -1,44 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    android:id="@+id/btn_goto"
-    android:layout_marginTop="10dp">
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:gravity="center_horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        android:id="@+id/btn_goto"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/img1_goto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/allow_right" />
-
-        <TextView
-            android:id="@+id/tv_go_to"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/img2_goto"
-            android:layout_toEndOf="@id/img1_goto"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:visibility="visible"/>
+            android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/img2_goto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/allow_right"/>
+            <ImageView
+                android:id="@+id/img1_goto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/allow_right" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_go_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/img1_goto"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
-</androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/img2_goto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/tv_go_to"
+                android:src="@drawable/allow_right"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
