@@ -1,5 +1,7 @@
 package com.example.designpattern.Adapter;
 
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,11 @@ import java.util.List;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentViewHolder> {
     private List<Content> mContent;
+    private Context mConText;
+
+    public ContentAdapter(Context mConText) {
+        this.mConText = mConText;
+    }
 
     public void setData(List<Content>list){
         this.mContent = list;
@@ -36,6 +43,19 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
         holder.tv_title.setText(content.getTitle());
         holder.tv_content.setText(content.getContent());
+        holder.tv_content.setVisibility(View.GONE);
+        holder.img_title.setImageResource(content.getImg());
+
+        holder.tv_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.tv_content.getVisibility() == View.GONE){
+                    holder.tv_content.setVisibility(View.VISIBLE);
+                }else{
+                    holder.tv_content.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
@@ -48,13 +68,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     public class ContentViewHolder extends RecyclerView.ViewHolder{
         private TextView tv_title;
         private TextView tv_content;
-        private ImageView img_bookmark;
+        private ImageView img_title;
 
         public ContentViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_section_title);
             tv_content = itemView.findViewById(R.id.tv_content_element);
-            img_bookmark = itemView.findViewById(R.id.img_bookmark);
+            img_title = itemView.findViewById(R.id.img_title);
         }
     }
 }

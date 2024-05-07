@@ -3,6 +3,7 @@ package com.example.designpattern.Models;
 public class Content {
     private String title;
     private String content;
+    private int img;
 
     public String getTitle() {
         return title;
@@ -20,8 +21,17 @@ public class Content {
         this.content = content;
     }
 
-    public Content(String title, String content) {
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
+
+    public Content(int img, String title, String content) {
         this.title = title;
         this.content = content;
+        this.img = img;
     }
 }

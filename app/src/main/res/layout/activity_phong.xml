@@ -9,10 +9,12 @@
     tools:context=".ActivityPhong">
 
     <TextView
-        android:id="@+id/tv_design_patern_type"
+        android:id="@+id/tv_design_pattern_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="40sp"
+        android:gravity="center"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +25,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/radius_rectangle"/>
+        android:background="@drawable/radius_rectangle"
+        android:layout_gravity="center_vertical" />
 
 
 
