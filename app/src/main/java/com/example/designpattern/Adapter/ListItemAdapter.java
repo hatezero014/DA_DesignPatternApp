@@ -1,9 +1,11 @@
 package com.example.designpattern.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.designpattern.ActivityPhong;
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Bookmark;
 import com.example.designpattern.Models.Favourite;
 import com.example.designpattern.Models.Pattern;
@@ -26,6 +30,13 @@ import java.util.List;
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
     private List<Pattern> dataList;
     private Context context;
+    private IClickItemListener iClickItemListener;
+
+    public ListItemAdapter(Context context, List<Pattern> dataList, IClickItemListener iClickItemListener) {
+        this.dataList = dataList;
+        this.context = context;
+        this.iClickItemListener = iClickItemListener;
+    }
 
     public ListItemAdapter(Context context, List<Pattern> dataList) {
         this.context = context;
@@ -95,6 +106,13 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
                     favouriteService.DeleteByPatternId(Favourite.class, item.getId());
                     holder.btnStar.setImageResource(R.drawable.ic_star);
                 }
+            }
+        });
+
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemListener.onClickItem(item.getName());
             }
         });
     }

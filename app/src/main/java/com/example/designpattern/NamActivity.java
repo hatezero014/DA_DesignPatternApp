@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Adapter.ListItemAdapter;
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Services.PatternService;
 import com.google.android.material.chip.Chip;
@@ -291,7 +292,21 @@ public class NamActivity extends BaseActivity {
                 return pattern1.getName().compareTo(pattern2.getName());
             }
         });
-        adapter = new ListItemAdapter(this, result);
+        adapter = new ListItemAdapter(this, result, new IClickItemListener() {
+            @Override
+            public void onClickItem(String itemType) {
+                onClickGoToHomePage(itemType);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
+
+    public void onClickGoToHomePage(String PatternName){
+        Intent intent = new Intent(this, ActivityPhong.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", PatternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 }

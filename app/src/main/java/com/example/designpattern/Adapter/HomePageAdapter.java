@@ -1,6 +1,9 @@
 package com.example.designpattern.Adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.HomePage;
+import com.example.designpattern.Models.MyUtilities;
+import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.R;
 
 import java.util.List;
@@ -24,9 +29,13 @@ public class HomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static int type_rating = 3;
     private List<HomePage> mContent;
     private final IClickItemListener iClickItemListener;
+    private String PatternName;
+    private Context context;
 
-    public HomePageAdapter(IClickItemListener iClickItemListener){
+    public HomePageAdapter(Context context, String PatternName, IClickItemListener iClickItemListener){
         this.iClickItemListener = iClickItemListener;
+        this.context = context;
+        this.PatternName = PatternName;
     }
 
     public void setData(List<HomePage> list){
@@ -69,9 +78,9 @@ public class HomePageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else if(type_rating == holder.getItemViewType()){
             RatingViewHolder ratingViewHolder = (RatingViewHolder) holder;
             ratingViewHolder.textView.setText(homePage.getName()+": ");
-            if(homePage.getName().equals("Complexity"))
-                ratingViewHolder.ratingBar.setRating(1f);
-            else ratingViewHolder.ratingBar.setRating(2f);
+            if(homePage.getName().equals("Complexity")){
+                ratingViewHolder.ratingBar.setRating(new MyUtilities(context).getComRating(PatternName));
+            }else ratingViewHolder.ratingBar.setRating(new MyUtilities(context).getPoRating(PatternName));
         }
     }
 

@@ -148,6 +148,7 @@ public class ShowCodeActivity extends BaseActivity {
                 .withCode(code)
                 .withTheme(ColorTheme.MONOKAI)
                 .withFont(Font.Consolas));
+
     }
     private List<Section> getListSection() {
         List<Section> list = new ArrayList<>();

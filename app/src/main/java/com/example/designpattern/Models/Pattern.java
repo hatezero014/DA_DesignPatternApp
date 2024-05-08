@@ -47,4 +47,8 @@ public class Pattern {
         Catalog = catalog;
         Language = language;
     }
+
+    public Pattern(String name) {
+        Name = name;
+    }
 }
