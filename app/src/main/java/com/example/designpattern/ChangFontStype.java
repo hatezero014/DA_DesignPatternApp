@@ -26,6 +26,11 @@ import java.util.List;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import io.github.kbiakov.codeview.CodeView;
+import io.github.kbiakov.codeview.adapters.Options;
+import io.github.kbiakov.codeview.highlight.ColorTheme;
+import io.github.kbiakov.codeview.highlight.Font;
+
 
 public class ChangFontStype extends AppCompatActivity {
     Spinner spinnerFont;
@@ -34,6 +39,10 @@ public class ChangFontStype extends AppCompatActivity {
     SizeAdapter sizeAdapter;
     TextView textView;
     Button button;
+
+    private CodeView codeView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,8 @@ public class ChangFontStype extends AppCompatActivity {
         textView = findViewById(R.id.textview1);
 
         button = findViewById(R.id.button);
+
+        codeView = findViewById(R.id.cv11);
 
         fontAdapter = new FontAdapter(this,R.layout.item_selected, getListFont());
         sizeAdapter = new SizeAdapter(this, R.layout.item_selected, getListSize());
@@ -125,15 +136,102 @@ public class ChangFontStype extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PDFUtil.createPDF(ChangFontStype.this, textView, "nam_mom.pdf");
+                PDFUtil.createPDF(ChangFontStype.this, codeView, "nam_mom.pdf");
             }
         });
+
+        ShowcodeView();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void ShowcodeView() {
+        String code = "package com.example.designpattern;\n" +
+                "\n" +
+                "import android.content.Intent;\n" +
+                "import android.os.Bundle;\n" +
+                "import android.widget.TextView;\n" +
+                "\n" +
+                "import androidx.appcompat.app.AppCompatActivity;\n" +
+                "import androidx.recyclerview.widget.LinearLayoutManager;\n" +
+                "import androidx.recyclerview.widget.RecyclerView;\n" +
+                "\n" +
+                "import com.example.designpattern.Adapter.HomePageAdapter;\n" +
+                "import com.example.designpattern.Models.HomePage;\n" +
+                "\n" +
+                "import java.util.ArrayList;\n" +
+                "import java.util.List;\n" +
+                "\n" +
+                "\n" +
+                "public class ActivityPhong extends AppCompatActivity {\n" +
+                "    private RecyclerView recyclerView;\n" +
+                "    private HomePageAdapter homePageAdapter;\n" +
+                "    private TextView tv_design_pattern;\n" +
+                "\n" +
+                "    @Override\n" +
+                "    protected void onCreate(Bundle savedInstanceState) {\n" +
+                "        super.onCreate(savedInstanceState);\n" +
+                "        setContentView(R.layout.activity_phong);\n" +
+                "\n" +
+                "        recyclerView = findViewById(R.id.rcv_homepage);\n" +
+                "\n" +
+                "        tv_design_pattern = findViewById(R.id.tv_design_pattern_type);\n" +
+                "        tv_design_pattern.setText(\"Singleton\");\n" +
+                "\n" +
+                "        homePageAdapter = new HomePageAdapter(itemType -> {\n" +
+                "            if(itemType.equals(\"code\")){\n" +
+                "                onCLickGoToShowCode();\n" +
+                "            }\n" +
+                "            else if(itemType.equals(\"Learn more about Singleton\")){\n" +
+                "                onCLickGoToShowInfo();\n" +
+                "            }\n" +
+                "        });\n" +
+                "\n" +
+                "        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);\n" +
+                "        recyclerView.setLayoutManager(linearLayoutManager);\n" +
+                "        homePageAdapter.setData(getListContent());\n" +
+                "        recyclerView.setAdapter(homePageAdapter);\n" +
+                "\n" +
+                "    }\n" +
+                "\n" +
+                "    private List<HomePage> getListContent() {\n" +
+                "        List<HomePage> list = new ArrayList<>();\n" +
+                "\n" +
+                "        list.add(new HomePage(\"Content\",1));\n" +
+                "        list.add(new HomePage(\"Learn more about Singleton\",2));\n" +
+                "        list.add(new HomePage(\"code\",2));\n" +
+                "        list.add(new HomePage(\"Complexity\",3));\n" +
+                "        list.add(new HomePage(\"Popularity\",3));\n" +
+                "\n" +
+                "        return list;\n" +
+                "    }\n" +
+                "\n" +
+                "    private void onCLickGoToShowCode(){\n" +
+                "        Intent intent = new Intent(this,ShowCodeActivity.class);\n" +
+                "        startActivity(intent);\n" +
+                "    }\n" +
+                "\n" +
+                "    private void onCLickGoToShowInfo(){\n" +
+                "        Intent intent = new Intent(this,ShowDesignPatternInfoActivity.class);\n" +
+                "        startActivity(intent);\n" +
+                "    }\n" +
+                "}";
+
+        codeView.setCode(code);
+
+        Typeface typeface = ResourcesCompat.getFont(ChangFontStype.this,R.font.time_new_roman);
+
+
+        codeView.setOptions(Options.Default.get(this)
+                .withLanguage("java")
+                .withCode(code)
+                .withTheme(ColorTheme.MONOKAI)
+                .withFont(typeface));
+
     }
 
     private List<Size> getListSize() {

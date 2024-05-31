@@ -38,4 +38,9 @@
         android:text="Text Font chữ"
         android:textSize="50dp" />
 
+    <io.github.kbiakov.codeview.CodeView
+        android:id="@+id/cv11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
