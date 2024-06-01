@@ -63,6 +63,7 @@ public class ActivityPhong extends BaseActivity {
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
     }
 
     private List<HomePage> getListContent() {
