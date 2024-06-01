@@ -41,6 +41,8 @@ public class ChangFontStype extends AppCompatActivity {
     Button button;
 
     private CodeView codeView;
+    String code;
+
 
 
 
@@ -71,44 +73,44 @@ public class ChangFontStype extends AppCompatActivity {
                 switch (temp) {
                     case "Time New Roman":
                         Typeface typeface = ResourcesCompat.getFont(ChangFontStype.this,R.font.time_new_roman);
-                        textView.setTypeface(typeface);
+                        ChangeFont(typeface);
 
                         break;
                     case "Arial":
                         Typeface typeface1 = ResourcesCompat.getFont(ChangFontStype.this,R.font.arial);
-                        textView.setTypeface(typeface1);
+                        ChangeFont(typeface1);
                         break;
                     case "Pacifico Regular":
                         Typeface typeface2 = ResourcesCompat.getFont(ChangFontStype.this,R.font.pacifico_regular);
-                        textView.setTypeface(typeface2);
+                        ChangeFont(typeface2);
                         break;
                     case "Playfair":
                         Typeface typeface3 = ResourcesCompat.getFont(ChangFontStype.this,R.font.playfair);
-                        textView.setTypeface(typeface3);
+                        ChangeFont(typeface3);
                         break;
                     case "Poetsen One":
                         Typeface typeface4 = ResourcesCompat.getFont(ChangFontStype.this,R.font.poetsen_one);
-                        textView.setTypeface(typeface4);
+                        ChangeFont(typeface4);
                         break;
                     case "Poppins":
                         Typeface typeface5 = ResourcesCompat.getFont(ChangFontStype.this,R.font.poppins);
-                        textView.setTypeface(typeface5);
+                        ChangeFont(typeface5);
                         break;
                     case "PT Serif":
                         Typeface typeface6 = ResourcesCompat.getFont(ChangFontStype.this,R.font.pt_serif);
-                        textView.setTypeface(typeface6);
+                        ChangeFont(typeface6);
                         break;
                     case "Raleway":
                         Typeface typeface7 = ResourcesCompat.getFont(ChangFontStype.this,R.font.raleway);
-                        textView.setTypeface(typeface7);
+                        ChangeFont(typeface7);
                         break;
                     case "Roboto":
                         Typeface typeface8 = ResourcesCompat.getFont(ChangFontStype.this,R.font.roboto);
-                        textView.setTypeface(typeface8);
+                        ChangeFont(typeface8);
                         break;
                     case "Roboto Condensed":
                         Typeface typeface9 = ResourcesCompat.getFont(ChangFontStype.this,R.font.roboto_condensed);
-                        textView.setTypeface(typeface9);
+                        ChangeFont(typeface9);
                         break;
 
                 }
@@ -124,8 +126,10 @@ public class ChangFontStype extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int temp = sizeAdapter.getItem(position).getSize();
-                textView.setTextSize(temp);
+//                textView.setTextSize(temp);
+//                codeView.getOptions().setCode(temp);
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -149,8 +153,18 @@ public class ChangFontStype extends AppCompatActivity {
         });
     }
 
+    private void ChangeFont(Typeface typeface) {
+        codeView.setCode(code);
+
+        codeView.setOptions(Options.Default.get(this)
+                .withLanguage("java")
+                .withCode(code)
+                .withTheme(ColorTheme.MONOKAI)
+                .withFont(typeface));
+    }
+
     private void ShowcodeView() {
-        String code = "package com.example.designpattern;\n" +
+        code = "package com.example.designpattern;\n" +
                 "\n" +
                 "import android.content.Intent;\n" +
                 "import android.os.Bundle;\n" +
@@ -223,14 +237,14 @@ public class ChangFontStype extends AppCompatActivity {
 
         codeView.setCode(code);
 
-        Typeface typeface = ResourcesCompat.getFont(ChangFontStype.this,R.font.time_new_roman);
+        //Typeface typeface = ResourcesCompat.getFont(ChangFontStype.this,R.font.time_new_roman);
 
 
         codeView.setOptions(Options.Default.get(this)
                 .withLanguage("java")
                 .withCode(code)
                 .withTheme(ColorTheme.MONOKAI)
-                .withFont(typeface));
+                .withFont(Typeface.DEFAULT));
 
     }
 
@@ -251,8 +265,8 @@ public class ChangFontStype extends AppCompatActivity {
 
     private List<Category> getListFont() {
         List<Category> list = new ArrayList<>();
-        list.add(new Category(getResources().getString(R.string.time_new_roman)));
         list.add(new Category(getResources().getString(R.string.arial)));
+        list.add(new Category(getResources().getString(R.string.time_new_roman)));
         list.add(new Category(getResources().getString(R.string.pacifico_regular)));
         list.add(new Category(getResources().getString(R.string.playfair)));
         list.add(new Category(getResources().getString(R.string.poetsen_one)));
