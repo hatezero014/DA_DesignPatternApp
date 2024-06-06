@@ -10,28 +10,27 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Section;
 import com.example.designpattern.R;
 
 import java.util.List;
 
 public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.SectionViewHolder>{
-    public SectionAdapter(Context mContext, FragmentManager fragmentManager) {
+    public SectionAdapter(Context mContext, IClickItemListener iClickItemListener) {
         this.mContext = mContext;
-        this.fragmentManager = fragmentManager;
+        this.iClickItemListener = iClickItemListener;
     }
 
     private final Context mContext;
 
-    private FragmentManager fragmentManager;
+    private final IClickItemListener iClickItemListener;
 
     private List<Section> mSection;
 
-    public void setFragmentID(int fragmentID) {
-        this.fragmentID = fragmentID;
+    public int getSelectedPosition() {
+        return selectedPosition;
     }
-
-    private int fragmentID;
 
     private int selectedPosition = 0;
 
@@ -39,7 +38,6 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.SectionV
         this.mSection = list;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
     public SectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,6 +59,7 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.SectionV
 
         holder.tv_section.setOnClickListener(v -> {
             selectedPosition = x;
+            iClickItemListener.onClickItem(section.getName());
             notifyDataSetChanged();
 
 

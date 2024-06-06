@@ -46,10 +46,10 @@ public class ActivityPhong extends BaseActivity {
             @Override
             public void onClickItem(String itemType) {
                 if(itemType.equals("code")){
-                    onCLickGoToShowCode();
+                    onCLickGoToShowCode(PatternName);
                 }
                 else if(itemType.equals(buttonName)){
-                    onCLickGoToShowInfo();
+                    onCLickGoToShowInfo(PatternName);
                 }
             }
         });
@@ -78,12 +78,15 @@ public class ActivityPhong extends BaseActivity {
         return list;
     }
 
-    private void onCLickGoToShowCode(){
+    private void onCLickGoToShowCode(String patternName){
         Intent intent = new Intent(this,ShowCodeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    private void onCLickGoToShowInfo(){
+    private void onCLickGoToShowInfo(String patternName){
         Intent intent = new Intent(this,ShowDesignPatternInfoActivity.class);
         startActivity(intent);
     }
