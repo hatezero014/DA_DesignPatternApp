@@ -59,4 +59,25 @@
     <string name="contact_text_hint">Your message</string>
     <string name="contact_max_image">You selected the maximum number of images"</string>
     <string name="contact_allow_image">You can only select up to 1 images</string>
+
+    <string name="overview_of_the_content">Overview of the content you have learned</string>
+    <string name="how_to_apply_patterns_to_exercises">How to apply patterns to exercises</string>
+    <string name="description_of_the_problem_and_intent">Description of the problem and intent</string>
+    <string name="intent_problem">Intent and Problem</string>
+    <string name="solution_and_implementation">Solution and implementation</string>
+    <string name="solution_implemtntation">Solution and How to implementation</string>
+    <string name="techniques_and_structure">Techniques and structure</string>
+    <string name="structure_pseudocode">Structure and Pseudocode</string>
+    <string name="evaluation_and_application">Evaluation and application</string>
+    <string name="evaluation_application">Pros, Cons and Applicability</string>
+    <string name="your_comments">Your comments</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="star_rating">Star rating: </string>
+
+    <string name="thanks_for_submitting">Thanks for submitting a review</string>
+    <string name="code">Code</string>
+    <string name="assignment">Assignment</string>
+    <string name="video">Tutorial video</string>
 </resources>

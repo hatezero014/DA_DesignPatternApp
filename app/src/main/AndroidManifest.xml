@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,9 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DesignPattern"
         tools:targetApi="31">
-
-        <activity android:name=".ChangFontStype"
-            android:exported="true"/>
+        <activity
+            android:name=".ShowInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatternsVideoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuestionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChangFontStype"
+            android:exported="true" />
         <activity
             android:name=".ShowDesignPatternInfoActivity"
             android:exported="true" />
@@ -54,10 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <provider
-            android:authorities="com.example.designpattern.Share.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.designpattern.Share.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

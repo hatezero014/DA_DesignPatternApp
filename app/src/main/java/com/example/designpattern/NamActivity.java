@@ -302,7 +302,7 @@ public class NamActivity extends BaseActivity {
     }
 
     public void onClickGoToHomePage(String PatternName){
-        Intent intent = new Intent(this, ActivityPhong.class);
+        Intent intent = new Intent(this, ShowDesignPatternInfoActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("PatternName", PatternName);
         intent.putExtras(bundle);

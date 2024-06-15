@@ -60,4 +60,24 @@
     <string name="contact_title">Liên hệ với chúng tôi</string>
     <string name="contact_max_image">Bạn đã chọn số ảnh tối đa"</string>
     <string name="contact_allow_image">Bạn chỉ có thể chọn tối đa 1 ảnh"</string>
+
+    <string name="overview_of_the_content">Tổng quan về nội dung bạn đã học được</string>
+    <string name="how_to_apply_patterns_to_exercises">Cách áp dụng pattern vào bài tập</string>
+    <string name="description_of_the_problem_and_intent">Mô tả vấn đề và ý định</string>
+    <string name="intent_problem">Ý định và Vấn đề</string>
+    <string name="solution_and_implementation">Giải pháp và triển khai</string>
+    <string name="solution_implemtntation">Giải pháp và Cách thực hiện</string>
+    <string name="techniques_and_structure">Kỹ thuật và cấu trúc</string>
+    <string name="structure_pseudocode">Cấu trúc và Mã giả</string>
+    <string name="evaluation_and_application">Đánh giá và ứng dụng</string>
+    <string name="evaluation_application">Ưu điểm, Nhược điểm và Khả năng áp dụng</string>
+    <string name="your_comments">Nhận xét của bạn</string>
+
+    <string name="cancel">Hủy</string>
+    <string name="send">Gửi</string>
+    <string name="star_rating">Đánh giá sao: </string>
+    <string name="thanks_for_submitting">Cảm ơn bạn đã gửi đánh giá</string>
+    <string name="code">Mã nguồn</string>
+    <string name="assignment">Bài tập củng cố</string>
+    <string name="video">Video hướng dẫn</string>
 </resources>
