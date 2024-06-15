@@ -72,16 +72,11 @@ public class CodeViewAdapter extends RecyclerView.Adapter<CodeViewAdapter.CodeVi
 
             codeView.setCode(code);
 
-            ColorThemeData myTheme = ColorTheme.SOLARIZED_LIGHT.theme()
-                    .withBgContent(android.R.color.black)
-                    .withNoteColor(android.R.color.system_tertiary_container_light);
-
-            codeView.getOptions().setTheme(myTheme);
 
             codeView.setOptions(Options.Default.get(context)
                     .withLanguage(language)
                     .withCode(code)
-//                            .withTheme(ColorTheme.MONOKAI)
+                            .withTheme(ColorTheme.MONOKAI)
                     .withFont(Font.Consolas));
         }
 

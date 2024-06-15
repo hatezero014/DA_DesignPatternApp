@@ -1,6 +1,7 @@
 package com.example.designpattern;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +50,12 @@ public class ShowCodeActivity extends BaseActivity {
         act_language = findViewById(R.id.act_language);
 
         tv_title = findViewById(R.id.tv_title);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.code));
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setLanguageSpinner();
 
@@ -102,6 +110,15 @@ public class ShowCodeActivity extends BaseActivity {
                 return super.onInterceptTouchEvent(rv, e);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 
     private void setLanguageSpinner() {
