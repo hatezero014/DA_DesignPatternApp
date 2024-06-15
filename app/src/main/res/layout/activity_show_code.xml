@@ -19,6 +19,7 @@
         android:layout_marginTop="15dp"/>
 
     <ImageView
+        android:id="@+id/img_pattern"
         android:layout_width="240dp"
         android:layout_height="160dp"
         android:layout_gravity="center"

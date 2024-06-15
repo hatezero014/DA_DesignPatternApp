@@ -2,12 +2,14 @@ package com.example.designpattern;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +46,11 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         tv_design_pattern_type = findViewById(R.id.tv_design_pattern_type);
 
         btn_watch_video = findViewById(R.id.btn_watch_video);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         Bundle bundle = this.getIntent().getExtras();
         if(bundle == null){
@@ -107,6 +114,15 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
                 onCLickGoToWatchVideo(PatternName);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 
     private void clickOpenBottomSheetDialog() {
