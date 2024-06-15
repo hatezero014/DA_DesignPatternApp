@@ -1,5 +1,6 @@
 package com.example.designpattern;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,7 +24,9 @@ import com.example.designpattern.Adapter.ResultAdapter;
 import com.example.designpattern.Adapter.SectionAdapter;
 import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.CodeLanguage;
+import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Models.Section;
+import com.example.designpattern.Services.PatternService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +41,7 @@ public class ShowCodeActivity extends BaseActivity {
 
     private CodeViewAdapter codeViewAdapter;
     private ResultAdapter resultAdapter;
+    private ImageView img_pattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class ShowCodeActivity extends BaseActivity {
         act_language = findViewById(R.id.act_language);
 
         tv_title = findViewById(R.id.tv_title);
+
+        img_pattern = findViewById(R.id.img_pattern);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -110,6 +117,18 @@ public class ShowCodeActivity extends BaseActivity {
                 return super.onInterceptTouchEvent(rv, e);
             }
         });
+
+        setImagePattern(PatternName);
+    }
+
+    private void setImagePattern(String patternName) {
+        PatternService patternService = new PatternService(this);
+        Pattern pattern = patternService.getImageByPatternName(patternName);
+
+        String image = pattern.getImage();
+        int imageResourceId = getResources().getIdentifier(image,"drawable",getPackageName());
+        Drawable drawable = getDrawable(imageResourceId);
+        img_pattern.setImageDrawable(drawable);
     }
 
     @Override
