@@ -76,7 +76,7 @@ public class CodeViewAdapter extends RecyclerView.Adapter<CodeViewAdapter.CodeVi
             codeView.setOptions(Options.Default.get(context)
                     .withLanguage(language)
                     .withCode(code)
-                            .withTheme(ColorTheme.MONOKAI)
+                    .withTheme(ColorTheme.MONOKAI)
                     .withFont(Font.Consolas));
         }
 

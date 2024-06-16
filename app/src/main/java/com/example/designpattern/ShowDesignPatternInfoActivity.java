@@ -83,28 +83,32 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         cv_intent_problem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String text = "1 "+PatternName;
+                onCLickDoToShowInfo(text);
             }
         });
 
         cv_solution_implementation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String text = "2 "+PatternName;
+                onCLickDoToShowInfo(text);
             }
         });
 
         cv_techniques_structure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String text = "4 "+PatternName;
+                onCLickDoToShowInfo(text);
             }
         });
 
         cv_evaluation_application.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String text = "3 "+PatternName;
+                onCLickDoToShowInfo(text);
             }
         });
 
@@ -193,6 +197,13 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    private void onCLickDoToShowInfo(String text){
+        Intent intent = new Intent(this, ShowInfoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("text", text);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     private List<Content> getListContent() {
         List<Content> list = new ArrayList<>();
 

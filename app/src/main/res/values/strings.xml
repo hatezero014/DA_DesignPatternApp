@@ -65,7 +65,7 @@
     <string name="description_of_the_problem_and_intent">Description of the problem and intent</string>
     <string name="intent_problem">Intent and Problem</string>
     <string name="solution_and_implementation">Solution and implementation</string>
-    <string name="solution_implemtntation">Solution and How to implementation</string>
+    <string name="solution_implement">Solution and How to implement</string>
     <string name="techniques_and_structure">Techniques and structure</string>
     <string name="structure_pseudocode">Structure and Pseudocode</string>
     <string name="evaluation_and_application">Evaluation and application</string>
@@ -80,4 +80,13 @@
     <string name="code">Code</string>
     <string name="assignment">Assignment</string>
     <string name="video">Tutorial video</string>
+
+    <string name="intent">Intent</string>
+    <string name="problem">Problem</string>
+    <string name="solution">Solution</string>
+    <string name="structure">Structure</string>
+    <string name="pseudocode">Pseudocode</string>
+    <string name="applicability">Applicability</string>
+    <string name="how_to_implement">How To Implement</string>
+    <string name="pros_and_cons">Pros And Cons</string>
 </resources>
