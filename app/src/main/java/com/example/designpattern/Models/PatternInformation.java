@@ -1,7 +1,7 @@
 package com.example.designpattern.Models;
 
-public class PatternInfomation {
-    public PatternInfomation() {
+public class PatternInformation {
+    public PatternInformation() {
     }
 
     int Id;
@@ -113,7 +113,7 @@ public class PatternInfomation {
         StructureImage = structureImage;
     }
 
-    public PatternInfomation(int id, int patternId, String intent, String problem, String solution, String structure, String pseudocode, String applicability, String howToImplement, String prosAndCons, String pseudocodeImage, String structureImage) {
+    public PatternInformation(int id, int patternId, String intent, String problem, String solution, String structure, String pseudocode, String applicability, String howToImplement, String prosAndCons, String pseudocodeImage, String structureImage) {
         Id = id;
         PatternId = patternId;
         Intent = intent;

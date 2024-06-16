@@ -66,7 +66,7 @@
     <string name="description_of_the_problem_and_intent">Mô tả vấn đề và ý định</string>
     <string name="intent_problem">Ý định và Vấn đề</string>
     <string name="solution_and_implementation">Giải pháp và triển khai</string>
-    <string name="solution_implemtntation">Giải pháp và Cách thực hiện</string>
+    <string name="solution_implement">Giải pháp và Cách thực hiện</string>
     <string name="techniques_and_structure">Kỹ thuật và cấu trúc</string>
     <string name="structure_pseudocode">Cấu trúc và Mã giả</string>
     <string name="evaluation_and_application">Đánh giá và ứng dụng</string>
@@ -80,4 +80,13 @@
     <string name="code">Mã nguồn</string>
     <string name="assignment">Bài tập củng cố</string>
     <string name="video">Video hướng dẫn</string>
+
+    <string name="intent">Ý định</string>
+    <string name="problem">Vấn đề</string>
+    <string name="solution">Giải pháp</string>
+    <string name="structure">Cấu trúc</string>
+    <string name="pseudocode">Mã giả</string>
+    <string name="applicability">Khả năng ứng dụng</string>
+    <string name="how_to_implement">Cách thực hiện</string>
+    <string name="pros_and_cons">Ưu và nhược điểm</string>
 </resources>
