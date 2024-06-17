@@ -2,6 +2,7 @@ package com.example.designpattern;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -74,7 +75,6 @@ public class ChangFontStype extends AppCompatActivity {
                     case "Time New Roman":
                         Typeface typeface = ResourcesCompat.getFont(ChangFontStype.this,R.font.time_new_roman);
                         ChangeFont(typeface);
-
                         break;
                     case "Arial":
                         Typeface typeface1 = ResourcesCompat.getFont(ChangFontStype.this,R.font.arial);
@@ -128,6 +128,8 @@ public class ChangFontStype extends AppCompatActivity {
                 int temp = sizeAdapter.getItem(position).getSize();
 //                textView.setTextSize(temp);
 //                codeView.getOptions().setCode(temp);
+//                codeView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
             }
 
 
