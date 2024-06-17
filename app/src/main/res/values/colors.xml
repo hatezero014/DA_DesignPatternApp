@@ -172,4 +172,7 @@
     <color name="bgContent">#ffffff</color>
     <color name="bgNum">#ffffff</color>
     <color name="noteColor">#CFD0C2</color>
+
+    <color name="startColor">#EC9008</color>
+    <color name="endColor">#07DC2A</color>
 </resources>
