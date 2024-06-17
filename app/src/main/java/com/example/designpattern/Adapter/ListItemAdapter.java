@@ -1,22 +1,20 @@
 package com.example.designpattern.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
-import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.designpattern.ActivityPhong;
 import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Bookmark;
 import com.example.designpattern.Models.Favourite;
@@ -26,6 +24,7 @@ import com.example.designpattern.Services.BookmarkService;
 import com.example.designpattern.Services.FavouriteService;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
     private List<Pattern> dataList;
@@ -53,9 +52,8 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Pattern item = dataList.get(position);
-        holder.textViewCatalog.setText(item.getCatalog());
-        String language = context.getString(R.string.item_language) + " " + item.getLanguage();
-        holder.textViewLanguage.setText(language);
+        holder.textViewCatalog.setText(context.getString(R.string.catalog));
+        holder.textViewNameCatalog.setText(item.getCatalog());
         holder.textViewTitle.setText(item.getName());
         TextPaint paint = holder.textViewTitle.getPaint();
         float width = paint.measureText(holder.textViewTitle.getText().toString());
@@ -65,6 +63,18 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
                         Color.parseColor("#FED6E3"),
                 }, null, Shader.TileMode.CLAMP);
         holder.textViewTitle.getPaint().setShader(textShader);
+
+        if (Objects.equals(item.getCatalog(), "Creational Patterns")) {
+            holder.gridLayout.setBackgroundResource(R.drawable.background_item_gradient1);
+        }
+
+        if (Objects.equals(item.getCatalog(), "Structural Patterns")) {
+            holder.gridLayout.setBackgroundResource(R.drawable.background_item_gradient2);
+        }
+
+        if (Objects.equals(item.getCatalog(), "Behavioral Patterns")) {
+            holder.gridLayout.setBackgroundResource(R.drawable.background_item_gradient3);
+        }
 
         BookmarkService bookmarkService = new BookmarkService(context);
         FavouriteService favouriteService = new FavouriteService(context);
@@ -136,20 +146,22 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewCatalog;
-        TextView textViewLanguage;
+        TextView textViewNameCatalog;
         TextView textViewTitle;
         Button button;
+        GridLayout gridLayout;
         ImageButton btnStar, btnBookmark, btnShare;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewCatalog = itemView.findViewById(R.id.textViewCatalog);
-            textViewLanguage = itemView.findViewById(R.id.textViewLanguage);
+            textViewNameCatalog = itemView.findViewById(R.id.textViewNameCatalog);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             button = itemView.findViewById(R.id.btnView);
             btnBookmark = itemView.findViewById(R.id.ibtnBookmark);
             btnStar = itemView.findViewById(R.id.ibtnStar);
             btnShare = itemView.findViewById(R.id.ibtnShare);
+            gridLayout = itemView.findViewById(R.id.gridLayout);
             TextPaint paint = button.getPaint();
             float width = paint.measureText(button.getText().toString());
             Shader textShader = new LinearGradient(0, 0, width, button.getTextSize(),

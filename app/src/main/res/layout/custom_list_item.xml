@@ -3,10 +3,11 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/gridLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:layout_marginTop="12dp"
-    android:background="@drawable/background_item_gradient"
+    android:background="@drawable/background_item_gradient1"
     android:columnCount="2">
 
 
@@ -67,26 +68,25 @@
             android:id="@+id/textViewCatalog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="italic"
-            style="@style/TextAppearance.Material3.TitleMedium"
-            android:text="Catalog: Creational patterns"
+            style="@style/TextAppearance.Material3.TitleSmall"
+            android:text="Catalog"
+            android:layout_marginTop="1dp"
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/textViewLanguage"
+            android:id="@+id/textViewNameCatalog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:textStyle="italic"
             style="@style/TextAppearance.Material3.TitleMedium"
-            android:text="Language: C++"
-            android:textColor="@android:color/white"/>
+            android:text="Creational patterns"
+            android:textColor="@android:color/holo_blue_light"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/btnView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="bottom|end"
         android:layout_marginTop="6dp"
         app:backgroundTint="@null"
