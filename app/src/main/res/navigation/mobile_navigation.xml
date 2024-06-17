@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_progress">
+
+    <fragment
+        android:id="@+id/navigation_progress"
+        android:name="com.example.designpattern.UI.progress.ProgressFragment"
+        android:label="@string/menu_progress"
+        tools:layout="@layout/fragment_progress">
+
+        <action
+            android:id="@+id/action_navigation_progress_to_navigation_learning"
+            app:destination="@+id/navigation_learning"/>
+        <action
+            android:id="@+id/action_navigation_progress_to_navigation_assignment"
+            app:destination="@+id/navigation_assignment"/>
+        <action
+            android:id="@+id/action_navigation_progress_to_navigation_setting"
+            app:destination="@+id/navigation_setting"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_learning"
+        android:name="com.example.designpattern.UI.learning.LearningFragment"
+        android:label="@string/menu_learning"
+        tools:layout="@layout/fragment_learning" />
+
+    <fragment
+        android:id="@+id/navigation_assignment"
+        android:name="com.example.designpattern.UI.assignment.AssignmentFragment"
+        android:label="@string/menu_assignment"
+        tools:layout="@layout/fragment_assignment" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.example.designpattern.UI.setting.SettingFragment"
+        android:label="@string/menu_setting"
+        tools:layout="@layout/fragment_setting" />
+
+
+</navigation>

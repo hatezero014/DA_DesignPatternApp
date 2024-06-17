@@ -89,4 +89,10 @@
     <string name="applicability">Khả năng ứng dụng</string>
     <string name="how_to_implement">Cách thực hiện</string>
     <string name="pros_and_cons">Ưu và nhược điểm</string>
+
+    <!--menu navigation-->
+    <string name="menu_progress">Tiến độ</string>
+    <string name="menu_learning">Học tập</string>
+    <string name="menu_assignment">Bài tập</string>
+    <string name="menu_setting">Cài đặt</string>
 </resources>

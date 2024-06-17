@@ -22,7 +22,7 @@ import io.github.kbiakov.codeview.adapters.Options;
 import io.github.kbiakov.codeview.highlight.ColorTheme;
 import io.github.kbiakov.codeview.highlight.Font;
 
-public class ShowInfoActivity extends AppCompatActivity {
+public class ShowInfoActivity extends BaseActivity {
     private TextView tv_section1, tv_section2;
     private TextView tv_content1, tv_content2;
     private ImageView img_section1, img_section2;
