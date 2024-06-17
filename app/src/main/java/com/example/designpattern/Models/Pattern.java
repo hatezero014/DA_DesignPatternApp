@@ -4,6 +4,15 @@ public class Pattern {
     int Id;
     String Name;
     String Catalog;
+    String Image;
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
 
     public String getLanguage() {
         return Language;
@@ -42,10 +51,11 @@ public class Pattern {
     public Pattern() {
     }
 
-    public Pattern(String name, String catalog, String language) {
+    public Pattern(String name, String catalog, String language, String image) {
         Name = name;
         Catalog = catalog;
         Language = language;
+        Image = image;
     }
 
     public Pattern(String name) {

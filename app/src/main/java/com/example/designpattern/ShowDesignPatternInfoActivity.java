@@ -2,61 +2,208 @@ package com.example.designpattern;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Adapter.ContentAdapter;
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Content;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowDesignPatternInfoActivity extends BaseActivity {
-    private RecyclerView recyclerView;
-    private ContentAdapter contentAdapter;
-    private FloatingActionButton btnFloating;
+    private TextView tv_design_pattern_type;
+    private CardView cv_rating, cv_show_code, cv_assignment,
+            cv_intent_problem, cv_solution_implementation, cv_techniques_structure, cv_evaluation_application;
+    private Button btn_watch_video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_design_pattern_info);
 
-        btnFloating = findViewById(R.id.btn_floating_code);
+        cv_rating = findViewById(R.id.cv_rating);
+        cv_show_code = findViewById(R.id.cv_show_code);
+        cv_assignment = findViewById(R.id.cv_assignment);
 
-        recyclerView = findViewById(R.id.rcv_content);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        cv_intent_problem = findViewById(R.id.cv_intent_problem);
+        cv_solution_implementation = findViewById(R.id.cv_solution_implementation);
+        cv_techniques_structure = findViewById(R.id.cv_techniques_structure);
+        cv_evaluation_application = findViewById(R.id.cv_evaluation_application);
 
-        contentAdapter = new ContentAdapter(this);
-        contentAdapter.setData(getListContent());
+        tv_design_pattern_type = findViewById(R.id.tv_design_pattern_type);
 
-        recyclerView.setAdapter(contentAdapter);
+        btn_watch_video = findViewById(R.id.btn_watch_video);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                if(dy > 0)
-                    btnFloating.hide();
-                else{
-                    btnFloating.show();
-                }
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-        btnFloating.setOnClickListener(new View.OnClickListener() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        Bundle bundle = this.getIntent().getExtras();
+        if(bundle == null){
+            return;
+        }
+
+        String PatternName = (String) bundle.get("PatternName");
+        tv_design_pattern_type.setText(PatternName);
+        cv_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),ShowCodeActivity.class);
-                startActivity(intent);
+                clickOpenBottomSheetDialog();
             }
         });
 
+        cv_show_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCLickGoToShowCode(PatternName);
+            }
+        });
+
+        cv_assignment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCLickGoToDoAssignment(PatternName);
+            }
+        });
+
+        cv_intent_problem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "1 "+PatternName;
+                onCLickDoToShowInfo(text);
+            }
+        });
+
+        cv_solution_implementation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "2 "+PatternName;
+                onCLickDoToShowInfo(text);
+            }
+        });
+
+        cv_techniques_structure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "4 "+PatternName;
+                onCLickDoToShowInfo(text);
+            }
+        });
+
+        cv_evaluation_application.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "3 "+PatternName;
+                onCLickDoToShowInfo(text);
+            }
+        });
+
+        btn_watch_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCLickGoToWatchVideo(PatternName);
+            }
+        });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
+
+    private void clickOpenBottomSheetDialog() {
+        View viewDialog = getLayoutInflater().inflate(R.layout.layout_bottom_sheet,null);
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(viewDialog);
+        bottomSheetDialog.show();
+        bottomSheetDialog.setCancelable(false);
+
+        Button btn_cancel = viewDialog.findViewById(R.id.btn_cancel);
+        Button btn_send = viewDialog.findViewById(R.id.btn_send);
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickOpenBottomSheetThanksDialog(bottomSheetDialog);
+            }
+        });
+    }
+
+    private void clickOpenBottomSheetThanksDialog(BottomSheetDialog BSD) {
+        View viewDialog = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_thanks,null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(viewDialog);
+        BSD.hide();
+        bottomSheetDialog.show();
+        bottomSheetDialog.setCancelable(false);
+
+        Button btn_undo = viewDialog.findViewById(R.id.btn_undo);
+
+        btn_undo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+    }
+
+    private void onCLickGoToShowCode(String patternName){
+        Intent intent = new Intent(this,ShowCodeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void onCLickGoToDoAssignment(String patternName) {
+        Intent intent = new Intent(this, QuestionsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void onCLickGoToWatchVideo(String patternName){
+        Intent intent = new Intent(this, PatternsVideoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void onCLickDoToShowInfo(String text){
+        Intent intent = new Intent(this, ShowInfoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("text", text);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     private List<Content> getListContent() {
         List<Content> list = new ArrayList<>();
 

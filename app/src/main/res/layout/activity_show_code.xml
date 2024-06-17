@@ -8,17 +8,53 @@
     tools:context=".ShowCodeActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:text="Chain Of Responsibility"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:id="@+id/tv_title"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/img_pattern"
+        android:layout_width="240dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/chain_of_responsibility"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/til_language"
+        android:layout_gravity="end"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.Chip"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/act_language"
+            android:inputType="none"
+            android:dropDownHeight="200dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:id="@+id/rcv_section"/>
 
-    <io.github.kbiakov.codeview.CodeView
-        android:id="@+id/cv"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rcv_code_result"/>
 </LinearLayout>

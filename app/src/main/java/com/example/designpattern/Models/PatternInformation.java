@@ -1,7 +1,7 @@
 package com.example.designpattern.Models;
 
-public class PatternInfomation {
-    public PatternInfomation() {
+public class PatternInformation {
+    public PatternInformation() {
     }
 
     int Id;
@@ -9,12 +9,13 @@ public class PatternInfomation {
     String Intent;
     String Problem;
     String Solution;
-    String RealWorldAnalogy;
     String Structure;
+    String Pseudocode;
     String Applicability;
     String HowToImplement;
     String ProsAndCons;
-    String RelationsWithOtherPatterns;
+    String PseudocodeImage;
+    String StructureImage;
 
     public int getId() {
         return Id;
@@ -56,20 +57,20 @@ public class PatternInfomation {
         Solution = solution;
     }
 
-    public String getRealWorldAnalogy() {
-        return RealWorldAnalogy;
-    }
-
-    public void setRealWorldAnalogy(String realWorldAnalogy) {
-        RealWorldAnalogy = realWorldAnalogy;
-    }
-
     public String getStructure() {
         return Structure;
     }
 
     public void setStructure(String structure) {
         Structure = structure;
+    }
+
+    public String getPseudocode() {
+        return Pseudocode;
+    }
+
+    public void setPseudocode(String pseudocode) {
+        Pseudocode = pseudocode;
     }
 
     public String getApplicability() {
@@ -96,11 +97,34 @@ public class PatternInfomation {
         ProsAndCons = prosAndCons;
     }
 
-    public String getRelationsWithOtherPatterns() {
-        return RelationsWithOtherPatterns;
+    public String getPseudocodeImage() {
+        return PseudocodeImage;
     }
 
-    public void setRelationsWithOtherPatterns(String relationsWithOtherPatterns) {
-        RelationsWithOtherPatterns = relationsWithOtherPatterns;
+    public void setPseudocodeImage(String pseudocodeImage) {
+        PseudocodeImage = pseudocodeImage;
+    }
+
+    public String getStructureImage() {
+        return StructureImage;
+    }
+
+    public void setStructureImage(String structureImage) {
+        StructureImage = structureImage;
+    }
+
+    public PatternInformation(int id, int patternId, String intent, String problem, String solution, String structure, String pseudocode, String applicability, String howToImplement, String prosAndCons, String pseudocodeImage, String structureImage) {
+        Id = id;
+        PatternId = patternId;
+        Intent = intent;
+        Problem = problem;
+        Solution = solution;
+        Structure = structure;
+        Pseudocode = pseudocode;
+        Applicability = applicability;
+        HowToImplement = howToImplement;
+        ProsAndCons = prosAndCons;
+        PseudocodeImage = pseudocodeImage;
+        StructureImage = structureImage;
     }
 }
