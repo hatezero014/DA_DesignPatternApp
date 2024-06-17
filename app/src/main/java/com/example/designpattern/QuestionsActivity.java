@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class QuestionsActivity extends AppCompatActivity {
+public class QuestionsActivity extends BaseActivity {
     private TextView tvPatternName;
     private TextView tvQuestion;
     private TextView tvContentQuestion;

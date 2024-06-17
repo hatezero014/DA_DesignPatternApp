@@ -152,4 +152,24 @@
     <color name="md_theme_surfaceContainer_highContrast">#EAEFE9</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#E4EAE4</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#DEE4DE</color>
+
+    <!--Màu cho code view-->
+    <!-- Màu cho syntax -->
+    <color name="type">#A7E22E</color>
+    <color name="keyword">#FA2772</color>
+    <color name="literal">#66D9EE</color>
+    <color name="comment">#76715E</color>
+    <color name="string">#E6DB74</color>
+    <color name="punctuation">#C1C1C1</color>
+    <color name="plain">#F8F8F0</color>
+    <color name="tag">#F92672</color>
+    <color name="declaration">#FA2772</color>
+    <color name="attrName">#A6E22E</color>
+    <color name="attrValue">#E6DB74</color>
+
+    <!-- Màu khác -->
+    <color name="numColor">#ffffff</color>
+    <color name="bgContent">#ffffff</color>
+    <color name="bgNum">#ffffff</color>
+    <color name="noteColor">#CFD0C2</color>
 </resources>

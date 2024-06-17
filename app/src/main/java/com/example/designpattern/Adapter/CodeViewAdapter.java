@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Models.CodeLanguage;
@@ -72,11 +73,33 @@ public class CodeViewAdapter extends RecyclerView.Adapter<CodeViewAdapter.CodeVi
 
             codeView.setCode(code);
 
+//            syntaxColors: Đây là một đối tượng SyntaxColors chứa các màu sắc được sử dụng cho cú pháp của mã, như màu cho từ khóa, chuỗi, bình luận, v.v.
+//            0xFFFFFF: Màu nền chính cho CodeView. Trong trường hợp này, nó là màu trắng.
+//            0xFF0000: Màu sử dụng cho số dòng. Màu này là màu đỏ.
+//            0xEEE8D5: Màu nền cho số dòng. Màu này là một màu be nhạt.
+//            0x657B83: Màu sử dụng cho các ghi chú hoặc thông tin phụ. Màu này là một màu xám xanh.
+
+            SyntaxColors syntaxColors = new SyntaxColors(0xA7E22E,
+                    0xFA2772,
+                    0x66D9EE,
+                    0x76715E,
+                    0xE6DB74,
+                    0xC1C1C1,
+                    0xF8F8F0,
+                    0xF92672,
+                    0xFA2772,
+                    0xA6E22E,
+                    0xE6DB74);
+            ColorThemeData customTheme = new ColorThemeData(syntaxColors,
+                    ContextCompat.getColor(context, R.color.numColor),
+                    ContextCompat.getColor(context, R.color.bgContent),
+                    ContextCompat.getColor(context, R.color.bgNum),
+                    ContextCompat.getColor(context, R.color.noteColor));
 
             codeView.setOptions(Options.Default.get(context)
                     .withLanguage(language)
                     .withCode(code)
-                    .withTheme(ColorTheme.MONOKAI)
+                    .withTheme(customTheme)
                     .withFont(Font.Consolas));
         }
 

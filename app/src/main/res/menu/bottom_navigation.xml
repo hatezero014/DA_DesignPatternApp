@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_progress"
+        android:icon="@drawable/main_progress"
+        android:title="@string/menu_progress"/>
+
+    <item
+        android:id="@+id/navigation_learning"
+        android:icon="@drawable/main_learning"
+        android:title="@string/menu_learning"/>
+
+    <item
+        android:id="@+id/navigation_assignment"
+        android:icon="@drawable/main_assignment"
+        android:title="@string/menu_assignment"/>
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/main_setting"
+        android:title="@string/menu_setting"/>
+</menu>
