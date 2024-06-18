@@ -1,7 +1,5 @@
 package com.example.designpattern.UI.progress;
 
-
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,11 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 public class ProgressCircleView extends View {
-    private Paint paint;
+    private Paint progressPaint;
+    private Paint backgroundPaint;
     private int progress = 0;
-    private float strokeWidth = 20; // Default stroke width
+    private float strokeWidth = 20;
     private int startColor;
     private int endColor;
+    private float radiusOffset = 50;
 
     public ProgressCircleView(Context context) {
         super(context);
@@ -35,12 +35,17 @@ public class ProgressCircleView extends View {
     }
 
     private void init() {
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(strokeWidth); // Set the stroke width here
+        progressPaint = new Paint();
+        progressPaint.setAntiAlias(true);
+        progressPaint.setStyle(Paint.Style.STROKE);
+        progressPaint.setStrokeWidth(strokeWidth);
 
-        // Default colors
+        backgroundPaint = new Paint();
+        backgroundPaint.setAntiAlias(true);
+        backgroundPaint.setStyle(Paint.Style.STROKE);
+        backgroundPaint.setStrokeWidth(strokeWidth);
+        backgroundPaint.setColor(ContextCompat.getColor(getContext(), android.R.color.darker_gray));
+
         startColor = ContextCompat.getColor(getContext(), android.R.color.holo_blue_dark);
         endColor = ContextCompat.getColor(getContext(), android.R.color.holo_green_dark);
     }
@@ -52,14 +57,18 @@ public class ProgressCircleView extends View {
         int width = getWidth();
         int height = getHeight();
 
-        // Draw the progress arc with gradient
+        canvas.drawArc(strokeWidth / 2 + radiusOffset, strokeWidth / 2 + radiusOffset,
+                width - strokeWidth / 2 - radiusOffset, height - strokeWidth / 2 - radiusOffset,
+                -90, 360, false, backgroundPaint);
+
         Shader gradientShader = new LinearGradient(0, 0, width, height,
                 startColor, endColor, Shader.TileMode.CLAMP);
-        paint.setShader(gradientShader);
+        progressPaint.setShader(gradientShader);
 
         float sweepAngle = (360 * progress) / 100;
-        canvas.drawArc(strokeWidth / 2, strokeWidth / 2, width - strokeWidth / 2, height - strokeWidth / 2,
-                -90, sweepAngle, false, paint);
+        canvas.drawArc(strokeWidth / 2 + radiusOffset, strokeWidth / 2 + radiusOffset,
+                width - strokeWidth / 2 - radiusOffset, height - strokeWidth / 2 - radiusOffset,
+                -90, sweepAngle, false, progressPaint);
     }
 
     public void setProgress(int progress) {
@@ -69,13 +78,19 @@ public class ProgressCircleView extends View {
 
     public void setStrokeWidth(float width) {
         this.strokeWidth = width;
-        paint.setStrokeWidth(width);
+        progressPaint.setStrokeWidth(width);
+        backgroundPaint.setStrokeWidth(width);
         invalidate();
     }
 
     public void setGradientColors(int startColor, int endColor) {
         this.startColor = startColor;
         this.endColor = endColor;
+        invalidate();
+    }
+
+    public void setRadiusOffset(float offset) {
+        this.radiusOffset = offset;
         invalidate();
     }
 }

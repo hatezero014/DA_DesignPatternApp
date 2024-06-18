@@ -1,5 +1,6 @@
 package com.example.designpattern.UI.progress;
 
+import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
@@ -35,11 +36,31 @@ public class ProgressFragment extends Fragment {
         String progressText = textView1.getText().toString().replace("%", "");
         int progress = Integer.parseInt(progressText);
         progressCircleView.setProgress(progress);
-        progressCircleView.setStrokeWidth(50);
+        progressCircleView.setStrokeWidth(100);
+        progressCircleView.setRadiusOffset(50);
         applyGradientToCircle(progressCircleView);
 
         applyGradientToTextView(textView1);
         applyGradientToTextView(textView2);
+
+        ValueAnimator animator = ValueAnimator.ofInt(0, progress);
+        if(progress<=50){
+            animator.setDuration(2000);
+        }
+        else if(progress > 50 && progress <= 100){
+            animator.setDuration(3000);
+        }
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int animatedValue = (int) animation.getAnimatedValue();
+                progressCircleView.setProgress(animatedValue);
+                textView1.setText(animatedValue + "%");
+            }
+        });
+        animator.start();
+
         return view ;
 
     }
@@ -55,7 +76,6 @@ public class ProgressFragment extends Fragment {
     }
 
     private void applyGradientToCircle(final ProgressCircleView progressCircleView) {
-        // Thay đổi màu gradient theo ý muốn
         progressCircleView.setGradientColors(
                 ContextCompat.getColor(getContext(), R.color.startColor),
                 ContextCompat.getColor(getContext(), R.color.endColor)
