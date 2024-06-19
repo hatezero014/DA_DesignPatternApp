@@ -1,0 +1,9 @@
+<!-- text_gradient.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#24EFC0"
+        android:endColor="#BFFFC7"
+        android:angle="0"/>
+    <corners android:radius="16dp" />
+</shape>

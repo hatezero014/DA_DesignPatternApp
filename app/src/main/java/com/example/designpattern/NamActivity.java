@@ -37,15 +37,14 @@ import com.google.android.material.search.SearchView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class NamActivity extends BaseActivity {
-
-    Set<String> selectedLanguageChips = new HashSet<>();
     Set<String> selectedTypeChips = new HashSet<>();
-    List<Integer> checkedLanguageIds = new ArrayList<>();
     List<Integer> checkedTypeIds = new ArrayList<>();
     ChipGroup group1, group2;
     TextView textLan, textType;
@@ -78,7 +77,7 @@ public class NamActivity extends BaseActivity {
         recyclerView = findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         patternService = new PatternService(this);
-        loadPattern(new ArrayList<>(), new ArrayList<>());
+        loadPattern(new ArrayList<>());
     }
 
     @Override
@@ -103,27 +102,7 @@ public class NamActivity extends BaseActivity {
             customFilterDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
             customFilterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-            ChipGroup chipContainer1 = customFilterView.findViewById(R.id.chipContainer1);
             ChipGroup chipContainer2 = customFilterView.findViewById(R.id.chipContainer2);
-
-            chipContainer1.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
-                @Override
-                public void onCheckedChanged(@NonNull ChipGroup chipGroup, @NonNull List<Integer> list) {
-                    checkedLanguageIds.clear();
-                    selectedLanguageChips.clear();
-                    for (Integer index : list) {
-                        Chip chip = chipGroup.findViewById(index);
-                        for (int i = 0; i < chipContainer1.getChildCount(); i++) {
-                            Chip chipInContainer = (Chip) chipContainer1.getChildAt(i);
-                            if (chipInContainer.getText() == chip.getText()) {
-                                checkedLanguageIds.add(chipInContainer.getId());
-                                break;
-                            }
-                        }
-                        selectedLanguageChips.add(chip.getText().toString());
-                    }
-                }
-            });
 
             chipContainer2.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
                 @Override
@@ -147,14 +126,6 @@ public class NamActivity extends BaseActivity {
             customFilterDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
-                    List<Integer> checkedLanguageIdsCopy = new ArrayList<>(checkedLanguageIds);
-                    for (int chipId : checkedLanguageIdsCopy) {
-                        Chip chip = chipContainer1.findViewById(chipId);
-                        if (chip != null) {
-                            chip.setChecked(true);
-                        }
-                    }
-
                     List<Integer> checkedTypeIdsCopy = new ArrayList<>(checkedTypeIds);
                     for (int chipId : checkedTypeIdsCopy) {
                         Chip chip = chipContainer2.findViewById(chipId);
@@ -171,46 +142,6 @@ public class NamActivity extends BaseActivity {
                     group1.removeAllViews();
 
                     LayoutInflater inflater = LayoutInflater.from(NamActivity.this);
-                    if (!selectedLanguageChips.isEmpty()) {
-                        textLan.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        textLan.setVisibility(View.GONE);
-                    }
-                    for (String text : selectedLanguageChips) {
-                        Chip chip = (Chip) inflater.inflate(R.layout.item_chip, group1, false);
-                        chip.setText(text);
-                        chip.setCloseIconVisible(true);
-                        chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String chipText = chip.getText().toString();
-                                if (selectedLanguageChips.contains(chipText)) {
-                                    selectedLanguageChips.remove(chipText);
-                                    if (!selectedLanguageChips.isEmpty()) {
-                                        textLan.setVisibility(View.VISIBLE);
-                                    }
-                                    else {
-                                        textLan.setVisibility(View.GONE);
-                                    }
-                                    List<String> languageList = new ArrayList<>(selectedLanguageChips);
-                                    List<String> typeList = new ArrayList<>(selectedTypeChips);
-                                    loadPattern(languageList, typeList);
-                                    group1.removeView(chip);
-                                    for (int i = 0; i < chipContainer1.getChildCount(); i++) {
-                                        Chip chipInContainer = (Chip) chipContainer1.getChildAt(i);
-                                        if (chipInContainer.getText() == chip.getText()) {
-                                            if (checkedLanguageIds.contains(chipInContainer.getId())) {
-                                                checkedLanguageIds.remove(Integer.valueOf(chipInContainer.getId()));
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                        group1.addView(chip);
-                    }
 
                     if (!selectedTypeChips.isEmpty()) {
                         textType.setVisibility(View.VISIBLE);
@@ -235,9 +166,8 @@ public class NamActivity extends BaseActivity {
                                     else {
                                         textType.setVisibility(View.GONE);
                                     }
-                                    List<String> languageList = new ArrayList<>(selectedLanguageChips);
                                     List<String> typeList = new ArrayList<>(selectedTypeChips);
-                                    loadPattern(languageList, typeList);
+                                    loadPattern(typeList);
                                     group2.removeView(chip);
                                     for (int i = 0; i < chipContainer2.getChildCount(); i++) {
                                         Chip chipInContainer = (Chip) chipContainer2.getChildAt(i);
@@ -253,9 +183,8 @@ public class NamActivity extends BaseActivity {
                         });
                         group2.addView(chip);
                     }
-                    List<String> languageList = new ArrayList<>(selectedLanguageChips);
                     List<String> typeList = new ArrayList<>(selectedTypeChips);
-                    loadPattern(languageList, typeList);
+                    loadPattern(typeList);
                 }
             });
 
@@ -263,33 +192,32 @@ public class NamActivity extends BaseActivity {
         }
         return true;
     }
-    void loadPattern(List<String> languages, List<String> types) {
+    void loadPattern(List<String> types) {
         ArrayList<Pattern> result = new ArrayList<>();
-        for (String language : languages) {
-            for (String type : types) {
-                ArrayList<Pattern> patterns = patternService.GetAllByLanguageAndCatalog(language, type);
-                result.addAll(patterns);
-            }
-        }
-        if (types.isEmpty()) {
-            for (String language : languages) {
-                ArrayList<Pattern> patterns = patternService.GetAllByLanguage(language);
-                result.addAll(patterns);
-            }
-        }
-        if (languages.isEmpty()) {
-            for (String type : types) {
-                ArrayList<Pattern> patterns = patternService.GetAllByCatalog(type);
-                result.addAll(patterns);
-            }
+        for (String type : types) {
+            ArrayList<Pattern> patterns = patternService.GetAllByCatalog(type);
+            result.addAll(patterns);
         }
         if (result.isEmpty()) {
             result = patternService.GetAll(Pattern.class);
         }
+        Map<String, Integer> catalogOrder = new HashMap<>();
+        catalogOrder.put("Creational Patterns", 1);
+        catalogOrder.put("Structural Patterns", 2);
+        catalogOrder.put("Behavioral Patterns", 3);
+
+        // Sắp xếp danh sách theo catalog và sau đó theo name
         Collections.sort(result, new Comparator<Pattern>() {
             @Override
             public int compare(Pattern pattern1, Pattern pattern2) {
-                return pattern1.getName().compareTo(pattern2.getName());
+                // So sánh catalog dựa trên thứ tự ưu tiên
+                int catalogCompare = catalogOrder.get(pattern1.getCatalog()).compareTo(catalogOrder.get(pattern2.getCatalog()));
+                if (catalogCompare != 0) {
+                    return catalogCompare;
+                } else {
+                    // Nếu catalog giống nhau, so sánh name
+                    return pattern1.getName().compareTo(pattern2.getName());
+                }
             }
         });
         adapter = new ListItemAdapter(this, result, new IClickItemListener() {
@@ -308,5 +236,4 @@ public class NamActivity extends BaseActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
 }

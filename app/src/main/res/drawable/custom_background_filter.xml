@@ -8,7 +8,7 @@
         </shape>
     </item>
     <!-- Background -->
-    <item android:bottom="4dp">
+    <item android:bottom="2dp">
         <shape android:shape="rectangle">
             <solid android:color="#90F6ED" /> <!-- Màu nền -->
             <corners android:radius="16dp" /> <!-- Bo tròn góc -->
