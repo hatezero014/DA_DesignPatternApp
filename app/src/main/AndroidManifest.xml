@@ -45,9 +45,6 @@
             android:name=".ContactActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingActivity"
-            android:exported="true" />
-        <activity
             android:name=".ChangeLanguage"
             android:exported="true" />
         <activity

@@ -1,13 +1,8 @@
 package com.example.designpattern;
 
 import android.content.res.Configuration;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.MediaController;
-import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,47 +12,31 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.designpattern.Models.Pattern;
+import com.example.designpattern.Services.PatternService;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class PatternsVideoActivity extends BaseActivity {
     private ActionBar actionBar;
     private YouTubePlayerView youTubePlayerView;
+    private String videoId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patterns_video);
 
         actionBar = getSupportActionBar();
-
-        youTubePlayerView = findViewById(R.id.ytbview);
-        getLifecycle().addObserver(youTubePlayerView);
-
-//        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
-//                .controls(1)
-//                // enable full screen button
-//                .fullscreen(1)
-//                .build();
-        youTubePlayerView.setEnableAutomaticInitialization(false);
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = "6CVymSJQuJE";
-                youTubePlayer.cueVideo(videoId, 0);
-            }
-        });
-
-        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(getString(R.string.video));
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        youTubePlayerView = findViewById(R.id.ytbview);
+        getLifecycle().addObserver(youTubePlayerView);
 
         Bundle bundle = this.getIntent().getExtras();
         if(bundle == null){
@@ -65,15 +44,25 @@ public class PatternsVideoActivity extends BaseActivity {
         }
 
         String PatternName = (String) bundle.get("PatternName");
-    }
 
+        PatternService patternService = new PatternService(this);
+        Pattern pattern = patternService.getPatternRow(PatternName);
+        videoId = pattern.getVideo();
+
+        youTubePlayerView.setEnableAutomaticInitialization(false);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.cueVideo(videoId, 0);
+            }
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
         }
-
         return true;
     }
 
