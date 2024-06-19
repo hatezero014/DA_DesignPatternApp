@@ -21,6 +21,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.FakeWebViewYouTubeListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import kotlin.Unit;
@@ -39,11 +40,11 @@ public class PatternsVideoActivity extends BaseActivity {
         youTubePlayerView = findViewById(R.id.ytbview);
         getLifecycle().addObserver(youTubePlayerView);
 
-//        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
-//                .controls(1)
-//                // enable full screen button
-//                .fullscreen(1)
-//                .build();
+        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+                .controls(1)
+                // enable full screen button
+                .fullscreen(1)
+                .build();
         youTubePlayerView.setEnableAutomaticInitialization(false);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -73,7 +74,6 @@ public class PatternsVideoActivity extends BaseActivity {
         if (id == android.R.id.home) {
             finish();
         }
-
         return true;
     }
 
