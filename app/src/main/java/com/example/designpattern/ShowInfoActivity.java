@@ -1,5 +1,7 @@
 package com.example.designpattern;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Models.PatternInformation;
@@ -20,7 +21,9 @@ import java.lang.reflect.Field;
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
 import io.github.kbiakov.codeview.highlight.ColorTheme;
+import io.github.kbiakov.codeview.highlight.ColorThemeData;
 import io.github.kbiakov.codeview.highlight.Font;
+import io.github.kbiakov.codeview.highlight.SyntaxColors;
 
 public class ShowInfoActivity extends BaseActivity {
     private TextView tv_section1, tv_section2;
@@ -36,6 +39,7 @@ public class ShowInfoActivity extends BaseActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
+            actionBar.setTitle(null);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -138,13 +142,80 @@ public class ShowInfoActivity extends BaseActivity {
 
             }
 
+            ColorThemeData colorTheme = getColorTheme();
+
             code_view_pseudocode.setOptions(Options.Default.get(this)
                     .withLanguage("java")
                     .withCode(code)
-                    .withTheme(ColorTheme.MONOKAI)
+                    .withTheme(colorTheme)
                     .withFont(Font.Consolas));
         }
     }
+
+    private ColorThemeData getColorTheme() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        int displayMode = sharedPreferences.getInt("displayMode",2);
+
+        ColorThemeData customTheme = null;
+        if(displayMode == 0){
+            SyntaxColors syntaxColors = new SyntaxColors(0x3366CC,
+                    0xFF3366,
+                    0xFF9933,
+                    0x33CC66,
+                    0xFF3300,
+                    0x000000,
+                    0xFF9900,
+                    0xFF3333,
+                    0x660099,
+                    0x33CC33,
+                    0x007700
+            );
+            customTheme = new ColorThemeData(syntaxColors,
+                    0x93A1A1,
+                    0xfffff,
+                    0xfffff,
+                    0x657B83);
+        } else if (displayMode == 1) {
+            SyntaxColors syntaxColors = new SyntaxColors(0xA7E22E,
+                    0xFA2772,
+                    0x66D9EE,
+                    0x76715E,
+                    0xE6DB74,
+                    0xC1C1C1,
+                    0xF8F8F0,
+                    0xF92672,
+                    0xFA2772,
+                    0xA6E22E,
+                    0xE6DB74);
+            customTheme = new ColorThemeData(syntaxColors,
+                    0x48483E,
+                    0x000000,
+                    0x000000,
+                    0xCFD0C2);
+
+
+        }else {
+            SyntaxColors syntaxColors = new SyntaxColors(0x3366CC,
+                    0xFF3366,
+                    0xFF9933,
+                    0x33CC66,
+                    0xFF3300,
+                    0x000000,
+                    0xFF9900,
+                    0xFF3333,
+                    0x660099,
+                    0x33CC33,
+                    0x007700
+            );
+            customTheme = new ColorThemeData(syntaxColors,
+                    0x93A1A1,
+                    0xfffff,
+                    0xfffff,
+                    0x657B83);
+        }
+        return customTheme;
+    }
+
 
     private void initUI(){
         tv_section1 = findViewById(R.id.tv_section1);

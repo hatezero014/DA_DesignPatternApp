@@ -47,17 +47,19 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
 
         btn_watch_video = findViewById(R.id.btn_watch_video);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
         Bundle bundle = this.getIntent().getExtras();
         if(bundle == null){
             return;
         }
 
         String PatternName = (String) bundle.get("PatternName");
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(PatternName);
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         tv_design_pattern_type.setText(PatternName);
         cv_rating.setOnClickListener(new View.OnClickListener() {
             @Override
