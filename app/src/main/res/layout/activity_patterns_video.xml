@@ -8,8 +8,10 @@
     android:orientation="vertical"
     tools:context=".PatternsVideoActivity">
 
-    <VideoView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/ytbview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        app:autoPlay="false" />
 
 </LinearLayout>
