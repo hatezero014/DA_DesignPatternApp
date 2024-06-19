@@ -5,6 +5,15 @@ public class Pattern {
     String Name;
     String Catalog;
     String Image;
+    String Video;
+
+    public String getVideo() {
+        return Video;
+    }
+
+    public void setVideo(String video) {
+        Video = video;
+    }
 
     public String getImage() {
         return Image;
@@ -51,11 +60,12 @@ public class Pattern {
     public Pattern() {
     }
 
-    public Pattern(String name, String catalog, String language, String image) {
+    public Pattern(String name, String catalog, String language, String image, String video) {
         Name = name;
         Catalog = catalog;
         Language = language;
         Image = image;
+        Video = video;
     }
 
     public Pattern(String name) {

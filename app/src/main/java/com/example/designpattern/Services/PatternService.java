@@ -111,7 +111,7 @@ public class PatternService extends BaseService{
         return list;
     }
 
-    public Pattern getImageByPatternName(String patternName){
+    public Pattern getPatternRow(String patternName){
         Pattern pattern = null;
         db = getReadableDatabase();
 

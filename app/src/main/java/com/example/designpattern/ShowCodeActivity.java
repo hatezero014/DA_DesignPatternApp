@@ -123,7 +123,7 @@ public class ShowCodeActivity extends BaseActivity {
 
     private void setImagePattern(String patternName) {
         PatternService patternService = new PatternService(this);
-        Pattern pattern = patternService.getImageByPatternName(patternName);
+        Pattern pattern = patternService.getPatternRow(patternName);
 
         String image = pattern.getImage();
         int imageResourceId = getResources().getIdentifier(image,"drawable",getPackageName());
