@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">DesignPattern</string>
     <string name="item_catalog">Danh mục: </string>
-    <string name="item_language">Ngôn ngữ: </string>
     <string name="filter_by_catalog">Theo danh mục</string>
     <string name="filter_by_language">Theo ngôn ngữ</string>
     <string name="catalog">Danh mục</string>
@@ -95,4 +94,6 @@
     <string name="menu_learning">Học tập</string>
     <string name="menu_assignment">Bài tập</string>
     <string name="menu_setting">Cài đặt</string>
+
+    <string name="question">Câu hỏi</string>
 </resources>

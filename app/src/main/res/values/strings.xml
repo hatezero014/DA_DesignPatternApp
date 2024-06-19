@@ -94,4 +94,6 @@
     <string name="menu_learning">Learning</string>
     <string name="menu_assignment">Assignment</string>
     <string name="menu_setting">Setting</string>
+
+    <string name="question">Question</string>
 </resources>
