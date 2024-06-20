@@ -8,6 +8,7 @@ import com.example.designpattern.Models.PatternCode;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatternService extends BaseService{
     public PatternService(Context context) {
@@ -126,5 +127,19 @@ public class PatternService extends BaseService{
             }
         }
         return pattern;
+    }
+
+    public <T> List<T> GetPatternisDone(Class<T> clazz) {
+        db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from Pattern where Pattern.isDone = 1", null);
+        List<T> objects = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                T object = CreateModelObjectFromCursor(clazz, cursor);
+                objects.add(object);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return objects;
     }
 }
