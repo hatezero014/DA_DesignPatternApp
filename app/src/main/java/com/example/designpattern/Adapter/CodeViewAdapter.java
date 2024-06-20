@@ -1,6 +1,7 @@
 package com.example.designpattern.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,22 +80,66 @@ public class CodeViewAdapter extends RecyclerView.Adapter<CodeViewAdapter.CodeVi
 //            0xEEE8D5: Màu nền cho số dòng. Màu này là một màu be nhạt.
 //            0x657B83: Màu sử dụng cho các ghi chú hoặc thông tin phụ. Màu này là một màu xám xanh.
 
-            SyntaxColors syntaxColors = new SyntaxColors(0xA7E22E,
-                    0xFA2772,
-                    0x66D9EE,
-                    0x76715E,
-                    0xE6DB74,
-                    0xC1C1C1,
-                    0xF8F8F0,
-                    0xF92672,
-                    0xFA2772,
-                    0xA6E22E,
-                    0xE6DB74);
-            ColorThemeData customTheme = new ColorThemeData(syntaxColors,
-                    ContextCompat.getColor(context, R.color.numColor),
-                    ContextCompat.getColor(context, R.color.bgContent),
-                    ContextCompat.getColor(context, R.color.bgNum),
-                    ContextCompat.getColor(context, R.color.noteColor));
+            SharedPreferences sharedPreferences = context.getSharedPreferences("MODE",Context.MODE_PRIVATE);
+            int displayMode = sharedPreferences.getInt("displayMode",2);
+
+            ColorThemeData customTheme = null;
+            if(displayMode == 0){
+                SyntaxColors syntaxColors = new SyntaxColors(0x3366CC,
+                        0xFF3366,
+                        0xFF9933,
+                        0x33CC66,
+                        0xFF3300,
+                        0x000000,
+                        0xFF9900,
+                        0xFF3333,
+                        0x660099,
+                        0x33CC33,
+                        0x007700
+                );
+                customTheme = new ColorThemeData(syntaxColors,
+                        0x93A1A1,
+                        0xfffff,
+                        0xfffff,
+                        0x657B83);
+            } else if (displayMode == 1) {
+                SyntaxColors syntaxColors = new SyntaxColors(0xA7E22E,
+                        0xFA2772,
+                        0x66D9EE,
+                        0x76715E,
+                        0xE6DB74,
+                        0xC1C1C1,
+                        0xF8F8F0,
+                        0xF92672,
+                        0xFA2772,
+                        0xA6E22E,
+                        0xE6DB74);
+                customTheme = new ColorThemeData(syntaxColors,
+                        0x48483E,
+                        0x000000,
+                        0x000000,
+                        0xCFD0C2);
+
+                
+            }else {
+                SyntaxColors syntaxColors = new SyntaxColors(0x3366CC,
+                        0xFF3366,
+                        0xFF9933,
+                        0x33CC66,
+                        0xFF3300,
+                        0x000000,
+                        0xFF9900,
+                        0xFF3333,
+                        0x660099,
+                        0x33CC33,
+                        0x007700
+                );
+                customTheme = new ColorThemeData(syntaxColors,
+                        0x93A1A1,
+                        0xfffff,
+                        0xfffff,
+                        0x657B83);
+            }
 
             codeView.setOptions(Options.Default.get(context)
                     .withLanguage(language)
