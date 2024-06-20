@@ -10,6 +10,16 @@ public class PatternQuestion {
     String Answer4;
     int AnsCorrect;
 
+    public int getIsCorrect() {
+        return isCorrect;
+    }
+
+    public void setIsCorrect(int isCorrect) {
+        this.isCorrect = isCorrect;
+    }
+
+    int isCorrect;
+
     public int getId() {
         return Id;
     }
@@ -74,8 +84,8 @@ public class PatternQuestion {
         AnsCorrect = ansCorrect;
     }
 
-    public PatternQuestion(int id, int patternId, String question, String answer1, String answer2, String answer3, String answer4, int ansCorrect) {
-        Id = id;
+    public PatternQuestion( int patternId, String question, String answer1, String answer2, String answer3, String answer4, int ansCorrect, int isCorrect) {
+//        Id = id;
         PatternId = patternId;
         Question = question;
         Answer1 = answer1;
@@ -83,6 +93,7 @@ public class PatternQuestion {
         Answer3 = answer3;
         Answer4 = answer4;
         AnsCorrect = ansCorrect;
+        this.isCorrect = isCorrect;
     }
 
     public PatternQuestion() {

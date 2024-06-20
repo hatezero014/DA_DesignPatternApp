@@ -1,6 +1,7 @@
 package com.example.designpattern;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -14,10 +15,12 @@ import androidx.appcompat.app.ActionBar;
 
 
 import com.example.designpattern.Models.Answer;
+import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Models.PatternQuestion;
 import com.example.designpattern.Models.Question;
 import com.example.designpattern.Services.PatternQuestionService;
 import com.example.designpattern.R;
+import com.example.designpattern.Services.PatternService;
 
 public class QuestionsActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvPatternName;
@@ -28,6 +31,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     private List<Question> mListQuestion;
     private Question mQuestion;
     private int curQuestion = 0;
+    PatternQuestionService patternQuestionService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,6 +179,13 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void run() {
                 if(answer.isCorrect()){
+                    String test = question.getContent();
+                    patternQuestionService = new PatternQuestionService(QuestionsActivity.this);
+                    List<PatternQuestion> list = patternQuestionService.GetTableQuestionByQuestion(test);
+                    for(PatternQuestion patternQuestion : list){
+                        patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 1),patternQuestion.getId());
+                    }
+
                     textView.setBackgroundResource(R.drawable.bg_green_corner_30);
                     nextQuestion();
                 }else {
@@ -204,7 +215,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
     private void nextQuestion() {
         if(curQuestion == mListQuestion.size() - 1){
-            return;
+            onCLickGoToActivityResult(PatternName);
         }else{
             curQuestion++;
             new Handler().postDelayed(new Runnable() {
@@ -214,5 +225,13 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
                 }
             }, 1000);
         }
+    }
+
+    private void onCLickGoToActivityResult(String patternName){
+        Intent intent = new Intent(this, ActivityResultPattern.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

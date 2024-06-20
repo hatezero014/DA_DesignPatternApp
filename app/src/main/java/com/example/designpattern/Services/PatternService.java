@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Models.PatternCode;
+import com.example.designpattern.Models.PatternQuestion;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -141,5 +142,21 @@ public class PatternService extends BaseService{
             cursor.close();
         }
         return objects;
+    }
+
+    public List<Pattern> GetPatternIdByName(String patternName) {
+        List<Pattern> patternQuestion = new ArrayList<>();
+        db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from Pattern where Pattern.Name = ?", new String[]{patternName});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Pattern object = CreateModelObjectFromCursor(Pattern.class, cursor);
+                if (object != null) {
+                    patternQuestion.add(object);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return patternQuestion;
     }
 }
