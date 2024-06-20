@@ -11,19 +11,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.designpattern.Adapter.DesignPatternAdapter;
+import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.R;
+import com.example.designpattern.Services.PatternService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProgressFragment extends Fragment {
     private ProgressCircleView progressCircleView;;
+    RecyclerView recyclerView;
+    DesignPatternAdapter designPatternAdapter;
+    PatternService patternService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +45,9 @@ public class ProgressFragment extends Fragment {
         final TextView textView2 = view.findViewById(R.id.title_id);
         progressCircleView = view.findViewById(R.id.progress_circle);
 
-        String progressText = textView1.getText().toString().replace("%", "");
-        int progress = Integer.parseInt(progressText);
+        //String progressText = textView1.getText().toString().replace("%", "");
+        int countPatternisDone = countPatternisDone();
+        int progress = countPatternisDone*100/getListPattern().size();
         progressCircleView.setProgress(progress);
         progressCircleView.setStrokeWidth(100);
         progressCircleView.setRadiusOffset(50);
@@ -61,9 +74,31 @@ public class ProgressFragment extends Fragment {
         });
         animator.start();
 
+        recyclerView = view.findViewById(R.id.rcv_dsp);
+        designPatternAdapter = new DesignPatternAdapter(getContext());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        designPatternAdapter.setData(getListPattern());
+        recyclerView.setAdapter(designPatternAdapter);
+
         return view ;
 
     }
+
+    private List<Pattern> getListPattern() {
+        patternService = new PatternService(getContext());
+        List<Pattern> list = patternService.GetAll(Pattern.class);
+        return list;
+    }
+
+    private int countPatternisDone(){
+        patternService = new PatternService(getContext());
+        List<Pattern> list = patternService.GetPatternisDone(Pattern.class);
+        return list.size();
+    }
+
     private void applyGradientToTextView(final TextView textView) {
         TextPaint paint = textView.getPaint();
         float width = paint.measureText(textView.getText().toString());

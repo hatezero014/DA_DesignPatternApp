@@ -175,4 +175,5 @@
 
     <color name="startColor">#EC9008</color>
     <color name="endColor">#07DC2A</color>
+    <color name="darker_gray">#EFEFEF</color>
 </resources>

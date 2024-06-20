@@ -6,6 +6,16 @@ public class Pattern {
     String Catalog;
     String Image;
 
+    public int getIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(int isDone) {
+        this.isDone = isDone;
+    }
+
+    int isDone;
+
     public String getImage() {
         return Image;
     }
@@ -51,11 +61,12 @@ public class Pattern {
     public Pattern() {
     }
 
-    public Pattern(String name, String catalog, String language, String image) {
+    public Pattern(String name, String catalog, String language, String image, int isDone) {
         Name = name;
         Catalog = catalog;
         Language = language;
         Image = image;
+        this.isDone = isDone;
     }
 
     public Pattern(String name) {

@@ -10,6 +10,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.example.designpattern.R;
+
 public class ProgressCircleView extends View {
     private Paint progressPaint;
     private Paint backgroundPaint;
@@ -44,7 +46,7 @@ public class ProgressCircleView extends View {
         backgroundPaint.setAntiAlias(true);
         backgroundPaint.setStyle(Paint.Style.STROKE);
         backgroundPaint.setStrokeWidth(strokeWidth);
-        backgroundPaint.setColor(ContextCompat.getColor(getContext(), android.R.color.darker_gray));
+        backgroundPaint.setColor(ContextCompat.getColor(getContext(), R.color.darker_gray));
 
         startColor = ContextCompat.getColor(getContext(), android.R.color.holo_blue_dark);
         endColor = ContextCompat.getColor(getContext(), android.R.color.holo_green_dark);
