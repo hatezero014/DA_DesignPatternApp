@@ -76,9 +76,11 @@
     <string name="send">Gửi</string>
     <string name="star_rating">Đánh giá sao: </string>
     <string name="thanks_for_submitting">Cảm ơn bạn đã gửi đánh giá</string>
+    <string name="done">Xong</string>
     <string name="code">Mã nguồn</string>
     <string name="assignment">Bài tập củng cố</string>
     <string name="video">Video hướng dẫn</string>
+    <string name="next_question">Câu hỏi tiếp theo</string>
 
     <string name="intent">Ý định</string>
     <string name="problem">Vấn đề</string>

@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.cardview.widget.CardView;
 
 
 import com.example.designpattern.Models.Answer;
@@ -21,12 +25,16 @@ import com.example.designpattern.Models.Question;
 import com.example.designpattern.Services.PatternQuestionService;
 import com.example.designpattern.R;
 import com.example.designpattern.Services.PatternService;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class QuestionsActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvPatternName;
     private TextView tvQuestion;
     private TextView tvContentQuestion;
     private TextView tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4;
+    private CardView cv_check_answer;
+    private ProgressBar progressBar;
+    private TextView tv_check_answer;
     private String PatternName;
     private List<Question> mListQuestion;
     private Question mQuestion;
@@ -58,6 +66,28 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
             return;
         }
         setDataQuestion(mListQuestion.get(curQuestion));
+
+        updateProgress();
+        cv_check_answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextQuestion();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateProgress();
+    }
+
+    private void updateProgress(){
+        float progress = ((float) (curQuestion ) / mListQuestion.size()) * 100;
+
+        progressBar.setProgress((int) progress, true);
     }
 
     private void setDataQuestion(Question question) {
@@ -96,6 +126,10 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initUI(){
+        cv_check_answer = findViewById(R.id.cv_check_answer);
+        progressBar = findViewById(R.id.progress_bar);
+        tv_check_answer = findViewById(R.id.tv_check_answer);
+        tv_check_answer.setText(R.string.next_question);
         tvPatternName = findViewById(R.id.tv_pattern_name);
         tvQuestion = findViewById(R.id.tv_question);
         tvContentQuestion = findViewById(R.id.tv_content_question);
@@ -187,11 +221,9 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
                     }
 
                     textView.setBackgroundResource(R.drawable.bg_green_corner_30);
-                    nextQuestion();
                 }else {
                     textView.setBackgroundResource(R.drawable.bg_red_corner_30);
                     showCorrectAnswer(question);
-                    nextQuestion();
                 }
             }
         }, 1000);
@@ -215,15 +247,18 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
     private void nextQuestion() {
         if(curQuestion == mListQuestion.size() - 1){
+            tv_check_answer.setText(R.string.done);
             onCLickGoToActivityResult(PatternName);
-        }else{
+        } else if (curQuestion == mListQuestion.size() - 2) {
             curQuestion++;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setDataQuestion(mListQuestion.get(curQuestion));
-                }
-            }, 1000);
+            updateProgress();
+            tv_check_answer.setText(R.string.done);
+            setDataQuestion(mListQuestion.get(curQuestion));
+        } else{
+            curQuestion++;
+            updateProgress();
+            tv_check_answer.setText(R.string.next_question);
+            setDataQuestion(mListQuestion.get(curQuestion));
         }
     }
 
