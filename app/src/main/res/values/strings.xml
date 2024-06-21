@@ -76,9 +76,11 @@
     <string name="star_rating">Star rating: </string>
 
     <string name="thanks_for_submitting">Thanks for submitting a review</string>
+    <string name="done">Done</string>
     <string name="code">Code</string>
     <string name="assignment">Assignment</string>
     <string name="video">Tutorial video</string>
+    <string name="next_question">Next question</string>
 
     <string name="intent">Intent</string>
     <string name="problem">Problem</string>

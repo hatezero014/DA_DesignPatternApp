@@ -35,6 +35,6 @@
         android:textSize="20sp"
         android:id="@+id/btn_undo"
         android:layout_marginBottom="20dp"
-        android:text="Undo"/>
+        android:text="@string/done"/>
     
 </LinearLayout>
