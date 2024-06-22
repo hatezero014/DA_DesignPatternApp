@@ -162,14 +162,14 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             btnStar = itemView.findViewById(R.id.ibtnStar);
             btnShare = itemView.findViewById(R.id.ibtnShare);
             gridLayout = itemView.findViewById(R.id.gridLayout);
-            TextPaint paint = button.getPaint();
-            float width = paint.measureText(button.getText().toString());
-            Shader textShader = new LinearGradient(0, 0, width, button.getTextSize(),
-                    new int[]{
-                            Color.parseColor("#A8EDEA"),
-                            Color.parseColor("#FED6E3"),
-                    }, null, Shader.TileMode.CLAMP);
-            button.getPaint().setShader(textShader);
+//            TextPaint paint = button.getPaint();
+//            float width = paint.measureText(button.getText().toString());
+//            Shader textShader = new LinearGradient(0, 0, width, button.getTextSize(),
+//                    new int[]{
+//                            Color.parseColor("#A8EDEA"),
+//                            Color.parseColor("#FED6E3"),
+//                    }, null, Shader.TileMode.CLAMP);
+//            button.getPaint().setShader(textShader);
         }
     }
 }

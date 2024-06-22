@@ -80,7 +80,7 @@
             android:textStyle="italic"
             style="@style/TextAppearance.Material3.TitleMedium"
             android:text="Creational patterns"
-            android:textColor="@android:color/holo_blue_light"/>
+            android:textColor="@color/string"/>
     </LinearLayout>
 
     <Button
@@ -92,6 +92,7 @@
         app:backgroundTint="@null"
         android:drawableRight="@drawable/allow_right"
         android:theme="@null"
+        android:textColor="@color/md_theme_onPrimaryFixedVariant"
         android:background="@drawable/button_background"
         android:text="Xem"/>
 

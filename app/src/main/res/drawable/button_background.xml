@@ -8,7 +8,7 @@
     <!-- Gradient cho viền -->
     <stroke
         android:width="2dp"
-        android:color="#CDF3FC"/> <!-- Sử dụng gradient cho viền -->
+        android:color="@color/md_theme_onPrimaryFixedVariant"/> <!-- Sử dụng gradient cho viền -->
 
     <!-- Bo góc cho hình chữ nhật -->
     <corners android:radius="8dp" />

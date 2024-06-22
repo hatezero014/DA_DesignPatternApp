@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,7 +50,87 @@ public class LearningFragment extends Fragment {
     TextView textLan, textType;
     PatternService patternService;
     RecyclerView recyclerView;
+    AlertDialog customFilterDialog;
     ListItemAdapter adapter;
+    ChipGroup chipContainer2;
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Lưu trữ trạng thái
+        outState.putStringArrayList("selectedTypeChips", new ArrayList<>(selectedTypeChips));
+        outState.putIntegerArrayList("checkedTypeIds", new ArrayList<>(checkedTypeIds));
+
+        List<Integer> checkedIds = new ArrayList<>();
+        for (int i = 0; i < chipContainer2.getChildCount(); i++) {
+            Chip chip = (Chip) chipContainer2.getChildAt(i);
+            if (chip.isChecked()) {
+                checkedIds.add(chip.getId());
+            }
+        }
+        outState.putIntegerArrayList("chipContainer2", new ArrayList<>(checkedIds));
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            // Khôi phục trạng thái
+            selectedTypeChips.clear();
+            selectedTypeChips.addAll(savedInstanceState.getStringArrayList("selectedTypeChips"));
+            checkedTypeIds.clear();
+            checkedTypeIds.addAll(savedInstanceState.getIntegerArrayList("checkedTypeIds"));
+
+            LayoutInflater inflater2 = LayoutInflater.from(getContext());
+
+            if (!selectedTypeChips.isEmpty()) {
+                textType.setVisibility(View.VISIBLE);
+            }
+            else {
+                textType.setVisibility(View.GONE);
+            }
+            group2.removeAllViews();
+            for (String text : selectedTypeChips) {
+                Chip chip = (Chip) inflater2.inflate(R.layout.item_chip, group2, false);
+                chip.setText(text);
+                chip.setCloseIconVisible(true);
+                chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String chipText = chip.getText().toString();
+                        if (selectedTypeChips.contains(chipText)) {
+                            selectedTypeChips.remove(chipText);
+                            if (!selectedTypeChips.isEmpty()) {
+                                textType.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                textType.setVisibility(View.GONE);
+                            }
+                            List<String> typeList = new ArrayList<>(selectedTypeChips);
+                            loadPattern(typeList);
+                            group2.removeView(chip);
+                            List<Integer> savedCheckedIds = savedInstanceState.getIntegerArrayList("chipContainer2");
+                            if (savedCheckedIds != null) {
+                                for (int chipId : savedCheckedIds) {
+                                    Chip chipInContainer = chipContainer2.findViewById(chipId);
+                                    if (chipInContainer.getText().toString().equals(chip.getText().toString())) {
+                                        if (checkedTypeIds.contains(chipInContainer.getId())) {
+                                            checkedTypeIds.remove(Integer.valueOf(chipInContainer.getId()));
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                group2.addView(chip);
+            }
+            List<String> typeList = new ArrayList<>(selectedTypeChips);
+            loadPattern(typeList);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,12 +140,125 @@ public class LearningFragment extends Fragment {
         textLan = view.findViewById(R.id.textLanguage);
         textType = view.findViewById(R.id.textType);
 
+        process();
+
         setHasOptionsMenu(true);
         recyclerView = view.findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         patternService = new PatternService(getContext());
+
         loadPattern(new ArrayList<>());
         return view;
+    }
+
+    void process() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        View customFilterView = getLayoutInflater().inflate(R.layout.custom_filter, null);
+
+        builder.setView(customFilterView);
+
+        customFilterDialog = builder.create();
+
+        customFilterDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        customFilterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        chipContainer2 = customFilterView.findViewById(R.id.chipContainer2);
+
+        chipContainer2.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+            @Override
+            public void onCheckedChanged(@NonNull ChipGroup chipGroup, @NonNull List<Integer> list) {
+                for (int i = 0; i < chipContainer2.getChildCount(); i++) {
+                    Chip chipInContainer = (Chip) chipContainer2.getChildAt(i);
+                    boolean check = false;
+                    for (Integer index : list) {
+                        Chip chip = chipGroup.findViewById(index);
+                        if (chipInContainer.getText() == chip.getText()) {
+                            if (!checkedTypeIds.contains(chipInContainer.getId())) {
+                                checkedTypeIds.add(chipInContainer.getId());
+                                selectedTypeChips.add(chip.getText().toString());
+                            }
+                            check = true;
+                        }
+                    }
+                    if (!check) {
+                        if (checkedTypeIds.contains(chipInContainer.getId())) {
+                            checkedTypeIds.remove(Integer.valueOf(chipInContainer.getId()));
+                            selectedTypeChips.remove(chipInContainer.getText().toString());
+                        }
+                    }
+                }
+            }
+        });
+
+        customFilterDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                List<Integer> checkedIds = new ArrayList<>(checkedTypeIds);
+                List<String> c = new ArrayList<>(selectedTypeChips);
+                for (int i = 0; i < chipContainer2.getChildCount(); i++) {
+                    Chip chipInContainer = (Chip) chipContainer2.getChildAt(i);
+                    if (chipInContainer != null) {
+                        if (checkedIds.contains(chipInContainer.getId())) {
+                            chipInContainer.setChecked(true); // Set checked nếu có
+                        } else {
+                            chipInContainer.setChecked(false); // Set false nếu không có
+                        }
+                    }
+                }
+            }
+        });
+
+        customFilterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+
+                if (!selectedTypeChips.isEmpty()) {
+                    textType.setVisibility(View.VISIBLE);
+                }
+                else {
+                    textType.setVisibility(View.GONE);
+                }
+                group2.removeAllViews();
+                for (String text : selectedTypeChips) {
+                    Chip chip = (Chip) inflater.inflate(R.layout.item_chip, group2, false);
+                    chip.setText(text);
+                    chip.setCloseIconVisible(true);
+                    chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String chipText = chip.getText().toString();
+                            if (selectedTypeChips.contains(chipText)) {
+                                selectedTypeChips.remove(chipText);
+                                if (!selectedTypeChips.isEmpty()) {
+                                    textType.setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    textType.setVisibility(View.GONE);
+                                }
+                                List<String> typeList = new ArrayList<>(selectedTypeChips);
+                                loadPattern(typeList);
+                                group2.removeView(chip);
+                                for (int i = 0; i < chipContainer2.getChildCount(); i++) {
+                                    Chip chipInContainer = (Chip) chipContainer2.getChildAt(i);
+                                    if (chipInContainer.getText().toString().equals(chip.getText().toString())) {
+                                        if (checkedTypeIds.contains(chipInContainer.getId())) {
+                                            checkedTypeIds.remove(Integer.valueOf(chipInContainer.getId()));
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    group2.addView(chip);
+                }
+                List<String> typeList = new ArrayList<>(selectedTypeChips);
+                loadPattern(typeList);
+            }
+        });
     }
 
     @Override
@@ -78,103 +272,6 @@ public class LearningFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.action_filter) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-            View customFilterView = getLayoutInflater().inflate(R.layout.custom_filter, null);
-
-            builder.setView(customFilterView);
-
-            AlertDialog customFilterDialog = builder.create();
-
-            customFilterDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-            customFilterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            ChipGroup chipContainer2 = customFilterView.findViewById(R.id.chipContainer2);
-
-            chipContainer2.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
-                @Override
-                public void onCheckedChanged(@NonNull ChipGroup chipGroup, @NonNull List<Integer> list) {
-                    checkedTypeIds.clear();
-                    selectedTypeChips.clear();
-                    for (Integer index : list) {
-                        Chip chip = chipGroup.findViewById(index);
-                        for (int i = 0; i < chipContainer2.getChildCount(); i++) {
-                            Chip chipInContainer = (Chip) chipContainer2.getChildAt(i);
-                            if (chipInContainer.getText() == chip.getText()) {
-                                checkedTypeIds.add(chipInContainer.getId());
-                                break;
-                            }
-                        }
-                        selectedTypeChips.add(chip.getText().toString());
-                    }
-                }
-            });
-
-            customFilterDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    List<Integer> checkedTypeIdsCopy = new ArrayList<>(checkedTypeIds);
-                    for (int chipId : checkedTypeIdsCopy) {
-                        Chip chip = chipContainer2.findViewById(chipId);
-                        if (chip != null) {
-                            chip.setChecked(true);
-                        }
-                    }
-                }
-            });
-
-            customFilterDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialogInterface) {
-                    group1.removeAllViews();
-
-                    LayoutInflater inflater = LayoutInflater.from(getContext());
-
-                    if (!selectedTypeChips.isEmpty()) {
-                        textType.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        textType.setVisibility(View.GONE);
-                    }
-                    group2.removeAllViews();
-                    for (String text : selectedTypeChips) {
-                        Chip chip = (Chip) inflater.inflate(R.layout.item_chip, group2, false);
-                        chip.setText(text);
-                        chip.setCloseIconVisible(true);
-                        chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String chipText = chip.getText().toString();
-                                if (selectedTypeChips.contains(chipText)) {
-                                    selectedTypeChips.remove(chipText);
-                                    if (!selectedTypeChips.isEmpty()) {
-                                        textType.setVisibility(View.VISIBLE);
-                                    }
-                                    else {
-                                        textType.setVisibility(View.GONE);
-                                    }
-                                    List<String> typeList = new ArrayList<>(selectedTypeChips);
-                                    loadPattern(typeList);
-                                    group2.removeView(chip);
-                                    for (int i = 0; i < chipContainer2.getChildCount(); i++) {
-                                        Chip chipInContainer = (Chip) chipContainer2.getChildAt(i);
-                                        if (chipInContainer.getText() == chip.getText()) {
-                                            if (checkedTypeIds.contains(chipInContainer.getId())) {
-                                                checkedTypeIds.remove(Integer.valueOf(chipInContainer.getId()));
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                        group2.addView(chip);
-                    }
-                    List<String> typeList = new ArrayList<>(selectedTypeChips);
-                    loadPattern(typeList);
-                }
-            });
-
             customFilterDialog.show();
         }
         return true;

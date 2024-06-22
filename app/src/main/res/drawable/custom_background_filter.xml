@@ -10,7 +10,7 @@
     <!-- Background -->
     <item android:bottom="2dp">
         <shape android:shape="rectangle">
-            <solid android:color="#90F6ED" /> <!-- Màu nền -->
+            <solid android:color="@color/md_theme_surfaceContainerHigh" /> <!-- Màu nền -->
             <corners android:radius="16dp" /> <!-- Bo tròn góc -->
         </shape>
     </item>
