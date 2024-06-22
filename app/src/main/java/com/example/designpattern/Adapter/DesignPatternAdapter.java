@@ -57,8 +57,9 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
             holder.tvCatalog.setTextColor(Color.WHITE);
             holder.tvisDone.setTextColor(Color.WHITE);
         }
-        else {
+        else if(pattern.getIsDone() == 0) {
             holder.tvisDone.setText("Chưa hoàn thành");
+            //holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
         }
     }
 
