@@ -263,10 +263,26 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void onCLickGoToActivityResult(String patternName){
+        updatePatternIsDone(patternName);
         Intent intent = new Intent(this, ActivityResultPattern.class);
         Bundle bundle = new Bundle();
         bundle.putString("PatternName", patternName);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void updatePatternIsDone(String patternName){
+        PatternService patternService = new PatternService(this);
+        List<Pattern> patternList = patternService.GetPatternIdByName(patternName);
+//        int PatternId = 0;
+        for(Pattern pattern : patternList){
+//            PatternId = pattern.getId();
+            patternService.UpdateById(new Pattern(pattern.getName(), pattern.getCatalog(), pattern.getLanguage(), pattern.getImage(),pattern.getVideo(),1), pattern.getId());
+        }
+//        if(PatternId != 0){
+//            patternQuestionService = new PatternQuestionService(this);
+//            //patternQuestionList = patternQuestionService.GetQuestionByPatternId(PatternQuestion.class, String.valueOf(PatternId));
+//
+//        }
     }
 }
