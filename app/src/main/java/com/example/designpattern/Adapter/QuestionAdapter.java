@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.designpattern.Interface.OnAnswerClickListener;
 import com.example.designpattern.Models.Answer;
 import com.example.designpattern.Models.PatternQuestion;
 import com.example.designpattern.Models.Question;
@@ -22,9 +23,11 @@ import java.util.List;
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
     private Context context;
     PatternQuestionService patternQuestionService;
+    private OnAnswerClickListener onAnswerClickListener;
 
-    public QuestionAdapter(Context context) {
+    public QuestionAdapter(Context context, OnAnswerClickListener onAnswerClickListener) {
         this.context = context;
+        this.onAnswerClickListener = onAnswerClickListener;
     }
 
     private Question question;
@@ -95,15 +98,27 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             if(v.getId() == R.id.tv_answer_1){
                 tvAnswer1.setBackgroundResource(R.drawable.bg_orange_corner_30);
                 checkAnswer(tvAnswer1, question, question.getAnswerList().get(0));
+                if (onAnswerClickListener != null) {
+                    onAnswerClickListener.onAnswerClicked();
+                }
             } else if (v.getId() == R.id.tv_answer_2) {
                 tvAnswer2.setBackgroundResource(R.drawable.bg_orange_corner_30);
                 checkAnswer(tvAnswer2, question, question.getAnswerList().get(1));
+                if (onAnswerClickListener != null) {
+                    onAnswerClickListener.onAnswerClicked();
+                }
             } else if (v.getId() == R.id.tv_answer_3) {
                 tvAnswer3.setBackgroundResource(R.drawable.bg_orange_corner_30);
                 checkAnswer(tvAnswer3, question, question.getAnswerList().get(2));
+                if (onAnswerClickListener != null) {
+                    onAnswerClickListener.onAnswerClicked();
+                }
             } else if (v.getId() == R.id.tv_answer_4) {
                 tvAnswer4.setBackgroundResource(R.drawable.bg_orange_corner_30);
                 checkAnswer(tvAnswer4, question, question.getAnswerList().get(3));
+                if (onAnswerClickListener != null) {
+                    onAnswerClickListener.onAnswerClicked();
+                }
             }
         }
 

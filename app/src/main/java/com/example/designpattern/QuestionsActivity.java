@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.designpattern.Adapter.QuestionAdapter;
+import com.example.designpattern.Interface.OnAnswerClickListener;
 import com.example.designpattern.Models.Answer;
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Models.PatternQuestion;
@@ -64,7 +65,14 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         PatternName = (String) bundle.get("PatternName");
         tvPatternName.setText(PatternName);
 
-        questionAdapter = new QuestionAdapter(this);
+        cv_check_answer.setOnClickListener(this);
+        cv_check_answer.setEnabled(false);
+        questionAdapter = new QuestionAdapter(this, new OnAnswerClickListener() {
+            @Override
+            public void onAnswerClicked() {
+                cv_check_answer.setEnabled(true);
+            }
+        });
 
         mListQuestion = getListQuestion();
         if(mListQuestion.isEmpty()){
@@ -73,7 +81,6 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         questionAdapter.setData(mListQuestion.get(curQuestion));
         rcv_question.setAdapter(questionAdapter);
         updateProgress();
-        cv_check_answer.setOnClickListener(this);
     }
 
 
@@ -183,12 +190,14 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
             updatePatternIsDone(PatternName);
             onCLickGoToActivityResult(PatternName);
         } else if (curQuestion == mListQuestion.size() - 2) {
+            cv_check_answer.setEnabled(false);
             curQuestion++;
             updateProgress();
             tv_check_answer.setText(R.string.done);
             questionAdapter.setData(mListQuestion.get(curQuestion));
             rcv_question.setAdapter(questionAdapter);
         } else{
+            cv_check_answer.setEnabled(false);
             curQuestion++;
             updateProgress();
             tv_check_answer.setText(R.string.next_question);
