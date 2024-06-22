@@ -55,11 +55,21 @@ public class ProgressFragment extends Fragment {
         applyGradientToTextView(textView2);
 
         ValueAnimator animator = ValueAnimator.ofInt(0, progress);
-        if(progress<=50){
-            animator.setDuration(2000);
+        if(progress<=25){
+            animator.setDuration(500);
+            textView2.setText("Khởi đầu");
         }
-        else if(progress > 50 && progress <= 100){
-            animator.setDuration(3000);
+        else if(progress > 25 && progress <= 50){
+            animator.setDuration(1000);
+            textView2.setText("Nền tảng");
+        }
+        if(progress > 50 && progress <= 75){
+            animator.setDuration(1500);
+            textView2.setText("Tiềm năng");
+        }
+        else if(progress > 75 && progress <= 100){
+            animator.setDuration(2000);
+            textView2.setText("Tuyệt vời");
         }
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
