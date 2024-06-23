@@ -69,4 +69,11 @@ public class AssignmentFragment extends Fragment {
 
         return list;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        questionButtonAdapter.setData(getData());
+        rcv_question_button.setAdapter(questionButtonAdapter);
+    }
 }

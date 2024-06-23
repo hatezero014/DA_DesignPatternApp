@@ -32,17 +32,17 @@
                 android:id="@+id/tv_pattern"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Singleton"
+                android:text="Chain of Responsibility"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:layout_toEndOf="@+id/img_hinh"
                 android:textColor="@android:color/holo_red_light"
                 android:layout_toStartOf="@+id/ln_img"
                 android:textStyle="bold"/>
 
             <LinearLayout
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:orientation="vertical"
@@ -61,10 +61,11 @@
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Done"
+                    android:text="@string/not_completed"
                     android:layout_gravity="center"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
+                    android:gravity="center"
                     android:layout_marginBottom="10dp"/>
             </LinearLayout>
         </RelativeLayout>
