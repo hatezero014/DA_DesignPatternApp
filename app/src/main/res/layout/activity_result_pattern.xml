@@ -42,15 +42,36 @@
             android:layout_gravity="center_horizontal"
             />
 
+        <TextView
+            android:id="@+id/textview3"
+            android:textSize="25sp"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:text="Bạn đã trả lời đúng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textview4"
+            android:textSize="25sp"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:text="3/5 câu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
+            android:background="@drawable/bg_white_gra_no_radius"
             android:id="@+id/rcv_list_answer"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="40dp"
             />
 
         <Button
+            android:id="@+id/btn_Redolesson"
             android:layout_gravity="center_horizontal"
             android:layout_width="180dp"
             android:layout_height="50dp"
@@ -62,13 +83,15 @@
             android:text="Làm lại"/>
 
         <Button
+            android:id="@+id/btn_review"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             app:backgroundTint="@null"
             android:theme="@null"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:background="@drawable/background_green"
+            android:background="@drawable/background_white_gradient"
             android:text="Xem lại lý thuyết"/>
     </LinearLayout>
 

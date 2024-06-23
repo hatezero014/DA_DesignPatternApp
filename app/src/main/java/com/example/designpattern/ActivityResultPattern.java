@@ -9,6 +9,7 @@ import android.text.TextPaint;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -27,11 +28,11 @@ import com.example.designpattern.UI.progress.ProgressCircleView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityResultPattern extends AppCompatActivity {
+public class ActivityResultPattern extends BaseActivity {
 
     private ProgressCircleView progressCircleView;;
     RecyclerView recyclerView;
-    TextView textView1, textView2;
+    TextView textView1, textView2, textView3, textView4;
     PatternQuestionService patternQuestionService;
     ShowListResultAdapter showListResultAdapter;
     PatternService patternService;
@@ -46,8 +47,16 @@ public class ActivityResultPattern extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_result_pattern);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
         textView1 = findViewById(R.id.progress_result_pattern);
         textView2 = findViewById(R.id.title_perfect);
+        textView3 = findViewById(R.id.textview3);
+        textView4 = findViewById(R.id.textview4);
+
         progressCircleView = findViewById(R.id.progress_circle2);
 
         Bundle bundle = this.getIntent().getExtras();
@@ -64,6 +73,8 @@ public class ActivityResultPattern extends AppCompatActivity {
             }
         }
 
+        textView4.setText(countCorrectAnswer+ "/5 câu");
+
         int progress = countCorrectAnswer*100/ getListResult().size();
         progressCircleView.setProgress(progress);
         progressCircleView.setStrokeWidth(100);
@@ -72,6 +83,8 @@ public class ActivityResultPattern extends AppCompatActivity {
 
         applyGradientToTextView(textView1);
         applyGradientToTextView(textView2);
+        applyGradientToTextView(textView3);
+        applyGradientToTextView(textView4);
 
         ValueAnimator animator = ValueAnimator.ofInt(0, progress);
         if(progress<=50){
