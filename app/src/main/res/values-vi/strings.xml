@@ -98,4 +98,8 @@
     <string name="menu_setting">Cài đặt</string>
 
     <string name="question">Câu hỏi</string>
+
+    <!--Homework Status-->
+    <string name="completed">Đã hoàn thành</string>
+    <string name="not_completed">Chưa hoàn thành</string>
 </resources>

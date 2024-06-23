@@ -13,8 +13,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Interface.IClickItemListener;
+import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Models.QuestionButton;
 import com.example.designpattern.R;
+import com.example.designpattern.Services.PatternService;
 
 import java.util.List;
 
@@ -82,6 +84,16 @@ public class QuestionButtonAdapter extends RecyclerView.Adapter<QuestionButtonAd
                     iClickItemListener.onClickItem(questionButton.getPatternName());
                 }
             });
+
+            setStatus(questionButton);
         }
+
+        public void setStatus(QuestionButton questionButton){
+            PatternService patternService = new PatternService(context);
+            Pattern pattern = patternService.getPatternRow(questionButton.getPatternName());
+            if(pattern.getIsDone() == 1){
+                tv_status.setText(R.string.completed);
+            }
+            else tv_status.setText(R.string.not_completed);        }
     }
 }

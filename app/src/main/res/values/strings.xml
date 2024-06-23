@@ -98,4 +98,8 @@
     <string name="menu_setting">Setting</string>
 
     <string name="question">Question</string>
+
+    <!--Homework Status-->
+    <string name="completed">Completed</string>
+    <string name="not_completed">Not Completed</string>
 </resources>
