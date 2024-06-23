@@ -213,6 +213,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         bundle.putString("PatternName", patternName);
         intent.putExtras(bundle);
         startActivity(intent);
+        finish();
     }
 
     private void updatePatternIsDone(String patternName){

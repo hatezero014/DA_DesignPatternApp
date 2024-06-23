@@ -1,6 +1,7 @@
 package com.example.designpattern.UI.progress;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
@@ -22,18 +23,24 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.example.designpattern.Adapter.DesignPatternAdapter;
+import com.example.designpattern.Adapter.QuestionButtonAdapter;
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Pattern;
+import com.example.designpattern.Models.QuestionButton;
+import com.example.designpattern.QuestionsActivity;
 import com.example.designpattern.R;
 import com.example.designpattern.Services.PatternService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ProgressFragment extends Fragment {
     private ProgressCircleView progressCircleView;;
     RecyclerView recyclerView;
-    DesignPatternAdapter designPatternAdapter;
+//    DesignPatternAdapter designPatternAdapter;
     PatternService patternService;
+    private DesignPatternAdapter designPatternAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,12 +90,25 @@ public class ProgressFragment extends Fragment {
         animator.start();
 
         recyclerView = view.findViewById(R.id.rcv_dsp);
-        designPatternAdapter = new DesignPatternAdapter(getContext());
+//        designPatternAdapter = new DesignPatternAdapter(getContext());
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+
+//        designPatternAdapter.setData(getListPattern());
+//        recyclerView.setAdapter(designPatternAdapter);
+
+        designPatternAdapter = new DesignPatternAdapter(getContext(), new IClickItemListener() {
+            @Override
+            public void onClickItem(String itemType) {
+                onClickGoToQuestionsActivity(itemType);
+            }
+        });
+
+        designPatternAdapter.setData(getData());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        designPatternAdapter.setData(getListPattern());
         recyclerView.setAdapter(designPatternAdapter);
 
         return view ;
@@ -101,11 +121,39 @@ public class ProgressFragment extends Fragment {
         return list;
     }
 
+    private void onClickGoToQuestionsActivity(String itemType) {
+        Intent intent = new Intent(getContext(), QuestionsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", itemType);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private List<QuestionButton> getData() {
+        List<QuestionButton> list = new ArrayList<>();
+
+        PatternService patternService = new PatternService(getContext());
+        List<Pattern> patternList = patternService.ShortPatternByIsDone(Pattern.class);
+        for(Pattern pattern: patternList){
+            list.add(new QuestionButton(pattern.getName(), pattern.getImage(), pattern.getIsDone()));
+        }
+
+        return list;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        designPatternAdapter.setData(getData());
+        recyclerView.setAdapter(designPatternAdapter);
+    }
+
     private int countPatternisDone(){
         patternService = new PatternService(getContext());
         List<Pattern> list = patternService.GetPatternisDone(Pattern.class);
         return list.size();
     }
+
     private void applyGradientToTextView(final TextView textView) {
         TextPaint paint = textView.getPaint();
         float width = paint.measureText(textView.getText().toString());

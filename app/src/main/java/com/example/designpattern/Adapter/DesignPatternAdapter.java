@@ -2,6 +2,7 @@ package com.example.designpattern.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,75 +14,144 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Pattern;
+import com.example.designpattern.Models.PatternQuestion;
+import com.example.designpattern.Models.QuestionButton;
 import com.example.designpattern.R;
 
 import com.example.designpattern.R;
+import com.example.designpattern.Services.PatternQuestionService;
+import com.example.designpattern.Services.PatternService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdapter.DesignPatternHolder>{
-    List<Pattern> patternList;
-    Context context;
+    private Context context;
+    private IClickItemListener iClickItemListener;
 
-    public DesignPatternAdapter(Context context) {
+    PatternService patternService;
+
+    public DesignPatternAdapter(Context context, IClickItemListener iClickItemListener) {
         this.context = context;
+        this.iClickItemListener = iClickItemListener;
     }
-    public void setData(List<Pattern> list){
-        patternList = list;
+    private List<QuestionButton> questionButtons;
+    public void setData(List<QuestionButton> list){
+        this.questionButtons = list;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public DesignPatternHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rcv_designpattern, parent, false);
-
+    public DesignPatternAdapter.DesignPatternHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_design_pattern_name,parent,false);
         return new DesignPatternHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DesignPatternHolder holder, int position) {
-        Pattern pattern = patternList.get(position);
-        if(pattern==null) return;
-        Context context1 = holder.imageView.getContext();
-        holder.tvDetails.setText(pattern.getName());
-        holder.tvCatalog.setText(pattern.getCatalog());
-//        if(String.valueOf(pattern.getIsDone()) == null || String.valueOf(pattern.getIsDone()) == ""||pattern.getIsDone() == 0){
-//            holder.
-//        }
-        if(pattern.getIsDone() == 1){
-            holder.tvisDone.setText("Đã hoàn thành");
-            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.greens));
-            holder.tvDetails.setTextColor(Color.WHITE);
-            holder.tvCatalog.setTextColor(Color.WHITE);
-            holder.tvisDone.setTextColor(Color.WHITE);
+        QuestionButton questionButton = questionButtons.get(position);
+        if(questionButton == null){
+            return;
         }
-        else if(pattern.getIsDone() == 0) {
-            holder.tvisDone.setText("Chưa hoàn thành");
-            //holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
-        }
+
+        holder.setFormat(questionButton);
     }
 
     @Override
     public int getItemCount() {
-        return patternList.size();
+        if(questionButtons!=null)
+            return questionButtons.size();
+        return 0;
     }
 
-    class DesignPatternHolder extends RecyclerView.ViewHolder{
-        CardView cardView;
-        TextView tvDetails;
-        TextView tvisDone;
-        TextView tvCatalog;
-        ImageView imageView;
-
+    public class DesignPatternHolder extends RecyclerView.ViewHolder{
+        private CardView cv_question_button;
+        private TextView tv_pattern, tv_status;
+        private ImageView img_pattern;
         public DesignPatternHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.icon_pattern);
-            cardView = itemView.findViewById(R.id.card_view_designpattern);
-            tvDetails = itemView.findViewById(R.id.detailsName);
-            tvCatalog = itemView.findViewById(R.id.detailsCatalog);
-            tvisDone = itemView.findViewById(R.id.isDone);
+            tv_pattern = itemView.findViewById(R.id.tv_pattern);
+            img_pattern = itemView.findViewById(R.id.img_hinh);
+            tv_status = itemView.findViewById(R.id.tv_status);
+            cv_question_button = itemView.findViewById(R.id.cv_question_button);
+        }
+
+        public void setFormat(QuestionButton questionButton) {
+            tv_pattern.setText(questionButton.getPatternName());
+            //int status = questionButton.getStatus();
+            String image = questionButton.getImgPattern();
+            int imgResourceId = context.getResources().getIdentifier(image,"drawable", context.getPackageName());
+            Drawable drawable = context.getDrawable(imgResourceId);
+            img_pattern.setImageDrawable(drawable);
+
+            cv_question_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iClickItemListener.onClickItem(questionButton.getPatternName());
+                }
+            });
+
+            setStatus(questionButton);
+        }
+
+        public void setStatus(QuestionButton questionButton){
+
+            List<PatternQuestion> list = getListResult(questionButton.getPatternName());
+            int countCorrectAnswer = 0;
+            for(PatternQuestion patternQuestion : list){
+                if(patternQuestion.getIsCorrect() == 1){
+                    countCorrectAnswer++;
+                }
+            }
+
+//            PatternService patternService = new PatternService(context);
+//            Pattern pattern = patternService.getPatternRow(questionButton.getPatternName());
+//            if(pattern.getIsDone() == 1){
+//                tv_status.setText(R.string.completed);
+//            }
+//            else tv_status.setText(R.string.not_completed);
+            if(countCorrectAnswer!=0){
+                tv_status.setText(countCorrectAnswer + "/5");
+            }
+            else if(!getListPatternNameisDone(questionButton.getPatternName())){
+                tv_status.setText("Not completed");
+            }
+            else if(getListPatternNameisDone(questionButton.getPatternName())){
+                tv_status.setText("completed");
+            }
+        }
+
+        private boolean getListPatternNameisDone(String patternName){
+            patternService = new PatternService(context);
+            List<Pattern> list= patternService.GetPatternNameDone(Pattern.class, patternName);
+            if(list.size()==0) {
+                return false;
+            }
+            return true;
+        }
+
+        private List<PatternQuestion> getListResult(String PatternName) {
+//        patternQuestionService = new PatternQuestionService(this);
+//        List<PatternQuestion> list = patternQuestionService.GetAll(PatternQuestion.class);
+//        return list;
+            PatternService patternService;
+            PatternQuestionService patternQuestionService;
+            List<PatternQuestion> patternQuestionList = new ArrayList<>();
+            patternService = new PatternService(context);
+            List<Pattern> patternList = patternService.GetPatternIdByName(PatternName);
+            int PatternId = 0;
+            for(Pattern pattern : patternList){
+                PatternId = pattern.getId();
+            }
+            if(PatternId != 0){
+                patternQuestionService = new PatternQuestionService(context);
+                patternQuestionList = patternQuestionService.GetQuestionByPatternId(PatternQuestion.class, String.valueOf(PatternId));
+
+            }
+            return patternQuestionList;
         }
     }
 }

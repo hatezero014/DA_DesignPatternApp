@@ -159,4 +159,34 @@ public class PatternService extends BaseService{
         }
         return patternQuestion;
     }
+
+    public <T> List<T> ShortPatternByIsDone(Class<T> clazz) {
+        db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Pattern ORDER BY isDone DESC, Id DESC", null);
+        List<T> objects = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                T object = CreateModelObjectFromCursor(clazz, cursor);
+                objects.add(object);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return objects;
+    }
+
+    public <T> List<T> GetPatternNameDone(Class<T> clazz, String patternName) {
+        db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from Pattern where Pattern.isDone = 1 AND Pattern.Name = ?", new String[]{patternName});
+        List<T> objects = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                T object = CreateModelObjectFromCursor(clazz, cursor);
+                objects.add(object);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return objects;
+    }
+
+
 }

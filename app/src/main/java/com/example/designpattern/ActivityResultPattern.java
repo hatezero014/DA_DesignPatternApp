@@ -1,11 +1,14 @@
 package com.example.designpattern;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -38,8 +41,9 @@ public class ActivityResultPattern extends BaseActivity {
     PatternService patternService;
     String PatternName;
     int countCorrectAnswer = 0;
-
     List<PatternQuestion> list;
+    Button btnRedo, btnReview;
+    int progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,9 @@ public class ActivityResultPattern extends BaseActivity {
         textView2 = findViewById(R.id.title_perfect);
         textView3 = findViewById(R.id.textview3);
         textView4 = findViewById(R.id.textview4);
+
+        btnRedo = findViewById(R.id.btn_Redolesson);
+        btnReview = findViewById(R.id.btn_review);
 
         progressCircleView = findViewById(R.id.progress_circle2);
 
@@ -75,7 +82,7 @@ public class ActivityResultPattern extends BaseActivity {
 
         textView4.setText(countCorrectAnswer+ "/5 câu");
 
-        int progress = countCorrectAnswer*100/ getListResult().size();
+        progress = countCorrectAnswer*100/ getListResult().size();
         progressCircleView.setProgress(progress);
         progressCircleView.setStrokeWidth(100);
         progressCircleView.setRadiusOffset(50);
@@ -86,6 +93,7 @@ public class ActivityResultPattern extends BaseActivity {
         applyGradientToTextView(textView3);
         applyGradientToTextView(textView4);
 
+
         ValueAnimator animator = ValueAnimator.ofInt(0, progress);
         if(progress<=50){
             animator.setDuration(2000);
@@ -93,6 +101,20 @@ public class ActivityResultPattern extends BaseActivity {
         else if(progress > 50 && progress <= 100){
             animator.setDuration(3000);
         }
+
+        btnRedo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ResetAnwser();
+            }
+        });
+
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoDesignPattern();
+            }
+        });
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -155,5 +177,36 @@ public class ActivityResultPattern extends BaseActivity {
                 ContextCompat.getColor(this, R.color.startColor),
                 ContextCompat.getColor(this, R.color.endColor)
         );
+    }
+
+    private void onCLickGoToQuestionActivity(String patternName){
+
+        Intent intent = new Intent(this, QuestionsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void ResetAnwser(){
+        List<PatternQuestion> patternQuestionList = getListResult();
+        patternQuestionService = new PatternQuestionService(this);
+        for(PatternQuestion patternQuestion : patternQuestionList){
+            patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(),patternQuestion.getAnsCorrect(), 0), patternQuestion.getId());
+        }
+        onCLickGoToQuestionActivity(PatternName);
+        finish();
+    }
+
+    private void gotoDesignPattern(){
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showListResultAdapter.setData(getListResult());
+        recyclerView.setAdapter(showListResultAdapter);
+        progressCircleView.setProgress(progress);
     }
 }
