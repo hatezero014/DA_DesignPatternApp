@@ -88,7 +88,6 @@
                                     android:ellipsize="none"
                                     android:singleLine="false"
                                     android:maxLines="10"
-                                    android:inputType="textMultiLine"
                                     android:textSize="16sp"/>
 
                                 <TextView
@@ -161,7 +160,6 @@
                                     android:ellipsize="none"
                                     android:singleLine="false"
                                     android:maxLines="10"
-                                    android:inputType="textMultiLine"
                                     android:textSize="16sp"/>
 
                                 <TextView
@@ -209,7 +207,8 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="15dp"
-                    android:layout_gravity="start|center"/>
+                    android:layout_gravity="start|center"
+                    android:src="@drawable/architechture"/>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_techniques_structure"
@@ -277,7 +276,8 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="15dp"
-                    android:layout_gravity="start|center"/>
+                    android:layout_gravity="start|center"
+                    android:src="@drawable/assessment"/>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_evaluation_application"

@@ -178,4 +178,6 @@
 
     <color name="darker_gray">#EFEFEF</color>
     <color name="greens">#3D9740</color>
+
+    <color name="icon">#ffffff</color>
 </resources>
