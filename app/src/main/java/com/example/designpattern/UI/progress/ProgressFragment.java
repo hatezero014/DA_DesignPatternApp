@@ -25,13 +25,18 @@ import android.widget.TextView;
 import com.example.designpattern.Adapter.DesignPatternAdapter;
 import com.example.designpattern.Adapter.QuestionButtonAdapter;
 import com.example.designpattern.Interface.IClickItemListener;
+import com.example.designpattern.Models.AnswerIsCorrect;
 import com.example.designpattern.Models.Pattern;
+import com.example.designpattern.Models.PatternQuestion;
 import com.example.designpattern.Models.QuestionButton;
 import com.example.designpattern.QuestionsActivity;
 import com.example.designpattern.R;
+import com.example.designpattern.Services.PatternQuestionService;
 import com.example.designpattern.Services.PatternService;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -126,14 +131,30 @@ public class ProgressFragment extends Fragment {
         startActivity(intent);
     }
 
-    private List<QuestionButton> getData() {
-        List<QuestionButton> list = new ArrayList<>();
+    private List<AnswerIsCorrect> getData() {
+
+        List<AnswerIsCorrect> list = new ArrayList<>();
 
         PatternService patternService = new PatternService(getContext());
         List<Pattern> patternList = patternService.ShortPatternByIsDone(Pattern.class);
         for(Pattern pattern: patternList){
-            list.add(new QuestionButton(pattern.getName(), pattern.getImage(), pattern.getIsDone()));
+
+            List<PatternQuestion> list1 = getListResult(pattern.getName());
+            int countCorrectAnswer = 0;
+            for(PatternQuestion patternQuestion : list1){
+                if(patternQuestion.getIsCorrect() == 1){
+                    countCorrectAnswer++;
+                }
+            }
+            list.add(new AnswerIsCorrect(pattern.getName(), pattern.getImage(), pattern.getIsDone(), countCorrectAnswer));
         }
+
+        Collections.sort(list, new Comparator<AnswerIsCorrect>() {
+            @Override
+            public int compare(AnswerIsCorrect answerIsCorrect1, AnswerIsCorrect answerIsCorrect2) {
+               return answerIsCorrect1.getCount() < answerIsCorrect2.getCount() ? 1:-1;
+            }
+        });
 
         return list;
     }
@@ -167,5 +188,26 @@ public class ProgressFragment extends Fragment {
                 ContextCompat.getColor(getContext(), R.color.startColor),
                 ContextCompat.getColor(getContext(), R.color.endColor)
         );
+    }
+
+    private List<PatternQuestion> getListResult(String PatternName) {
+//        patternQuestionService = new PatternQuestionService(this);
+//        List<PatternQuestion> list = patternQuestionService.GetAll(PatternQuestion.class);
+//        return list;
+        PatternService patternService;
+        PatternQuestionService patternQuestionService;
+        List<PatternQuestion> patternQuestionList = new ArrayList<>();
+        patternService = new PatternService(getContext());
+        List<Pattern> patternList = patternService.GetPatternIdByName(PatternName);
+        int PatternId = 0;
+        for(Pattern pattern : patternList){
+            PatternId = pattern.getId();
+        }
+        if(PatternId != 0){
+            patternQuestionService = new PatternQuestionService(getContext());
+            patternQuestionList = patternQuestionService.GetQuestionByPatternId(PatternQuestion.class, String.valueOf(PatternId));
+
+        }
+        return patternQuestionList;
     }
 }

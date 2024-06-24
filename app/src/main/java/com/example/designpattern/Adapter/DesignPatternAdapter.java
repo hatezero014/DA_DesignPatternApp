@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Interface.IClickItemListener;
+import com.example.designpattern.Models.AnswerIsCorrect;
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Models.PatternQuestion;
 import com.example.designpattern.Models.QuestionButton;
@@ -35,9 +36,9 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
     public DesignPatternAdapter(Context context) {
         this.context = context;
     }
-    private List<QuestionButton> questionButtons;
-    public void setData(List<QuestionButton> list){
-        this.questionButtons = list;
+    private List<AnswerIsCorrect> answerIsCorrects;
+    public void setData(List<AnswerIsCorrect> list){
+        this.answerIsCorrects = list;
         notifyDataSetChanged();
     }
 
@@ -50,7 +51,7 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
 
     @Override
     public void onBindViewHolder(@NonNull DesignPatternHolder holder, int position) {
-        QuestionButton questionButton = questionButtons.get(position);
+        QuestionButton questionButton = answerIsCorrects.get(position);
         if(questionButton == null){
             return;
         }
@@ -60,8 +61,8 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
 
     @Override
     public int getItemCount() {
-        if(questionButtons!=null)
-            return questionButtons.size();
+        if(answerIsCorrects!=null)
+            return answerIsCorrects.size();
         return 0;
     }
 

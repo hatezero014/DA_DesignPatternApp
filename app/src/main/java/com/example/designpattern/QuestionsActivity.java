@@ -310,7 +310,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         windowAttibutes.gravity = gravity;
         window.setAttributes(windowAttibutes);
 
-        if(Gravity.BOTTOM == gravity){
+        if(Gravity.CENTER == gravity){
             dialog.setCancelable(true);
         }
         else {
