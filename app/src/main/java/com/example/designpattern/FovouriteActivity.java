@@ -17,11 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.designpattern.Adapter.ListItemAdapter;
 import com.example.designpattern.Interface.IClickItemListener;
+import com.example.designpattern.Models.Bookmark;
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.Services.BookmarkService;
 import com.example.designpattern.Services.FavouriteService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FovouriteActivity extends BaseActivity {
 
@@ -57,6 +63,43 @@ public class FovouriteActivity extends BaseActivity {
     private void LoadFavourite() {
         FavouriteService bookmarkService = new FavouriteService(this);
         List<Pattern> patterns = bookmarkService.FindFavouriteByPatternId(Pattern.class);
+
+        Map<String, Integer> catalogOrder = new HashMap<>();
+        catalogOrder.put("Creational Patterns", 1);
+        catalogOrder.put("Structural Patterns", 2);
+        catalogOrder.put("Behavioral Patterns", 3);
+
+        List<Bookmark> bookmarks = bookmarkService.GetAll(Bookmark.class);
+
+        // Extract bookmarked PatternIds
+        List<Integer> bookmarkedPatternIds = new ArrayList<>();
+        for (Bookmark bookmark : bookmarks) {
+            bookmarkedPatternIds.add(bookmark.getPatternId());
+        }
+
+        Collections.sort(patterns, new Comparator<Pattern>() {
+            @Override
+            public int compare(Pattern pattern1, Pattern pattern2) {
+                boolean isPattern1Bookmarked = bookmarkedPatternIds.contains(pattern1.getId());
+                boolean isPattern2Bookmarked = bookmarkedPatternIds.contains(pattern2.getId());
+
+                if (isPattern1Bookmarked && !isPattern2Bookmarked) {
+                    return -1; // pattern1 should come before pattern2
+                } else if (!isPattern1Bookmarked && isPattern2Bookmarked) {
+                    return 1; // pattern2 should come before pattern1
+                }
+
+                // Compare catalog order if both patterns are either bookmarked or not bookmarked
+                int catalogCompare = catalogOrder.get(pattern1.getCatalog()).compareTo(catalogOrder.get(pattern2.getCatalog()));
+                if (catalogCompare != 0) {
+                    return catalogCompare;
+                } else {
+                    // If catalogs are the same, compare by name
+                    return pattern1.getName().compareTo(pattern2.getName());
+                }
+            }
+        });
+
         if(patterns != null) {
             listItemAdapter = new ListItemAdapter(this, patterns, new IClickItemListener() {
                 @Override

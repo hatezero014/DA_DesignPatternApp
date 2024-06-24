@@ -150,7 +150,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
         TextView textViewTitle;
         Button button;
         GridLayout gridLayout;
-        ImageButton btnStar, btnBookmark, btnShare;
+        ImageButton btnStar, btnBookmark;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -160,16 +160,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
             button = itemView.findViewById(R.id.btnView);
             btnBookmark = itemView.findViewById(R.id.ibtnBookmark);
             btnStar = itemView.findViewById(R.id.ibtnStar);
-            btnShare = itemView.findViewById(R.id.ibtnShare);
             gridLayout = itemView.findViewById(R.id.gridLayout);
-//            TextPaint paint = button.getPaint();
-//            float width = paint.measureText(button.getText().toString());
-//            Shader textShader = new LinearGradient(0, 0, width, button.getTextSize(),
-//                    new int[]{
-//                            Color.parseColor("#A8EDEA"),
-//                            Color.parseColor("#FED6E3"),
-//                    }, null, Shader.TileMode.CLAMP);
-//            button.getPaint().setShader(textShader);
         }
     }
 }
