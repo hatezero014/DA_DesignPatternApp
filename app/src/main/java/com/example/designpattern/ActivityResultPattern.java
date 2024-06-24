@@ -192,7 +192,7 @@ public class ActivityResultPattern extends BaseActivity {
         List<PatternQuestion> patternQuestionList = getListResult();
         patternQuestionService = new PatternQuestionService(this);
         for(PatternQuestion patternQuestion : patternQuestionList){
-            patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(),patternQuestion.getAnsCorrect(), 0), patternQuestion.getId());
+            patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(),patternQuestion.getQuestionVi(),patternQuestion.getAnswer1Vi(),patternQuestion.getAnswer2Vi(),patternQuestion.getAnswer3Vi(),patternQuestion.getAnswer4Vi(),patternQuestion.getAnsCorrect(), 0), patternQuestion.getId());
         }
         onCLickGoToQuestionActivity(PatternName);
         finish();

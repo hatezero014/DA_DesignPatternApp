@@ -1,6 +1,8 @@
 package com.example.designpattern.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,14 +30,18 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     private OnAnswerClickListener onAnswerClickListener;
     private boolean isClicked = false;
 
+    private String language;
+
+
     public QuestionAdapter(Context context, OnAnswerClickListener onAnswerClickListener) {
         this.context = context;
         this.onAnswerClickListener = onAnswerClickListener;
     }
 
     private Question question;
-    public void setData(Question question){
+    public void setData(Question question, String language){
         this.question = question;
+        this.language = language;
         this.isClicked = false;
         notifyDataSetChanged();
     }
@@ -69,7 +75,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             tvAnswer2 = itemView.findViewById(R.id.tv_answer_2);
             tvAnswer3 = itemView.findViewById(R.id.tv_answer_3);
             tvAnswer4 = itemView.findViewById(R.id.tv_answer_4);
-            setEnable();
+//            setEnable();
         }
 
         public void setData(Question question) {
@@ -102,7 +108,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 boolean isCorrect = checkAnswer(question, question.getAnswerList().get(0));
                 isClicked = true;
                 setDisable(tvAnswer1);
-                setDisableAll();
+//                setDisableAll();
                 if (onAnswerClickListener != null) {
                     onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
@@ -111,7 +117,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 boolean isCorrect = checkAnswer(question, question.getAnswerList().get(1));
                 isClicked = true;
                 setDisable(tvAnswer2);
-                setDisableAll();
+//                setDisableAll();
                 if (onAnswerClickListener != null) {
                     onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
@@ -120,7 +126,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 boolean isCorrect = checkAnswer(question, question.getAnswerList().get(2));
                 isClicked = true;
                 setDisable(tvAnswer3);
-                setDisableAll();
+//                setDisableAll();
                 if (onAnswerClickListener != null) {
                     onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
@@ -129,51 +135,60 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 boolean isCorrect = checkAnswer(question, question.getAnswerList().get(3));
                 isClicked = true;
                 setDisable(tvAnswer4);
-                setDisableAll();
+//                setDisableAll();
                 if (onAnswerClickListener != null) {
                     onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
             }
         }
 
-        private void setEnable(){
-            if(!isClicked){
-                tvAnswer1.setEnabled(true);
-                tvAnswer2.setEnabled(true);
-                tvAnswer3.setEnabled(true);
-                tvAnswer4.setEnabled(true);
-            }
-        }
+//        private void setEnable(){
+//            if(!isClicked){
+//                tvAnswer1.setEnabled(true);
+//                tvAnswer2.setEnabled(true);
+//                tvAnswer3.setEnabled(true);
+//                tvAnswer4.setEnabled(true);
+//            }
+//        }
 
         private void setDisable(TextView textView){
             List<TextView> list = Arrays.asList(tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4);
             for(TextView tv : list){
                 if(tv != textView){
-                    tv.setEnabled(false);
+//                    tv.setEnabled(false);
+                    tv.setBackgroundResource(R.drawable.background_answer);
                 }
             }
         }
 
-        private void setDisableAll(){
-            tvAnswer1.setEnabled(false);
-            tvAnswer2.setEnabled(false);
-            tvAnswer3.setEnabled(false);
-            tvAnswer4.setEnabled(false);
-        }
+//        private void setDisableAll(){
+//            tvAnswer1.setEnabled(false);
+//            tvAnswer2.setEnabled(false);
+//            tvAnswer3.setEnabled(false);
+//            tvAnswer4.setEnabled(false);
+//        }
 
         private boolean checkAnswer(Question question, Answer answer){
             String test = question.getContent();
+            List<PatternQuestion> list = new ArrayList<>();
             patternQuestionService = new PatternQuestionService(context);
-            List<PatternQuestion> list = patternQuestionService.GetTableQuestionByQuestion(test);
+            if(language.equals("vi")){
+                 list = patternQuestionService.GetTableQuestionByQuestionVi(test);
+            }
+            else if(language.equals("en")){
+                list = patternQuestionService.GetTableQuestionByQuestion(test);
+            }
+            else {
+                list = patternQuestionService.GetTableQuestionByQuestion(test);
+            }
+
             if(answer.isCorrect()){
                 for(PatternQuestion patternQuestion : list){
-                    patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 1),patternQuestion.getId());
-                }
+                    patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(),patternQuestion.getQuestionVi(),patternQuestion.getAnswer1Vi(),patternQuestion.getAnswer2Vi(),patternQuestion.getAnswer3Vi(),patternQuestion.getAnswer4Vi(),patternQuestion.getAnsCorrect(), 1), patternQuestion.getId());                }
                 return true;
             }else {
                 for(PatternQuestion patternQuestion : list){
-                    patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 0),patternQuestion.getId());
-                }
+                    patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(),patternQuestion.getQuestionVi(),patternQuestion.getAnswer1Vi(),patternQuestion.getAnswer2Vi(),patternQuestion.getAnswer3Vi(),patternQuestion.getAnswer4Vi(),patternQuestion.getAnsCorrect(), 0), patternQuestion.getId());                }
                 return false;
             }
         }
