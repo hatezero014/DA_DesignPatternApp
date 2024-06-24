@@ -90,6 +90,8 @@
     <string name="applicability">Applicability</string>
     <string name="how_to_implement">How To Implement</string>
     <string name="pros_and_cons">Pros And Cons</string>
+    <string name="click_here">Click here to view</string>
+    <string name="overview">Overview</string>
 
     <!--menu navigation-->
     <string name="menu_progress">Progress</string>

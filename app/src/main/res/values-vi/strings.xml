@@ -90,6 +90,8 @@
     <string name="applicability">Khả năng ứng dụng</string>
     <string name="how_to_implement">Cách thực hiện</string>
     <string name="pros_and_cons">Ưu và nhược điểm</string>
+    <string name="click_here">Bấm vào đây để xem</string>
+    <string name="overview">Tổng quan</string>
 
     <!--menu navigation-->
     <string name="menu_progress">Tiến độ</string>

@@ -184,7 +184,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
                 }
             }
             int numQuestion = i+1;
-            list.add(new Question(numQuestion,patternQuestionList.get(i).getQuestion(),answers));
+            list.add(new Question(numQuestion,getQuestionBasedOnLanguage(question.getQuestion(), question.getQuestionVi(), language),answers));
         }
 
         return list;
@@ -199,6 +199,17 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         }
         else answer = ans;
         return answer;
+    }
+
+    private String getQuestionBasedOnLanguage(String ques, String quesVi, String language){
+        String question;
+        if(language.equals("en")){
+            question = ques;
+        } else if (language.equals("vi")) {
+            question = quesVi;
+        }
+        else question = ques;
+        return question;
     }
 
     @Override

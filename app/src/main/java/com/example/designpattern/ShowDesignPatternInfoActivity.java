@@ -25,7 +25,7 @@ import java.util.List;
 
 public class ShowDesignPatternInfoActivity extends BaseActivity {
     private TextView tv_design_pattern_type;
-    private CardView cv_rating, cv_show_code, cv_assignment,
+    private CardView cv_show_code, cv_assignment,
             cv_intent_problem, cv_solution_implementation, cv_techniques_structure, cv_evaluation_application;
     private Button btn_watch_video;
 
@@ -34,7 +34,6 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_design_pattern_info);
 
-        cv_rating = findViewById(R.id.cv_rating);
         cv_show_code = findViewById(R.id.cv_show_code);
         cv_assignment = findViewById(R.id.cv_assignment);
 
@@ -61,12 +60,6 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv_design_pattern_type.setText(PatternName);
-        cv_rating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickOpenBottomSheetDialog();
-            }
-        });
 
         cv_show_code.setOnClickListener(new View.OnClickListener() {
             @Override
