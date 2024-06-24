@@ -107,12 +107,15 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
 //            }
 //            else tv_status.setText(R.string.not_completed);
             if(countCorrectAnswer!=0){
+                tv_status.setTextSize(20);
                 tv_status.setText(countCorrectAnswer + "/5");
             }
             else if(!getListPatternNameisDone(questionButton.getPatternName())){
+                tv_status.setTextSize(16);
                 tv_status.setText(R.string.not_completed);
             }
             else if(getListPatternNameisDone(questionButton.getPatternName())){
+                tv_status.setTextSize(16);
                 tv_status.setText(R.string.completed);
             }
         }

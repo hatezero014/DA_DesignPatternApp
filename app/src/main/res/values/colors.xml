@@ -180,4 +180,6 @@
     <color name="greens">#3D9740</color>
 
     <color name="icon">#ffffff</color>
+
+    <color name="md_theme_scrim_highContrast1">#000000</color>
 </resources>

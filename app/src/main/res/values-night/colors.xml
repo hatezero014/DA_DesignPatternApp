@@ -169,4 +169,6 @@
     <color name="noteColor">#CFD0C2</color>
 
     <color name="icon">#CCCCCC</color>
+
+    <color name="md_theme_scrim_highContrast1">#FFFFFF</color>
 </resources>
