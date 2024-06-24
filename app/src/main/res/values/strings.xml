@@ -81,6 +81,7 @@
     <string name="assignment">Assignment</string>
     <string name="video">Tutorial video</string>
     <string name="next_question">Next question</string>
+    <string name="check">Check</string>
 
     <string name="intent">Intent</string>
     <string name="problem">Problem</string>
@@ -126,4 +127,7 @@
     <string name="review_the_theory">Review the theory</string>
     <string name="string1_result">You answered</string>
     <string name="string2_result">questions correctly</string>
+    
+    <string name="correct_answer">Correct answer</string>
+    <string name="wrong_answer">Wrong answer</string>
 </resources>

@@ -1,5 +1,5 @@
 package com.example.designpattern.Interface;
 
 public interface OnAnswerClickListener {
-    void onAnswerClicked();
+    void onAnswerClicked(boolean isCorrect, String ansCorrect);
 }
