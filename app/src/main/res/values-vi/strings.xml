@@ -38,6 +38,9 @@
     <string name="setting_other">Khác</string>
     <string name="setting_feedback">Gửi phản hồi</string>
     <string name="setting_sub_feedback">Giúp cải thiện ứng dụng này</string>
+    <string name="collection">Bộ sưu tập</string>
+    <string name="SubBookMark">Pattern xem sau</string>
+    <string name="SubFavourite">Pattern yêu thích</string>
 
     <!--  Contact  -->
     <string name="question_general">Bạn muốn nói gì với chúng tôi?</string>
@@ -115,7 +118,7 @@
     <!--  BookMark and Favourite  -->
     <string name="DesignPatternNullFavourite">Bạn chưa thêm Design Pattern nào vào mục yêu thích!</string>
     <string name="DesignPatternNullBookMark">Bạn chưa thêm Design Pattern nào vào mục đánh dấu!</string>
-    <string name="BookmarkName">Đánh dấu</string>
+    <string name="BookmarkName">Xem sau</string>
     <string name="FavouriteName">Yêu thích</string>
 
     <!-- ShowListResultAdapter   -->

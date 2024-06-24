@@ -58,4 +58,20 @@ public class PatternQuestionService extends BaseService{
         }
         return patternQuestion;
     }
+
+    public List<PatternQuestion> GetTableQuestionByQuestionVi(String patternName) {
+        List<PatternQuestion> patternQuestion = new ArrayList<>();
+        db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from PatternQuestion where PatternQuestion.QuestionVi = ?", new String[]{patternName});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                PatternQuestion object = CreateModelObjectFromCursor(PatternQuestion.class, cursor);
+                if (object != null) {
+                    patternQuestion.add(object);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return patternQuestion;
+    }
 }

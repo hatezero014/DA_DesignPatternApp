@@ -55,6 +55,8 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     private Button btn_Check;
     private boolean layoutTheme;
     private String ans_correct;
+
+    String language;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,8 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         if(bundle == null){
             return;
         }
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        language = prefs.getString("My_Language", "");
 
         PatternName = (String) bundle.get("PatternName");
         test = (Boolean) bundle.get("check");
@@ -79,19 +83,21 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
         btn_Check.setOnClickListener(this);
         btn_Check.setEnabled(false);
+        btn_Check.setBackgroundResource(R.drawable.background_answer);
         questionAdapter = new QuestionAdapter(this, new OnAnswerClickListener() {
             @Override
             public void onAnswerClicked(boolean isCorrect, String ansCorrect) {
                 layoutTheme = isCorrect;
                 ans_correct = ansCorrect;
                 btn_Check.setEnabled(true);
+                btn_Check.setBackgroundResource(R.drawable.background_correct_answer);
             }
         });
         mListQuestion = getListQuestion();
         if(mListQuestion.isEmpty()){
             return;
         }
-        questionAdapter.setData(mListQuestion.get(curQuestion));
+        questionAdapter.setData(mListQuestion.get(curQuestion), language);
         rcv_question.setAdapter(questionAdapter);
         updateProgress();
     }
@@ -105,7 +111,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void updateProgress(){
-        float progress = ((float) (curQuestion + 1) / mListQuestion.size()) * 100;
+        float progress = ((float) (curQuestion) / mListQuestion.size()) * 100;
 
         progressBar.setProgress((int) progress, true);
     }
@@ -241,15 +247,17 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
             onCLickGoToActivityResult(PatternName);
         } else if (curQuestion == mListQuestion.size() - 2) {
             btn_Check.setEnabled(false);
+            btn_Check.setBackgroundResource(R.drawable.background_answer);
             curQuestion++;
             updateProgress();
-            questionAdapter.setData(mListQuestion.get(curQuestion));
+            questionAdapter.setData(mListQuestion.get(curQuestion), language);
             rcv_question.setAdapter(questionAdapter);
         } else{
             btn_Check.setEnabled(false);
+            btn_Check.setBackgroundResource(R.drawable.background_answer);
             curQuestion++;
             updateProgress();
-            questionAdapter.setData(mListQuestion.get(curQuestion));
+            questionAdapter.setData(mListQuestion.get(curQuestion), language);
             rcv_question.setAdapter(questionAdapter);
         }
     }

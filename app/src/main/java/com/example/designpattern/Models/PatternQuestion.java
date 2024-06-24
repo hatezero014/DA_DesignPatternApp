@@ -15,8 +15,8 @@ public class PatternQuestion {
     String Answer4Vi;
     int AnsCorrect;
 
-    public PatternQuestion(int id, int patternId, String question, String answer1, String answer2, String answer3, String answer4, String questionVi, String answer1Vi, String answer2Vi, String answer3Vi, String answer4Vi, int ansCorrect, int isCorrect) {
-        Id = id;
+    public PatternQuestion(int patternId, String question, String answer1, String answer2, String answer3, String answer4, String questionVi, String answer1Vi, String answer2Vi, String answer3Vi, String answer4Vi, int ansCorrect, int isCorrect) {
+
         PatternId = patternId;
         Question = question;
         Answer1 = answer1;
