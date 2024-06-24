@@ -1,10 +1,18 @@
 package com.example.designpattern;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -17,8 +25,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.designpattern.Adapter.ContentAdapter;
 import com.example.designpattern.Interface.IClickItemListener;
 import com.example.designpattern.Models.Content;
+import com.example.designpattern.Models.Pattern;
+import com.example.designpattern.Services.PatternService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +123,8 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         btn_watch_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onCLickGoToWatchVideo(PatternName);
+//                onCLickGoToWatchVideo(PatternName);
+                openDetailDiaLog(Gravity.CENTER, PatternName);
             }
         });
     }
@@ -215,4 +229,45 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
 
         return list;
     }
+
+    private void openDetailDiaLog(int gravity, String PatternName) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_patterns_video);
+
+        Window window = dialog.getWindow();
+        if(window == null) return;
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttibutes = window.getAttributes();
+        windowAttibutes.gravity = gravity;
+        window.setAttributes(windowAttibutes);
+
+        if(Gravity.CENTER == gravity){
+            dialog.setCancelable(true);
+        }
+        else {
+            dialog.setCancelable(false);
+        }
+        YouTubePlayerView youTubePlayerView = dialog.findViewById(R.id.ytbview);
+        getLifecycle().addObserver(youTubePlayerView);
+        String videoId;
+
+        PatternService patternService = new PatternService(this);
+        Pattern pattern = patternService.getPatternRow(PatternName);
+        videoId = pattern.getVideo();
+
+        youTubePlayerView.setEnableAutomaticInitialization(false);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.cueVideo(videoId, 0);
+            }
+        });
+
+        dialog.show();
+    }
+
+
 }
