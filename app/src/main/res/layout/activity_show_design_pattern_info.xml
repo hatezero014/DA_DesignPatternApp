@@ -140,8 +140,7 @@
                                 <ImageView
                                     android:layout_width="35dp"
                                     android:layout_height="35dp"
-                                    android:src="@drawable/implementation"
-                                    android:layout_marginTop="5dp"/>
+                                    android:src="@drawable/implementation"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
