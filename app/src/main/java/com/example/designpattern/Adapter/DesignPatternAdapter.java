@@ -29,13 +29,11 @@ import java.util.List;
 
 public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdapter.DesignPatternHolder>{
     private Context context;
-    private IClickItemListener iClickItemListener;
 
     PatternService patternService;
 
-    public DesignPatternAdapter(Context context, IClickItemListener iClickItemListener) {
+    public DesignPatternAdapter(Context context) {
         this.context = context;
-        this.iClickItemListener = iClickItemListener;
     }
     private List<QuestionButton> questionButtons;
     public void setData(List<QuestionButton> list){
@@ -87,12 +85,7 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
             Drawable drawable = context.getDrawable(imgResourceId);
             img_pattern.setImageDrawable(drawable);
 
-            cv_question_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iClickItemListener.onClickItem(questionButton.getPatternName());
-                }
-            });
+
 
             setStatus(questionButton);
         }
@@ -117,10 +110,10 @@ public class DesignPatternAdapter extends RecyclerView.Adapter<DesignPatternAdap
                 tv_status.setText(countCorrectAnswer + "/5");
             }
             else if(!getListPatternNameisDone(questionButton.getPatternName())){
-                tv_status.setText("Not completed");
+                tv_status.setText(R.string.not_completed);
             }
             else if(getListPatternNameisDone(questionButton.getPatternName())){
-                tv_status.setText("completed");
+                tv_status.setText(R.string.completed);
             }
         }
 

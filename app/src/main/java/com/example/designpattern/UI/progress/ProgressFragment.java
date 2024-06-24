@@ -98,12 +98,7 @@ public class ProgressFragment extends Fragment {
 //        designPatternAdapter.setData(getListPattern());
 //        recyclerView.setAdapter(designPatternAdapter);
 
-        designPatternAdapter = new DesignPatternAdapter(getContext(), new IClickItemListener() {
-            @Override
-            public void onClickItem(String itemType) {
-                onClickGoToQuestionsActivity(itemType);
-            }
-        });
+        designPatternAdapter = new DesignPatternAdapter(getContext());
 
         designPatternAdapter.setData(getData());
 

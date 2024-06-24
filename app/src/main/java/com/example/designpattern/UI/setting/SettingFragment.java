@@ -16,8 +16,10 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.example.designpattern.BookmarkActivity;
 import com.example.designpattern.ChangeLanguage;
 import com.example.designpattern.ContactActivity;
+import com.example.designpattern.FovouriteActivity;
 import com.example.designpattern.Models.LanguageApp;
 import com.example.designpattern.R;
 import com.example.designpattern.Services.LanguageAppService;
@@ -60,6 +62,22 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 onLayoutFeedbackClick(); // Xử lý khi click vào phần chọn gửi phản hồi
+            }
+        });
+
+        view.findViewById(R.id.layoutBookmark).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BookmarkActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        view.findViewById(R.id.layoutFavourite).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FovouriteActivity.class);
+                startActivity(intent);
             }
         });
 

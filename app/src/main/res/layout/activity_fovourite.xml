@@ -19,4 +19,14 @@
         android:layout_marginTop="16dp"
         />
 
+    <TextView
+        android:layout_marginTop="200dp"
+        android:id="@+id/tv_null"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:text="Nội dung còn trống"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
 </LinearLayout>

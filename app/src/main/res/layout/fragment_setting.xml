@@ -95,6 +95,83 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Collection"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            style="@style/TextAppearance.Material3.TitleSmall"
+            android:textColor="@color/md_theme_onSurfaceVariant"
+            />
+
+        <LinearLayout
+            android:id="@+id/layoutBookmark"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="14dp"
+            android:background="@drawable/background_selector"
+            android:paddingBottom="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="@color/md_theme_onSurface_mediumContrast"
+                android:text="Bookmark"/>
+
+            <TextView
+                android:id="@+id/tvSubBookmark"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/md_theme_onSurfaceVariant"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            app:dividerInsetStart="16dp"
+            app:dividerInsetEnd="16dp"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/layoutFavourite"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/background_selector"
+            android:layout_height="wrap_content"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="@color/md_theme_onSurface_mediumContrast"
+                android:text="Favourite"/>
+
+            <TextView
+                android:id="@+id/tvSubFavourite"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/md_theme_onSurfaceVariant"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/setting_other"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"

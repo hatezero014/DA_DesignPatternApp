@@ -53,6 +53,8 @@
         <activity
             android:name=".NamActivity"
             android:exported="true" />
+        <activity android:name=".FovouriteActivity"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
