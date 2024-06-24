@@ -105,9 +105,13 @@ public class ShowInfoActivity extends BaseActivity {
                 tv_content1.setText(patternInformation.getIntent());
                 tv_content2.setText(patternInformation.getProblem());
             }
-            else{
+            else if (language.equals("vi")){
                 tv_content1.setText(patternInfoVi.getIntentVi());
                 tv_content2.setText(patternInfoVi.getProblemVi());
+            }
+            else {
+                tv_content1.setText(patternInformation.getIntent());
+                tv_content2.setText(patternInformation.getProblem());
             }
         } else if (index == 2) {
             img_section1.setImageResource(R.drawable.icon_happy_face);
@@ -122,9 +126,13 @@ public class ShowInfoActivity extends BaseActivity {
                 tv_content1.setText(patternInformation.getSolution());
                 tv_content2.setText(patternInformation.getHowToImplement());
             }
-            else{
+            else if (language.equals("vi")){
                 tv_content1.setText(patternInfoVi.getSolutionVi());
                 tv_content2.setText(patternInfoVi.getProblemVi());
+            }
+            else {
+                tv_content1.setText(patternInformation.getSolution());
+                tv_content2.setText(patternInformation.getHowToImplement());
             }
         } else if (index == 3) {
             img_section1.setImageResource(R.drawable.ic_scale);
@@ -141,9 +149,13 @@ public class ShowInfoActivity extends BaseActivity {
                 tv_content1.setText(patternInformation.getProsAndCons());
                 tv_content2.setText(patternInformation.getApplicability());
             }
-            else{
+            else if (language.equals("vi")){
                 tv_content1.setText(patternInfoVi.getProsAndConsVi());
                 tv_content2.setText(patternInfoVi.getApplicabilityVi());
+            }
+            else {
+                tv_content1.setText(patternInformation.getProsAndCons());
+                tv_content2.setText(patternInformation.getApplicability());
             }
         } else{
             img_section1.setImageResource(R.drawable.icon_structure);
@@ -156,7 +168,10 @@ public class ShowInfoActivity extends BaseActivity {
             if (language.equals("en")){
                 tv_content1.setText(patternInformation.getStructure());
             }
-            else tv_content1.setText(patternInfoVi.getStructureVi());
+            else if (language.equals("vi")) {
+                tv_content1.setText(patternInfoVi.getStructureVi());
+            }
+            else tv_content1.setText(patternInformation.getStructure());
 
             img_section2.setImageResource(R.drawable.icon_dau_thang);
             tv_section2.setText(R.string.pseudocode);
