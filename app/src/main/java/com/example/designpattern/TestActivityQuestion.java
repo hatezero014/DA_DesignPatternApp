@@ -24,7 +24,6 @@ public class TestActivityQuestion extends BaseActivity {
 
     TextView tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4;
     Button btnCheck;
-    TextView tvSkip;
     Boolean an1 = false, an2 = false, an3 = false, an4 = false;
 
     String correctans = "Đáp án: ";
@@ -44,7 +43,6 @@ public class TestActivityQuestion extends BaseActivity {
         tvAnswer3 = findViewById(R.id.answer3);
         tvAnswer4 = findViewById(R.id.answer4);
         btnCheck = findViewById(R.id.btn_Check);
-        tvSkip = findViewById(R.id.tv_skip);
 
         tvAnswer1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,12 +106,6 @@ public class TestActivityQuestion extends BaseActivity {
             @Override
             public void onClick(View v) {
                 openDetailDiaLog(Gravity.BOTTOM, false);
-            }
-        });
-        tvSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Gọi hàm bỏ qua câu hỏi ở đây nha Phong mõm
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -182,6 +174,7 @@ public class TestActivityQuestion extends BaseActivity {
         btn_Continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
             }
         });
