@@ -120,4 +120,8 @@
     <string name="CorrectAnswer">Correct answer</string>
     <string name="WrongAnswer">Wrong answer</string>
     <string name="QuestionName">Question</string>
+    <string name="redo">Redo</string>
+    <string name="review_the_theory">Review the theory</string>
+    <string name="string1_result">You answered</string>
+    <string name="string2_result">questions correctly</string>
 </resources>

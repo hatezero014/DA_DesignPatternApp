@@ -80,7 +80,7 @@ public class ActivityResultPattern extends BaseActivity {
             }
         }
 
-        textView4.setText(countCorrectAnswer+ "/5 câu");
+        textView4.setText(countCorrectAnswer+ "/5 " + getString(R.string.string2_result));
 
         progress = countCorrectAnswer*100/ getListResult().size();
         progressCircleView.setProgress(progress);

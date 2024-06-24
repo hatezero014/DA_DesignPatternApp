@@ -28,7 +28,7 @@
             android:id="@+id/title_perfect"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
-            android:text="Tuyệt vời!!!"
+            android:text="@string/Excellent"
             android:fontFamily="@font/roboto"
             android:textStyle="bold"
             android:textSize="25sp"
@@ -48,7 +48,7 @@
             android:fontFamily="@font/roboto"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:text="Bạn đã trả lời đúng"
+            android:text="@string/string1_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
@@ -57,7 +57,7 @@
             android:fontFamily="@font/roboto"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:text="3/5 câu"
+            android:text="@string/string2_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"/>
@@ -80,7 +80,7 @@
             android:textSize="16sp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/background_green"
-            android:text="Làm lại"/>
+            android:text="@string/redo"/>
 
         <Button
             android:id="@+id/btn_review"
@@ -92,7 +92,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:background="@drawable/background_white_gradient"
-            android:text="Xem lại lý thuyết"/>
+            android:text="@string/review_the_theory"/>
     </LinearLayout>
 
 </FrameLayout>

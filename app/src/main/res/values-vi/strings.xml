@@ -119,7 +119,9 @@
     <string name="CorrectAnswer">Đáp án chính xác</string>
     <string name="WrongAnswer">Đáp án sai</string>
     <string name="QuestionName">Câu hỏi</string>
-
-
+    <string name="redo">Làm lại</string>
+    <string name="review_the_theory">Xem lại lý thuyết</string>
+    <string name="string1_result">Bạn đã trả lời đúng</string>
+    <string name="string2_result">câu</string>
 
 </resources>
