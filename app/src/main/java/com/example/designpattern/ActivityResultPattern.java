@@ -199,7 +199,12 @@ public class ActivityResultPattern extends BaseActivity {
     }
 
     private void gotoDesignPattern(){
-
+        Intent intent = new Intent(this, ShowDesignPatternInfoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", PatternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 
     @Override
