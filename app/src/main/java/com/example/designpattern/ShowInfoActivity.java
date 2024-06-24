@@ -1,5 +1,6 @@
 package com.example.designpattern;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -13,14 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.designpattern.Models.PatternInfoVi;
 import com.example.designpattern.Models.PatternInformation;
+import com.example.designpattern.Services.PatternInfoViService;
 import com.example.designpattern.Services.PatternInformationService;
 
 import java.lang.reflect.Field;
 
 import io.github.kbiakov.codeview.CodeView;
 import io.github.kbiakov.codeview.adapters.Options;
-import io.github.kbiakov.codeview.highlight.ColorTheme;
 import io.github.kbiakov.codeview.highlight.ColorThemeData;
 import io.github.kbiakov.codeview.highlight.Font;
 import io.github.kbiakov.codeview.highlight.SyntaxColors;
@@ -80,30 +82,50 @@ public class ShowInfoActivity extends BaseActivity {
         PatternInformationService patternInformationService = new PatternInformationService(this);
         PatternInformation patternInformation = patternInformationService.getInfo(patternName);
 
-        getInfo(index, patternInformation);
+        PatternInfoViService patternInfoViService = new PatternInfoViService(this);
+        PatternInfoVi patternInfoVi = patternInfoViService.getInfoVi(patternName);
+
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Language", "");
+
+        getInfo(index, patternInformation, patternInfoVi, language);
     }
 
-    private void getInfo(int index, PatternInformation patternInformation){
+    private void getInfo(int index, PatternInformation patternInformation, PatternInfoVi patternInfoVi, String language){
         if(index == 1){
             img_section1.setImageResource(R.drawable.ic_comment);
             tv_section1.setText(R.string.intent);
             img_content1.setVisibility(View.GONE);
-            tv_content1.setText(patternInformation.getIntent());
 
             img_section2.setImageResource(R.drawable.ic_sad_face);
             tv_section2.setText(R.string.problem);
             img_content2.setVisibility(View.GONE);
-            tv_content2.setText(patternInformation.getProblem());
+
+            if(language.equals("en")){
+                tv_content1.setText(patternInformation.getIntent());
+                tv_content2.setText(patternInformation.getProblem());
+            }
+            else{
+                tv_content1.setText(patternInfoVi.getIntentVi());
+                tv_content2.setText(patternInfoVi.getProblemVi());
+            }
         } else if (index == 2) {
             img_section1.setImageResource(R.drawable.icon_happy_face);
             tv_section1.setText(R.string.solution);
             img_content1.setVisibility(View.GONE);
-            tv_content1.setText(patternInformation.getSolution());
 
             img_section2.setImageResource(R.drawable.ic_list);
             tv_section2.setText(R.string.how_to_implement);
             img_content2.setVisibility(View.GONE);
-            tv_content2.setText(patternInformation.getHowToImplement());
+
+            if(language.equals("en")){
+                tv_content1.setText(patternInformation.getSolution());
+                tv_content2.setText(patternInformation.getHowToImplement());
+            }
+            else{
+                tv_content1.setText(patternInfoVi.getSolutionVi());
+                tv_content2.setText(patternInfoVi.getProblemVi());
+            }
         } else if (index == 3) {
             img_section1.setImageResource(R.drawable.ic_scale);
             tv_section1.setText(R.string.pros_and_cons);
@@ -114,6 +136,15 @@ public class ShowInfoActivity extends BaseActivity {
             tv_section2.setText(R.string.applicability);
             img_content2.setVisibility(View.GONE);
             tv_content2.setText(patternInformation.getApplicability());
+
+            if(language.equals("en")){
+                tv_content1.setText(patternInformation.getProsAndCons());
+                tv_content2.setText(patternInformation.getApplicability());
+            }
+            else{
+                tv_content1.setText(patternInfoVi.getProsAndConsVi());
+                tv_content2.setText(patternInfoVi.getApplicabilityVi());
+            }
         } else{
             img_section1.setImageResource(R.drawable.icon_structure);
             tv_section1.setText(R.string.structure);
@@ -121,7 +152,11 @@ public class ShowInfoActivity extends BaseActivity {
             int imgStructureResourceId = getResources().getIdentifier(imgStructure, "drawable", getPackageName());
             Drawable drawStructure = getDrawable(imgStructureResourceId);
             img_content1.setImageDrawable(drawStructure);
-            tv_content1.setText(patternInformation.getStructure());
+
+            if (language.equals("en")){
+                tv_content1.setText(patternInformation.getStructure());
+            }
+            else tv_content1.setText(patternInfoVi.getStructureVi());
 
             img_section2.setImageResource(R.drawable.icon_dau_thang);
             tv_section2.setText(R.string.pseudocode);

@@ -167,4 +167,6 @@
     <color name="bgContent">#272822</color>
     <color name="bgNum">#272822</color>
     <color name="noteColor">#CFD0C2</color>
+
+    <color name="icon">#CCCCCC</color>
 </resources>
