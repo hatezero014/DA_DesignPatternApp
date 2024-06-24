@@ -37,7 +37,7 @@ public class BookmarkActivity extends BaseActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Bookmark");
+            actionBar.setTitle(R.string.BookmarkName);
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

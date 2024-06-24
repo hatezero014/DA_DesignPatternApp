@@ -54,6 +54,7 @@ public class AssignmentFragment extends Fragment {
         Intent intent = new Intent(getContext(), QuestionsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("PatternName", itemType);
+        bundle.putBoolean("check", true);
         intent.putExtras(bundle);
         startActivity(intent);
     }

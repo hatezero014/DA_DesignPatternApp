@@ -44,6 +44,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     private PatternQuestionService patternQuestionService;
     private QuestionAdapter questionAdapter;
     private RecyclerView rcv_question;
+    Boolean test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         }
 
         PatternName = (String) bundle.get("PatternName");
+        test = (Boolean) bundle.get("check");
         tvPatternName.setText(PatternName);
 
         cv_check_answer.setOnClickListener(this);
@@ -101,7 +103,19 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            finish();
+            if(test==null || test == false){
+                onCLickGoToDSGInfoActivity(PatternName);
+            }
+            else
+            {
+                finish();
+                test = false;
+
+            }
+//            else {
+//                onCLickGoToDSGInfoActivity(PatternName);
+//            }
+
         }
         return true;
     }
@@ -209,6 +223,15 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     private void onCLickGoToActivityResult(String patternName){
 
         Intent intent = new Intent(this, ActivityResultPattern.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("PatternName", patternName);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
+
+    private void onCLickGoToDSGInfoActivity(String patternName){
+        Intent intent = new Intent(this, ShowDesignPatternInfoActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("PatternName", patternName);
         intent.putExtras(bundle);

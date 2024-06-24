@@ -189,6 +189,7 @@ public class ShowDesignPatternInfoActivity extends BaseActivity {
         bundle.putString("PatternName", patternName);
         intent.putExtras(bundle);
         startActivity(intent);
+        finish();
     }
 
     private void onCLickGoToWatchVideo(String patternName){

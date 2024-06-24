@@ -45,15 +45,16 @@ public class ShowListResultAdapter extends RecyclerView.Adapter<ShowListResultAd
     public void onBindViewHolder(@NonNull ShowListResultHolder holder, int position) {
         PatternQuestion patternQuestion = patternQuestionList.get(position);
         if(patternQuestion==null) return;
-        holder.tvQuestion.setText("Câu" + count);
+//        String questionname = String.valueOf(R.string.question);
+        holder.tvQuestion.setText(context.getString(R.string.question) + ": " + count);
         count++;
         if(patternQuestion.getIsCorrect() == 1){
             holder.imageView.setImageResource(R.drawable.icon_correct);
-            holder.tvAnswer.setText("Đáp án chính xác");
+            holder.tvAnswer.setText(R.string.CorrectAnswer);
         }
         else {
             holder.imageView.setImageResource(R.drawable.icon_wrong);
-            holder.tvAnswer.setText("Đáp án sai");
+            holder.tvAnswer.setText(R.string.WrongAnswer);
         }
     }
 

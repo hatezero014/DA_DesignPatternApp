@@ -102,4 +102,22 @@
     <!--Homework Status-->
     <string name="completed">Completed</string>
     <string name="not_completed">Not Completed</string>
+
+
+    <!-- Progress    -->
+    <string name="Inception">Inception!!!</string>
+    <string name="Foundation">Foundation!!!</string>
+    <string name="Potential">Excellent!!!</string>
+    <string name="Excellent">Excellent!!!</string>
+
+    <!--  BookMark and Favourite  -->
+    <string name="DesignPatternNullFavourite">You have not added any Design Patterns to your favorites!</string>
+    <string name="DesignPatternNullBookMark">You have not bookmarked any Design Patterns!</string>
+    <string name="BookmarkName">Bookmark</string>
+    <string name="FavouriteName">Favourite</string>
+
+    <!-- ShowListResultAdapter   -->
+    <string name="CorrectAnswer">Correct answer</string>
+    <string name="WrongAnswer">Wrong answer</string>
+    <string name="QuestionName">Question</string>
 </resources>

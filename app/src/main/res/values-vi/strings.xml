@@ -102,4 +102,24 @@
     <!--Homework Status-->
     <string name="completed">Đã hoàn thành</string>
     <string name="not_completed">Chưa hoàn thành</string>
+
+    <!-- Progress    -->
+    <string name="Inception">Khởi đầu!!!</string>
+    <string name="Foundation">Nền tảng!!!</string>
+    <string name="Potential">Tiềm năng!!!</string>
+    <string name="Excellent">Xuất sắc!!!</string>
+
+    <!--  BookMark and Favourite  -->
+    <string name="DesignPatternNullFavourite">Bạn chưa thêm Design Pattern nào vào mục yêu thích!</string>
+    <string name="DesignPatternNullBookMark">Bạn chưa thêm Design Pattern nào vào mục đánh dấu!</string>
+    <string name="BookmarkName">Đánh dấu</string>
+    <string name="FavouriteName">Yêu thích</string>
+
+    <!-- ShowListResultAdapter   -->
+    <string name="CorrectAnswer">Đáp án chính xác</string>
+    <string name="WrongAnswer">Đáp án sai</string>
+    <string name="QuestionName">Câu hỏi</string>
+
+
+
 </resources>

@@ -126,15 +126,18 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    String test = question.getContent();
+                    patternQuestionService = new PatternQuestionService(context);
+                    List<PatternQuestion> list = patternQuestionService.GetTableQuestionByQuestion(test);
                     if(answer.isCorrect()){
-                        String test = question.getContent();
-                        patternQuestionService = new PatternQuestionService(context);
-                        List<PatternQuestion> list = patternQuestionService.GetTableQuestionByQuestion(test);
                         for(PatternQuestion patternQuestion : list){
                             patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 1),patternQuestion.getId());
                         }
                         textView.setBackgroundResource(R.drawable.bg_green_corner_30);
                     }else {
+                        for(PatternQuestion patternQuestion : list){
+                            patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 0),patternQuestion.getId());
+                        }
                         textView.setBackgroundResource(R.drawable.bg_red_corner_30);
                         showCorrectAnswer(question);
                     }

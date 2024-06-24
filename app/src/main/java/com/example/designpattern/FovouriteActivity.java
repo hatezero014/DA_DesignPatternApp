@@ -38,7 +38,7 @@ public class FovouriteActivity extends BaseActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Favourite");
+            actionBar.setTitle(R.string.FavouriteName);
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -122,14 +122,9 @@
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="@color/md_theme_onSurface_mediumContrast"
-                android:text="Bookmark"/>
+                android:text="@string/BookmarkName"/>
 
-            <TextView
-                android:id="@+id/tvSubBookmark"
-                android:layout_width="wrap_content"
-                style="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/md_theme_onSurfaceVariant"
-                android:layout_height="wrap_content"/>
+
 
         </LinearLayout>
 
@@ -158,14 +153,9 @@
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="@color/md_theme_onSurface_mediumContrast"
-                android:text="Favourite"/>
+                android:text="@string/FavouriteName"/>
 
-            <TextView
-                android:id="@+id/tvSubFavourite"
-                android:layout_width="wrap_content"
-                style="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/md_theme_onSurfaceVariant"
-                android:layout_height="wrap_content"/>
+
 
         </LinearLayout>
 
