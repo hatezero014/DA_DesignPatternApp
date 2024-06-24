@@ -24,9 +24,11 @@ import android.widget.TextView;
 
 import com.example.designpattern.Adapter.ListItemAdapter;
 import com.example.designpattern.Interface.IClickItemListener;
+import com.example.designpattern.Models.Bookmark;
 import com.example.designpattern.Models.Pattern;
 import com.example.designpattern.NamActivity;
 import com.example.designpattern.R;
+import com.example.designpattern.Services.BookmarkService;
 import com.example.designpattern.Services.PatternService;
 import com.example.designpattern.ShowDesignPatternInfoActivity;
 import com.google.android.material.chip.Chip;
@@ -49,6 +51,7 @@ public class LearningFragment extends Fragment {
     ChipGroup group1, group2;
     TextView textLan, textType;
     PatternService patternService;
+    BookmarkService bookmarkService;
     RecyclerView recyclerView;
     AlertDialog customFilterDialog;
     ListItemAdapter adapter;
@@ -146,6 +149,7 @@ public class LearningFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView1);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         patternService = new PatternService(getContext());
+        bookmarkService = new BookmarkService(getContext());
 
         loadPattern(new ArrayList<>());
         return view;
@@ -290,20 +294,37 @@ public class LearningFragment extends Fragment {
         catalogOrder.put("Structural Patterns", 2);
         catalogOrder.put("Behavioral Patterns", 3);
 
-        // Sắp xếp danh sách theo catalog và sau đó theo name
+        List<Bookmark> bookmarks = bookmarkService.GetAll(Bookmark.class);
+
+        // Extract bookmarked PatternIds
+        List<Integer> bookmarkedPatternIds = new ArrayList<>();
+        for (Bookmark bookmark : bookmarks) {
+            bookmarkedPatternIds.add(bookmark.getPatternId());
+        }
+
         Collections.sort(result, new Comparator<Pattern>() {
             @Override
             public int compare(Pattern pattern1, Pattern pattern2) {
-                // So sánh catalog dựa trên thứ tự ưu tiên
+                boolean isPattern1Bookmarked = bookmarkedPatternIds.contains(pattern1.getId());
+                boolean isPattern2Bookmarked = bookmarkedPatternIds.contains(pattern2.getId());
+
+                if (isPattern1Bookmarked && !isPattern2Bookmarked) {
+                    return -1; // pattern1 should come before pattern2
+                } else if (!isPattern1Bookmarked && isPattern2Bookmarked) {
+                    return 1; // pattern2 should come before pattern1
+                }
+
+                // Compare catalog order if both patterns are either bookmarked or not bookmarked
                 int catalogCompare = catalogOrder.get(pattern1.getCatalog()).compareTo(catalogOrder.get(pattern2.getCatalog()));
                 if (catalogCompare != 0) {
                     return catalogCompare;
                 } else {
-                    // Nếu catalog giống nhau, so sánh name
+                    // If catalogs are the same, compare by name
                     return pattern1.getName().compareTo(pattern2.getName());
                 }
             }
         });
+
         adapter = new ListItemAdapter(getContext(), result, new IClickItemListener() {
             @Override
             public void onClickItem(String itemType) {
