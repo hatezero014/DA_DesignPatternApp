@@ -41,6 +41,7 @@ public class ProgressFragment extends Fragment {
 //    DesignPatternAdapter designPatternAdapter;
     PatternService patternService;
     private DesignPatternAdapter designPatternAdapter;
+    float fProgress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +53,8 @@ public class ProgressFragment extends Fragment {
 
         //String progressText = textView1.getText().toString().replace("%", "");
         int countPatternisDone = countPatternisDone();
-        int progress = countPatternisDone*100/getListPattern().size();
+         fProgress = (float) countPatternisDone*100/getListPattern().size();
+         int progress = Math.round(fProgress);
         progressCircleView.setProgress(progress);
         progressCircleView.setStrokeWidth(100);
         progressCircleView.setRadiusOffset(50);
