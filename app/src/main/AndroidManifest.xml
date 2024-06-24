@@ -17,6 +17,9 @@
         android:theme="@style/Theme.DesignPattern"
         tools:targetApi="31">
         <activity
+            android:name=".TestActivityQuestion"
+            android:exported="true" />
+        <activity
             android:name=".ActivityResultPattern"
             android:exported="false" />
         <activity
@@ -53,8 +56,9 @@
         <activity
             android:name=".NamActivity"
             android:exported="true" />
-        <activity android:name=".FovouriteActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".FovouriteActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
