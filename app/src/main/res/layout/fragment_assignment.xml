@@ -8,6 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
+        android:paddingTop="11dp"
         android:id="@+id/rcv_question_button"
         android:layout_width="match_parent"
         android:layout_gravity="center|top"
