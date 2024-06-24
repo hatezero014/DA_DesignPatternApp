@@ -173,6 +173,7 @@ public class ShowInfoActivity extends BaseActivity {
             }
             else tv_content1.setText(patternInformation.getStructure());
 
+
             img_section2.setImageResource(R.drawable.icon_dau_thang);
             tv_section2.setText(R.string.pseudocode);
             String imgPseudocode = patternInformation.getPseudocodeImage();
