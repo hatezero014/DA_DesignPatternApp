@@ -66,38 +66,33 @@
                                 android:orientation="vertical"
                                 android:layout_gravity="start|center"
                                 android:layout_alignParentStart="true"
+                                android:padding="10dp"
                                 android:layout_toStartOf="@+id/img">
 
                                 <ImageView
                                     android:layout_width="35dp"
                                     android:layout_height="35dp"
-                                    android:src="@drawable/target"
-                                    android:layout_marginStart="15dp"
-                                    android:layout_marginTop="5dp"/>
+                                    android:src="@drawable/target"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/description_of_the_problem_and_intent"
                                     android:textStyle="bold"
-                                    android:layout_marginEnd="5dp"
                                     android:layout_marginTop="10dp"
-                                    android:layout_marginStart="10dp"
                                     android:hyphenationFrequency="full"
                                     android:breakStrategy="high_quality"
                                     android:ellipsize="none"
                                     android:singleLine="false"
                                     android:maxLines="10"
-                                    android:textSize="16sp"/>
+                                    android:textSize="15sp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/intent_problem"
                                     android:textSize="16sp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:layout_marginTop="5dp"/>
 
                             </LinearLayout>
 
@@ -137,6 +132,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
+                                android:padding="10dp"
                                 android:layout_gravity="start|center"
                                 android:layout_alignParentStart="true"
                                 android:layout_toStartOf="@+id/img1">
@@ -145,14 +141,12 @@
                                     android:layout_width="35dp"
                                     android:layout_height="35dp"
                                     android:src="@drawable/implementation"
-                                    android:layout_marginStart="15dp"
                                     android:layout_marginTop="5dp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/solution_and_implementation"
-                                    android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp"
                                     android:textStyle="bold"
                                     android:hyphenationFrequency="full"
@@ -160,16 +154,14 @@
                                     android:ellipsize="none"
                                     android:singleLine="false"
                                     android:maxLines="10"
-                                    android:textSize="16sp"/>
+                                    android:textSize="15sp"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/solution_implement"
                                     android:textSize="16sp"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:layout_marginTop="5dp"/>
 
                             </LinearLayout>
 
@@ -223,44 +215,41 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_alignParentStart="true"
                             android:layout_gravity="start|center"
-                            android:padding="5dp"
-                            android:layout_alignParentStart="true">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/techniques_and_structure"
                                 android:textColor="#FF9900"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="5dp"
-                                android:layout_marginStart="10dp"
-                                android:textSize="20sp"/>
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
                                 android:text="@string/structure_pseudocode"
-                                android:textSize="16sp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginStart="10dp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_gravity="top|end"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_alignParentEnd="true"
-                            android:src="@drawable/icon_arrow_up_right_from_square"/>
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/icon_expand_top_bottom" />
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -292,6 +281,7 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
+                        android:padding="10dp"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
@@ -299,16 +289,13 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="start|center"
-                            android:padding="5dp"
                             android:layout_alignParentStart="true">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/evaluation_and_application"
-                                android:layout_marginEnd="5dp"
                                 android:textColor="@android:color/holo_red_light"
-                                android:layout_marginStart="10dp"
                                 android:textStyle="bold"
                                 android:textSize="20sp"/>
 
@@ -317,8 +304,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/evaluation_application"
                                 android:textSize="16sp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginStart="10dp" />
+                                android:layout_marginTop="2dp"/>
 
                         </LinearLayout>
 
@@ -343,8 +329,8 @@
                 app:cardCornerRadius="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -354,7 +340,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="video"
+                        android:text="Video"
                         android:layout_gravity="center"
                         android:textStyle="bold"
                         android:layout_marginTop="10dp"
@@ -413,7 +399,7 @@
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_columnWeight="1">
 
                     <LinearLayout
@@ -461,9 +447,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginEnd="15dp"
+                            android:textSize="15sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="@string/overview_of_the_content"/>
                     </LinearLayout>
@@ -476,7 +462,7 @@
                     android:layout_gravity="fill"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_columnWeight="1">
 
                     <LinearLayout
@@ -524,9 +510,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginEnd="15dp"
+                            android:textSize="15sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="@string/how_to_apply_patterns_to_exercises"/>
                     </LinearLayout>

@@ -151,7 +151,7 @@ public class ContactActivity extends BaseActivity {
                 subject = selectedCategoryButton.getText().toString();
             }
         }
-        subject = "[Pocket Diary] " + subject;
+        subject = "[Design Patterns] " + subject;
 
         String inquiryText = editTextInquiry.getText().toString();
 
