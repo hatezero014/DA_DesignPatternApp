@@ -123,6 +123,12 @@
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="@color/md_theme_onSurface_mediumContrast"
                 android:text="@string/BookmarkName"/>
+            <TextView
+                android:id="@+id/textviewSubBookMark"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/md_theme_onSurfaceVariant"
+                android:layout_height="wrap_content"/>
 
 
 
@@ -154,6 +160,13 @@
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="@color/md_theme_onSurface_mediumContrast"
                 android:text="@string/FavouriteName"/>
+
+            <TextView
+                android:id="@+id/textviewSubFavourite"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/md_theme_onSurfaceVariant"
+                android:layout_height="wrap_content"/>
 
 
 

@@ -19,6 +19,7 @@
         android:id="@+id/tv_question0"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="50dp"
+        android:textColor="@color/md_theme_scrim_highContrast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Câu 1"/>
@@ -27,6 +28,7 @@
         android:id="@+id/tv_answer_0"
         android:text="Answer: Nam mõm, phong mõm"
         android:layout_width="wrap_content"
+        android:textColor="@color/md_theme_scrim_highContrast"
         android:layout_height="wrap_content"/>
 
 
