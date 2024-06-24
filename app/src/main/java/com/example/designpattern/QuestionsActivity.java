@@ -1,7 +1,9 @@
 package com.example.designpattern;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -138,6 +140,9 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         PatternQuestionService patternQuestionService = new PatternQuestionService(this);
         List<PatternQuestion> patternQuestionList = patternQuestionService.getQuestion(PatternName);
 
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Language", "");
+
         for(int i = 0; i < patternQuestionList.size(); i++){
             List<Answer> answers = new ArrayList<>();
             int ansCorrect = patternQuestionList.get(i).getAnsCorrect();
@@ -146,34 +151,34 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
                 switch (j){
                     case 0:
                         if(ansCorrect == 1){
-                            answers.add(new Answer(question.getAnswer1(),true));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer1(), question.getAnswer1Vi(), language),true));
                         }
                         else{
-                            answers.add(new Answer(question.getAnswer1(),false));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer1(), question.getAnswer1Vi(), language),false));
                         }
                         break;
                     case 1:
                         if(ansCorrect == 2){
-                            answers.add(new Answer(question.getAnswer2(),true));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer2(), question.getAnswer2Vi(), language),true));
                         }
                         else{
-                            answers.add(new Answer(question.getAnswer2(),false));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer2(), question.getAnswer2Vi(), language),false));
                         }
                         break;
                     case 2:
                         if(ansCorrect == 3){
-                            answers.add(new Answer(question.getAnswer3(),true));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer3(), question.getAnswer3Vi(), language),true));
                         }
                         else{
-                            answers.add(new Answer(question.getAnswer3(),false));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer3(), question.getAnswer3Vi(), language),false));
                         }
                         break;
                     default:
                         if(ansCorrect == 4){
-                            answers.add(new Answer(question.getAnswer4(),true));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer4(), question.getAnswer4Vi(), language),true));
                         }
                         else{
-                            answers.add(new Answer(question.getAnswer4(),false));
+                            answers.add(new Answer(getAnswerBasedOnLanguage(question.getAnswer4(), question.getAnswer4Vi(), language),false));
                         }
                         break;
                 }
@@ -184,6 +189,18 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
         return list;
     }
+
+    private String getAnswerBasedOnLanguage(String ans, String ansVi, String language){
+        String answer;
+        if(language.equals("en")){
+            answer = ans;
+        } else if (language.equals("vi")) {
+            answer = ansVi;
+        }
+        else answer = ans;
+        return answer;
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.cv_check_answer){
