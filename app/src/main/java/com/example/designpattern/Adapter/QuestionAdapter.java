@@ -60,12 +60,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     public class QuestionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView tvQuestion;
         private TextView tvContentQuestion;
         private TextView tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4;
         public QuestionViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvQuestion = itemView.findViewById(R.id.tv_question);
             tvContentQuestion = itemView.findViewById(R.id.tv_content_question);
             tvAnswer1 = itemView.findViewById(R.id.tv_answer_1);
             tvAnswer2 = itemView.findViewById(R.id.tv_answer_2);
@@ -79,13 +77,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 return;
             }
 
-            tvAnswer1.setBackgroundResource(R.drawable.bg_blue_corner_30);
-            tvAnswer2.setBackgroundResource(R.drawable.bg_blue_corner_30);
-            tvAnswer3.setBackgroundResource(R.drawable.bg_blue_corner_30);
-            tvAnswer4.setBackgroundResource(R.drawable.bg_blue_corner_30);
+            tvAnswer1.setBackgroundResource(R.drawable.background_answer);
+            tvAnswer2.setBackgroundResource(R.drawable.background_answer);
+            tvAnswer3.setBackgroundResource(R.drawable.background_answer);
+            tvAnswer4.setBackgroundResource(R.drawable.background_answer);
 
-            String titleQuestion = context.getString(R.string.question)+" "+question.getNumber();
-            tvQuestion.setText(titleQuestion);
             tvContentQuestion.setText(question.getContent());
             tvAnswer1.setText(question.getAnswerList().get(0).getContent());
             tvAnswer2.setText(question.getAnswerList().get(1).getContent());
@@ -102,40 +98,40 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.tv_answer_1){
-                tvAnswer1.setBackgroundResource(R.drawable.bg_orange_corner_30);
-                checkAnswer(tvAnswer1, question, question.getAnswerList().get(0));
+                tvAnswer1.setBackgroundResource(R.drawable.background_correct_answer);
+                boolean isCorrect = checkAnswer(question, question.getAnswerList().get(0));
                 isClicked = true;
                 setDisable(tvAnswer1);
                 setDisableAll();
                 if (onAnswerClickListener != null) {
-                    onAnswerClickListener.onAnswerClicked();
+                    onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
             } else if (v.getId() == R.id.tv_answer_2) {
-                tvAnswer2.setBackgroundResource(R.drawable.bg_orange_corner_30);
-                checkAnswer(tvAnswer2, question, question.getAnswerList().get(1));
+                tvAnswer2.setBackgroundResource(R.drawable.background_correct_answer);
+                boolean isCorrect = checkAnswer(question, question.getAnswerList().get(1));
                 isClicked = true;
                 setDisable(tvAnswer2);
                 setDisableAll();
                 if (onAnswerClickListener != null) {
-                    onAnswerClickListener.onAnswerClicked();
+                    onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
             } else if (v.getId() == R.id.tv_answer_3) {
-                tvAnswer3.setBackgroundResource(R.drawable.bg_orange_corner_30);
-                checkAnswer(tvAnswer3, question, question.getAnswerList().get(2));
+                tvAnswer3.setBackgroundResource(R.drawable.background_correct_answer);
+                boolean isCorrect = checkAnswer(question, question.getAnswerList().get(2));
                 isClicked = true;
                 setDisable(tvAnswer3);
                 setDisableAll();
                 if (onAnswerClickListener != null) {
-                    onAnswerClickListener.onAnswerClicked();
+                    onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
             } else if (v.getId() == R.id.tv_answer_4) {
-                tvAnswer4.setBackgroundResource(R.drawable.bg_orange_corner_30);
-                checkAnswer(tvAnswer4, question, question.getAnswerList().get(3));
+                tvAnswer4.setBackgroundResource(R.drawable.background_correct_answer);
+                boolean isCorrect = checkAnswer(question, question.getAnswerList().get(3));
                 isClicked = true;
                 setDisable(tvAnswer4);
                 setDisableAll();
                 if (onAnswerClickListener != null) {
-                    onAnswerClickListener.onAnswerClicked();
+                    onAnswerClickListener.onAnswerClicked(isCorrect, getCorrectAnswer(question));
                 }
             }
         }
@@ -165,43 +161,39 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             tvAnswer4.setEnabled(false);
         }
 
-        private void checkAnswer(TextView textView, Question question, Answer answer){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    String test = question.getContent();
-                    patternQuestionService = new PatternQuestionService(context);
-                    List<PatternQuestion> list = patternQuestionService.GetTableQuestionByQuestion(test);
-                    if(answer.isCorrect()){
-                        for(PatternQuestion patternQuestion : list){
-                            patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 1),patternQuestion.getId());
-                        }
-                        textView.setBackgroundResource(R.drawable.bg_green_corner_30);
-                    }else {
-                        for(PatternQuestion patternQuestion : list){
-                            patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 0),patternQuestion.getId());
-                        }
-                        textView.setBackgroundResource(R.drawable.bg_red_corner_30);
-                        showCorrectAnswer(question);
-                    }
+        private boolean checkAnswer(Question question, Answer answer){
+            String test = question.getContent();
+            patternQuestionService = new PatternQuestionService(context);
+            List<PatternQuestion> list = patternQuestionService.GetTableQuestionByQuestion(test);
+            if(answer.isCorrect()){
+                for(PatternQuestion patternQuestion : list){
+                    patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 1),patternQuestion.getId());
                 }
-            }, 1000);
+                return true;
+            }else {
+                for(PatternQuestion patternQuestion : list){
+                    patternQuestionService.UpdateById(new PatternQuestion(patternQuestion.getPatternId(), patternQuestion.getQuestion(), patternQuestion.getAnswer1(), patternQuestion.getAnswer2(), patternQuestion.getAnswer3(), patternQuestion.getAnswer4(), patternQuestion.getAnsCorrect(), 0),patternQuestion.getId());
+                }
+                return false;
+            }
         }
 
-        private void showCorrectAnswer(Question question) {
+        private String getCorrectAnswer(Question question) {
+            String ansCorrect = null;
             if(question == null || question.getAnswerList() == null || question.getAnswerList().isEmpty()){
-                return;
+                return "";
             }
 
             if(question.getAnswerList().get(0).isCorrect()){
-                tvAnswer1.setBackgroundResource(R.drawable.bg_green_corner_30);
+                ansCorrect = question.getAnswerList().get(0).getContent();
             } else if (question.getAnswerList().get(1).isCorrect()) {
-                tvAnswer2.setBackgroundResource(R.drawable.bg_green_corner_30);
+                ansCorrect = question.getAnswerList().get(1).getContent();
             } else if (question.getAnswerList().get(2).isCorrect()) {
-                tvAnswer3.setBackgroundResource(R.drawable.bg_green_corner_30);
+                ansCorrect = question.getAnswerList().get(2).getContent();
             } else if (question.getAnswerList().get(3).isCorrect()) {
-                tvAnswer4.setBackgroundResource(R.drawable.bg_green_corner_30);
+                ansCorrect = question.getAnswerList().get(3).getContent();
             }
+            return ansCorrect;
         }
     }
 }

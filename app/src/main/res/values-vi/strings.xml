@@ -81,6 +81,7 @@
     <string name="assignment">Bài tập củng cố</string>
     <string name="video">Video hướng dẫn</string>
     <string name="next_question">Câu hỏi tiếp theo</string>
+    <string name="check">Kiểm tra</string>
 
     <string name="intent">Ý định</string>
     <string name="problem">Vấn đề</string>
@@ -126,4 +127,6 @@
     <string name="string1_result">Bạn đã trả lời đúng</string>
     <string name="string2_result">câu</string>
 
+    <string name="correct_answer">Đáp án chính xác</string>
+    <string name="wrong_answer">Đáp án sai</string>
 </resources>

@@ -2,15 +2,22 @@ package com.example.designpattern;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,9 +44,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class QuestionsActivity extends BaseActivity implements View.OnClickListener {
     private TextView tvPatternName;
-    private CardView cv_check_answer;
     private ProgressBar progressBar;
-    private TextView tv_check_answer;
     private String PatternName;
     private List<Question> mListQuestion;
     private int curQuestion = 0;
@@ -47,6 +52,9 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     private QuestionAdapter questionAdapter;
     private RecyclerView rcv_question;
     Boolean test;
+    private Button btn_Check;
+    private boolean layoutTheme;
+    private String ans_correct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,15 +77,16 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
         test = (Boolean) bundle.get("check");
         tvPatternName.setText(PatternName);
 
-        cv_check_answer.setOnClickListener(this);
-        cv_check_answer.setEnabled(false);
+        btn_Check.setOnClickListener(this);
+        btn_Check.setEnabled(false);
         questionAdapter = new QuestionAdapter(this, new OnAnswerClickListener() {
             @Override
-            public void onAnswerClicked() {
-                cv_check_answer.setEnabled(true);
+            public void onAnswerClicked(boolean isCorrect, String ansCorrect) {
+                layoutTheme = isCorrect;
+                ans_correct = ansCorrect;
+                btn_Check.setEnabled(true);
             }
         });
-
         mListQuestion = getListQuestion();
         if(mListQuestion.isEmpty()){
             return;
@@ -96,7 +105,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void updateProgress(){
-        float progress = ((float) (curQuestion ) / mListQuestion.size()) * 100;
+        float progress = ((float) (curQuestion + 1) / mListQuestion.size()) * 100;
 
         progressBar.setProgress((int) progress, true);
     }
@@ -105,7 +114,7 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            if(test==null || test == false){
+            if(test==null || !test){
                 onCLickGoToDSGInfoActivity(PatternName);
             }
             else
@@ -123,10 +132,9 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initUI(){
-        cv_check_answer = findViewById(R.id.cv_check_answer);
         progressBar = findViewById(R.id.progress_bar);
-        tv_check_answer = findViewById(R.id.tv_check_answer);
-        tv_check_answer.setText(R.string.next_question);
+        btn_Check = findViewById(R.id.btn_Check);
+        btn_Check.setText(R.string.check);
         tvPatternName = findViewById(R.id.tv_pattern_name);
         rcv_question = findViewById(R.id.rcv_question);
 
@@ -214,8 +222,9 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.cv_check_answer){
-            setAnimation(R.anim.layout_animation_right_to_left);
+        if (v.getId() == R.id.btn_Check){
+            openDetailDiaLog(Gravity.BOTTOM);
+            //setAnimation(R.anim.layout_animation_right_to_left);
         }
     }
 
@@ -228,21 +237,18 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 
     private void nextQuestion() {
         if(curQuestion == mListQuestion.size() - 1){
-            tv_check_answer.setText(R.string.done);
             updatePatternIsDone(PatternName);
             onCLickGoToActivityResult(PatternName);
         } else if (curQuestion == mListQuestion.size() - 2) {
-            cv_check_answer.setEnabled(false);
+            btn_Check.setEnabled(false);
             curQuestion++;
             updateProgress();
-            tv_check_answer.setText(R.string.done);
             questionAdapter.setData(mListQuestion.get(curQuestion));
             rcv_question.setAdapter(questionAdapter);
         } else{
-            cv_check_answer.setEnabled(false);
+            btn_Check.setEnabled(false);
             curQuestion++;
             updateProgress();
-            tv_check_answer.setText(R.string.next_question);
             questionAdapter.setData(mListQuestion.get(curQuestion));
             rcv_question.setAdapter(questionAdapter);
         }
@@ -280,5 +286,60 @@ public class QuestionsActivity extends BaseActivity implements View.OnClickListe
 //            //patternQuestionList = patternQuestionService.GetQuestionByPatternId(PatternQuestion.class, String.valueOf(PatternId));
 //
 //        }
+    }
+
+    private void openDetailDiaLog(int gravity) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.correct_dialog);
+
+        Window window = dialog.getWindow();
+        if(window == null) return;
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttibutes = window.getAttributes();
+        windowAttibutes.gravity = gravity;
+        window.setAttributes(windowAttibutes);
+
+        if(Gravity.BOTTOM == gravity){
+            dialog.setCancelable(true);
+        }
+        else {
+            dialog.setCancelable(false);
+        }
+        LinearLayout linearLayout = dialog.findViewById(R.id.linear_dialog);
+        TextView tvTitleCorrect = dialog.findViewById(R.id.TitleCorrect);
+        TextView tvContentAnswer = dialog.findViewById(R.id.ContentAnswer);
+        Button btn_Continue = dialog.findViewById(R.id.btn_Continue);
+        ImageView img_dog = dialog.findViewById(R.id.img_dog);
+
+        if(layoutTheme)
+        {
+            linearLayout.setBackgroundResource(R.drawable.background_green);
+            tvTitleCorrect.setText(R.string.correct_answer);
+            img_dog.setImageResource(R.drawable.dog);
+        }
+        else
+        {
+            linearLayout.setBackgroundResource(R.drawable.bg_incorrect);
+            tvTitleCorrect.setText(R.string.wrong_answer);
+            img_dog.setImageResource(R.drawable.dogsad);
+        }
+        tvContentAnswer.setText(ans_correct);
+
+        if(curQuestion == mListQuestion.size() - 1){
+            btn_Continue.setText(R.string.done);
+        }
+        else btn_Continue.setText(R.string.next_question);
+
+        btn_Continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAnimation(R.anim.layout_animation_right_to_left);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
