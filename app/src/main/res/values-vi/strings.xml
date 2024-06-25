@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DesignPattern</string>
+    <string name="app_name">Design Pattern</string>
     <string name="item_catalog">Danh mục: </string>
     <string name="filter_by_catalog">Theo danh mục</string>
     <string name="filter_by_language">Theo ngôn ngữ</string>
